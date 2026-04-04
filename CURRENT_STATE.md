@@ -145,6 +145,7 @@ These are now the real sales ingestion targets for the smart sales upload flow.
   - `LIVE_PROJECT.md`
   - `AGENT_OPERATING_RULES.md`
   - `SESSION_HANDOFF.md`
+- `SESSION_HANDOFF.md` is now the highest-priority baton-pass file for the latest project state.
 - This continuity layer is for safe AI takeover, handoff, and recovery only. It does not change project logic, policy, totals, or product behavior.
 - Memo Resolution Review keeps memo rows unresolved and excluded from live sales truth.
 - Memo-to-later-order suggestions in Memo Resolution Review are heuristic investigative hints only.

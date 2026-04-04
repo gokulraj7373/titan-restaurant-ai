@@ -1,19 +1,17 @@
-# Titan Session Handoff
+# READ THIS FIRST: Titan Session Handoff
 
 ## Latest Safe Commit
 
-- `d2b1bbd` Extract shared sales truth status notice component
+- `aa6b1ff` Add AI handoff and operating guide files for Titan
 
 ## What Was Completed In The Latest Session
 
-- Added small read-only sales truth status reminders to:
-  - `/dashboard`
-  - `/profit-overview`
-  - `/sales-analytics`
-- Extracted that reminder into one shared reusable component:
-  - `app/_components/sales-truth-status-notice.tsx`
-- Kept all of that fully read-only.
-- Updated project docs to record the status reminder and shared component.
+- Added the documentation-based AI continuity layer:
+  - `LIVE_PROJECT.md`
+  - `AGENT_OPERATING_RULES.md`
+  - `SESSION_HANDOFF.md`
+- Aligned `CURRENT_STATE.md`, `NEXT_STEPS.md`, and `DECISIONS_LOG.md` to record that continuity layer.
+- Kept the milestone documentation-only with no code changes.
 
 ## Current Working Tree Expectation
 
@@ -31,6 +29,7 @@
 
 ## Warnings And Pending Cautions
 
+- This file is the highest-priority latest-state baton-pass file.
 - Do not promote sales truth into live pages yet.
 - Memo remains unresolved and excluded from live sales truth.
 - Memo hints remain investigative only.

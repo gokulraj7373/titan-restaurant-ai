@@ -27,6 +27,7 @@
 23. Keep the live-facing sales truth status reminder short, owner-friendly, and clearly read-only until a later explicit promotion decision is approved.
 24. Keep the shared sales truth status notice component consistent across live-facing pages, and treat it only as read-only guidance until a later approved promotion decision exists.
 25. Keep `LIVE_PROJECT.md`, `AGENT_OPERATING_RULES.md`, and `SESSION_HANDOFF.md` current after meaningful milestones so a new AI can take over safely without re-explaining the project.
+26. Keep `SESSION_HANDOFF.md` updated first whenever the latest safe commit, active focus, or exact next safest step changes.
 
 ## Short-Term Next Steps
 

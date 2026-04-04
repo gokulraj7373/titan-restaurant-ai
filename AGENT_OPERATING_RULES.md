@@ -10,6 +10,44 @@ Fast-Safe Mode means:
 - preserve current behavior and totals unless explicitly approved otherwise
 - optimize for recovery, handoff, and non-coder safety
 
+## Continuity Authority Order
+
+When starting or resuming Titan, read continuity files in this order:
+
+1. `SESSION_HANDOFF.md`
+2. `LIVE_PROJECT.md`
+3. `CURRENT_STATE.md`
+4. `NEXT_STEPS.md`
+5. `DECISIONS_LOG.md`
+
+Authority order:
+- `SESSION_HANDOFF.md` is the highest-priority latest-state file.
+- `LIVE_PROJECT.md` is the stable project-truth file.
+- `CURRENT_STATE.md`, `NEXT_STEPS.md`, and `DECISIONS_LOG.md` are supporting context.
+
+If there is any conflict:
+- prefer `SESSION_HANDOFF.md` for the latest baton-pass state
+- prefer `LIVE_PROJECT.md` for the stable project briefing
+
+Do not invent your own next step if `SESSION_HANDOFF.md` already states one.
+
+## New-AI Startup Behavior
+
+Any new AI taking over Titan must:
+- read `SESSION_HANDOFF.md` first
+- not skip `SESSION_HANDOFF.md`
+- anchor to the latest safe commit named there
+- use the exact next safest step named there unless the owner explicitly changes direction
+
+The first response from any new AI must report:
+1. current phase
+2. stable truths
+3. non-negotiable safety rules
+4. latest safe commit
+5. exact next safest step
+
+The first response must not code.
+
 ## Required Verification Style For Every Completed Step
 
 Every completed step must include this verification pack:
@@ -76,6 +114,7 @@ Whenever a milestone changes any of the following, documentation-update instruct
 Continuity docs must never be left stale after meaningful milestones.
 
 At minimum, consider whether to update:
+- `NEW_AI_START.md`
 - `CURRENT_STATE.md`
 - `NEXT_STEPS.md`
 - `DECISIONS_LOG.md`

@@ -461,3 +461,14 @@ Titan now has enough active review logic, owner-facing guidance, and safety proc
 
 Current status:
 Active
+
+## Decision 43
+
+Decision:
+Make `SESSION_HANDOFF.md` the highest-priority latest-state baton-pass file for future Titan AI takeovers.
+
+Why it was taken:
+The continuity layer needs one unambiguous baton-pass source so a new AI does not drift when restating the latest safe commit, active focus, or next safest step. This improves takeover reliability without changing any project logic or product behavior.
+
+Current status:
+Active

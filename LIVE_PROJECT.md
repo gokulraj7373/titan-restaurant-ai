@@ -16,6 +16,8 @@ Titan is currently in a read-only sales truth review phase.
 
 The main active product surface is `/sales-truth-review`, which acts as the truth-checking control room before any future live sales truth promotion is considered.
 
+For the latest baton-pass state, always read `SESSION_HANDOFF.md` first.
+
 ## Confirmed Stable Truths
 
 - `/sales-truth-review` is read-only in effect.
