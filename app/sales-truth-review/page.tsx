@@ -1153,15 +1153,54 @@ export default function SalesTruthReviewPage() {
   };
 
   const renderSectionJumpBar = () => {
+    const monthReconciliationHealthy =
+      monthlyPolicyReconciliationRows.length > 0 &&
+      monthlyPolicyReconciliationRows.every((row) => row.reconciled);
+    const uploadReconciliationHealthy =
+      latestImportBreakdownRows.length > 0 &&
+      latestImportBreakdownRows.every((row) => row.reconciled);
+    const ambiguousSettlementReviewPresent =
+      partPaymentRows.length > 0 || grandTotalZeroRows.length > 0 || differentTotalRows.length > 0;
+
     const sectionLinks = [
-      { href: "#current-review-snapshot", label: "Current Review Snapshot" },
-      { href: "#review-status-legend", label: "Review Status Legend" },
-      { href: "#memo-resolution-review", label: "Memo Resolution Review" },
-      { href: "#monthly-policy-reconciliation", label: "Monthly Policy Reconciliation" },
-      { href: "#upload-attribution-check", label: "Upload Attribution Check" },
-      { href: "#net-sales-candidate-rows", label: "Net Sales Candidate Rows" },
-      { href: "#memo-unresolved-rows", label: "Memo Unresolved Rows" },
-      { href: "#ambiguous-settlement-review", label: "Ambiguous Settlement Review" },
+      { href: "#current-review-snapshot", label: "Current Review Snapshot", cue: "Start Here" },
+      { href: "#review-status-legend", label: "Review Status Legend", cue: "Reference" },
+      {
+        href: "#memo-resolution-review",
+        label: "Memo Resolution Review",
+        cue: memoReviewRows.length > 0 ? "Has Hints To Review" : "No Memo Rows",
+      },
+      {
+        href: "#monthly-policy-reconciliation",
+        label: "Monthly Policy Reconciliation",
+        cue:
+          monthlyPolicyReconciliationRows.length === 0
+            ? "No Review Rows Yet"
+            : monthReconciliationHealthy
+              ? "Clean"
+              : "Needs Review",
+      },
+      {
+        href: "#upload-attribution-check",
+        label: "Upload Attribution Check",
+        cue:
+          latestImportBreakdownRows.length === 0
+            ? "No Review Rows Yet"
+            : uploadReconciliationHealthy
+              ? "Clean"
+              : "Needs Review",
+      },
+      { href: "#net-sales-candidate-rows", label: "Net Sales Candidate Rows", cue: "Review Detail" },
+      {
+        href: "#memo-unresolved-rows",
+        label: "Memo Unresolved Rows",
+        cue: memoUnresolvedRows.length > 0 ? "Needs Review" : "None Open",
+      },
+      {
+        href: "#ambiguous-settlement-review",
+        label: "Ambiguous Settlement Review",
+        cue: ambiguousSettlementReviewPresent ? "Needs Review" : "None Flagged",
+      },
     ];
 
     return (
@@ -1174,7 +1213,10 @@ export default function SalesTruthReviewPage() {
               href={section.href}
               className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200 hover:bg-white/10"
             >
-              {section.label}
+              <span>{section.label}</span>
+              <span className="ml-2 rounded-full border border-white/10 bg-black/20 px-2 py-0.5 text-[10px] uppercase tracking-[0.14em] text-gray-300">
+                {section.cue}
+              </span>
             </a>
           ))}
         </div>
