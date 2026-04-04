@@ -252,12 +252,14 @@ export default function SalesTruthReviewPage() {
     title: string,
     description: string,
     rows: SalesTruthReviewRow[],
-    emptyMessage: string
+    emptyMessage: string,
+    helperNote?: string
   ) => {
     return (
       <div className="rounded-2xl border border-white/20 p-6">
         <h2 className="text-xl font-semibold mb-2">{title}</h2>
         <p className="text-sm text-gray-400 mb-4">{description}</p>
+        {helperNote && <p className="text-sm text-gray-400 mb-4">{helperNote}</p>}
 
         {loadError ? (
           <p className="text-sm text-gray-300">Could not load review rows</p>
@@ -509,12 +511,14 @@ export default function SalesTruthReviewPage() {
     description: string,
     rows: VerificationBreakdownRow[],
     keyLabel: string,
-    emptyMessage: string
+    emptyMessage: string,
+    helperNote?: string
   ) => {
     return (
       <div className="rounded-2xl border border-white/20 p-6">
         <h2 className="text-xl font-semibold mb-2">{title}</h2>
         <p className="text-sm text-gray-400 mb-4">{description}</p>
+        {helperNote && <p className="text-sm text-gray-400 mb-4">{helperNote}</p>}
 
         {loadError ? (
           <p className="text-sm text-gray-300">Could not load verification breakdown</p>
@@ -1344,7 +1348,8 @@ export default function SalesTruthReviewPage() {
             "Read-only verification breakdown by the current proposed sales-policy bucket.",
             salesPolicyBreakdownRows,
             "Sales Policy Bucket",
-            "No sales policy breakdown found"
+            "No sales policy breakdown found",
+            "Use this to see how imported rows are currently grouped in review. It explains the review mix only and is not live dashboard truth."
           )}
           {renderLatestImportsSection()}
 
@@ -1352,7 +1357,8 @@ export default function SalesTruthReviewPage() {
             "Net Sales Candidate Rows",
             "Latest 50 rows currently proposed for net sales inclusion under the read-only sales policy review.",
             netSaleCandidateRows,
-            "No net sale candidate rows found"
+            "No net sale candidate rows found",
+            "Read these as the rows currently landing in the review total. This is still review-only and not a live promoted sales figure."
           )}
           {renderRowsSection(
             "Regular Orders",
@@ -1376,7 +1382,8 @@ export default function SalesTruthReviewPage() {
             "Memo Unresolved Rows",
             "Latest 50 memo rows that remain unresolved and excluded from live sales truth unless a future approved memo rule is defined.",
             memoUnresolvedRows,
-            "No unresolved memo rows found"
+            "No unresolved memo rows found",
+            "Read these as memo rows still left open in review. They remain excluded from live sales truth, and memo hints stay investigative only."
           )}
           {renderRowsSection(
             "Complimentary Orders",
@@ -1432,7 +1439,8 @@ export default function SalesTruthReviewPage() {
                 (row, index, array) => array.findIndex((candidate) => candidate.id === row.id) === index
               )
             ).slice(0, 50),
-            "No ambiguous settlement rows found"
+            "No ambiguous settlement rows found",
+            "Use this section to spot rows that may need closer reading. It is a trust-check view only and does not change current review totals by itself."
           )}
 
           <div className="rounded-2xl border border-white/20 p-6">
