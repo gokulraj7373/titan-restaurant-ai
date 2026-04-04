@@ -2,15 +2,13 @@
 
 ## LATEST SAFE COMMIT
 
-- `aa6b1ff` Add AI handoff and operating guide files for Titan
+- `f6afb45` Refresh Titan continuity files and archive old handoff
 
 ## What Was Completed In The Latest Session
 
-- Added the documentation-based AI continuity layer:
-  - `LIVE_PROJECT.md`
-  - `AGENT_OPERATING_RULES.md`
-  - `SESSION_HANDOFF.md`
-- Aligned `CURRENT_STATE.md`, `NEXT_STEPS.md`, and `DECISIONS_LOG.md` to record that continuity layer.
+- Refreshed the continuity layer so the latest active baton-pass state is easier to follow.
+- Marked `PROJECT_HANDOFF_2026_04_03.md` as archival / historical only.
+- Aligned `LIVE_PROJECT.md`, `NEW_AI_START.md`, and `AGENT_OPERATING_RULES.md` so older handoff files do not override the current baton-pass state.
 - Kept the milestone documentation-only with no code changes.
 
 ## CURRENT WORKING TREE EXPECTATION

@@ -88,6 +88,7 @@ That reminder points back to `/sales-truth-review` and does not mean live promot
 
 ## Latest Important Safe Commits
 
+- `f6afb45` Refresh Titan continuity files and archive old handoff
 - `935d0bc` Tighten Titan continuity authority and startup anchoring
 - `66e1eff` Strengthen Titan AI continuity startup and handoff rules
 - `aa6b1ff` Add AI handoff and operating guide files for Titan
