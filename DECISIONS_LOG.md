@@ -439,3 +439,14 @@ The owner needs a clear reminder that dashboard, profit overview, and sales anal
 
 Current status:
 Active
+
+## Decision 41
+
+Decision:
+Extract the live-facing sales truth status reminder into one shared reusable component.
+
+Why it was taken:
+The reminder now appears on multiple live-facing pages, so a shared component keeps the wording and layout consistent while making future wording updates safer. This is a maintainability improvement only and does not change any logic, totals, or promotion state.
+
+Current status:
+Active
