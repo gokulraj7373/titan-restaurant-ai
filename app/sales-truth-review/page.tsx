@@ -976,6 +976,67 @@ export default function SalesTruthReviewPage() {
     );
   };
 
+  const renderCurrentReviewSnapshotSection = () => {
+    const monthReconciliationHealthy =
+      monthlyPolicyReconciliationRows.length > 0 &&
+      monthlyPolicyReconciliationRows.every((row) => row.reconciled);
+    const uploadReconciliationHealthy =
+      latestImportBreakdownRows.length > 0 &&
+      latestImportBreakdownRows.every((row) => row.reconciled);
+
+    return (
+      <div className="rounded-2xl border border-white/20 p-6 mb-6">
+        <h2 className="text-xl font-semibold mb-2">Current Review Snapshot</h2>
+        <p className="text-sm text-gray-400 mb-4">
+          Read-only summary of the current review position. This is for checking the review state only,
+          not for live dashboard or final business truth.
+        </p>
+
+        <div className="space-y-2 text-sm text-gray-300 mb-4">
+          <p>
+            - Current proposed net sale candidate total:{" "}
+            <span className="text-white">{formatCurrency(summaryCounts.netSaleCandidateAmount)}</span>
+          </p>
+          <p>
+            - Memo rows still unresolved:{" "}
+            <span className="text-white">{summaryCounts.memoUnresolvedRowsCount}</span>
+          </p>
+          <p>
+            - Memo unresolved amount:{" "}
+            <span className="text-white">{formatCurrency(summaryCounts.memoUnresolvedAmount)}</span>
+          </p>
+          <p>
+            - Month-wise reconciliation check:{" "}
+            <span className="text-white">
+              {monthlyPolicyReconciliationRows.length === 0
+                ? "No month review rows loaded yet"
+                : monthReconciliationHealthy
+                  ? "All current review months reconcile"
+                  : "Some review months need checking"}
+            </span>
+          </p>
+          <p>
+            - Upload-wise reconciliation check:{" "}
+            <span className="text-white">
+              {latestImportBreakdownRows.length === 0
+                ? "No upload review rows loaded yet"
+                : uploadReconciliationHealthy
+                  ? "All current review uploads reconcile"
+                  : "Some review uploads need checking"}
+            </span>
+          </p>
+          <p>
+            - Memo status:{" "}
+            <span className="text-white">
+              still unresolved and excluded from live sales truth; memo hints remain read-only
+              investigative hints only
+            </span>
+          </p>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <main className="min-h-screen bg-black text-white p-8">
       <div className="max-w-6xl mx-auto">
@@ -1180,6 +1241,8 @@ export default function SalesTruthReviewPage() {
             <p className="text-sm text-gray-300">Loading sales truth review data...</p>
           </div>
         )}
+
+        {!loadError && !loading && renderCurrentReviewSnapshotSection()}
 
         <div className="space-y-6">
           {renderMemoResolutionReviewSection()}

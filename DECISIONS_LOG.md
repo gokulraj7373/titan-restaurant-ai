@@ -406,3 +406,14 @@ This extraction was only a maintainability and safety step. Titan still has no a
 
 Current status:
 Active
+
+## Decision 38
+
+Decision:
+Add a small read-only `Current Review Snapshot` near the top of `/sales-truth-review` using already-derived review outputs.
+
+Why it was taken:
+The owner needs a simpler summary of the current review position without reading every section on the page. Showing those values in plain language improves handoff and recovery safety without changing policy, totals, memo handling, or any live business page.
+
+Current status:
+Active
