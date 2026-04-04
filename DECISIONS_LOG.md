@@ -450,3 +450,14 @@ The reminder now appears on multiple live-facing pages, so a shared component ke
 
 Current status:
 Active
+
+## Decision 42
+
+Decision:
+Add a dedicated documentation-based continuity layer for Titan using `LIVE_PROJECT.md`, `AGENT_OPERATING_RULES.md`, and `SESSION_HANDOFF.md`.
+
+Why it was taken:
+Titan now has enough active review logic, owner-facing guidance, and safety process that a new AI should be able to recover quickly from repo docs alone. A dedicated continuity layer reduces onboarding friction and helps preserve the same disciplined operating style across sudden AI switches.
+
+Current status:
+Active

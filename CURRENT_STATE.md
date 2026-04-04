@@ -141,6 +141,11 @@ These are now the real sales ingestion targets for the smart sales upload flow.
 - Dashboard, Profit Overview, and Sales Analytics now also show a small owner-facing sales truth status reminder that points back to `/sales-truth-review`.
 - That reminder is read-only guidance only and does not mean live truth promotion has happened.
 - That live-facing sales truth status reminder is now shared through one reusable component for safer consistency and easier future updates.
+- Titan now also has a documentation-based AI continuity layer:
+  - `LIVE_PROJECT.md`
+  - `AGENT_OPERATING_RULES.md`
+  - `SESSION_HANDOFF.md`
+- This continuity layer is for safe AI takeover, handoff, and recovery only. It does not change project logic, policy, totals, or product behavior.
 - Memo Resolution Review keeps memo rows unresolved and excluded from live sales truth.
 - Memo-to-later-order suggestions in Memo Resolution Review are heuristic investigative hints only.
 - These memo candidate hints are non-binding and are not approved memo-to-sale links.
