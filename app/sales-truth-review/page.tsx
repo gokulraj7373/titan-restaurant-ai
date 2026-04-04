@@ -985,11 +985,18 @@ export default function SalesTruthReviewPage() {
       latestImportBreakdownRows.every((row) => row.reconciled);
 
     return (
-      <div className="rounded-2xl border border-white/20 p-6 mb-6">
-        <h2 className="text-xl font-semibold mb-2">Current Review Snapshot</h2>
-        <p className="text-sm text-gray-400 mb-4">
+      <div className="rounded-2xl border border-white/20 bg-white/[0.02] p-6 mb-4">
+        <div className="mb-4">
+          <p className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-2">Top Review Context</p>
+          <h2 className="text-xl font-semibold mb-2">Current Review Snapshot</h2>
+        </div>
+        <p className="text-sm text-gray-400 mb-3">
           Read-only summary of the current review position. This is for checking the review state only,
           not for live dashboard or final business truth.
+        </p>
+        <p className="text-sm text-amber-200/90 mb-4">
+          Review only reminder: these numbers help explain the current review position, but they are not
+          live dashboard truth or a promoted final sales policy.
         </p>
 
         <div className="space-y-2 text-sm text-gray-300 mb-4">
@@ -1011,8 +1018,8 @@ export default function SalesTruthReviewPage() {
               {monthlyPolicyReconciliationRows.length === 0
                 ? "No month review rows loaded yet"
                 : monthReconciliationHealthy
-                  ? "All current review months reconcile"
-                  : "Some review months need checking"}
+                  ? "All current review months are closing cleanly"
+                  : "Some current review months still need checking"}
             </span>
           </p>
           <p>
@@ -1021,8 +1028,8 @@ export default function SalesTruthReviewPage() {
               {latestImportBreakdownRows.length === 0
                 ? "No upload review rows loaded yet"
                 : uploadReconciliationHealthy
-                  ? "All current review uploads reconcile"
-                  : "Some review uploads need checking"}
+                  ? "All current review uploads are closing cleanly"
+                  : "Some current review uploads still need checking"}
             </span>
           </p>
           <p>
@@ -1039,7 +1046,7 @@ export default function SalesTruthReviewPage() {
 
   const renderReviewStatusLegendSection = () => {
     return (
-      <div className="rounded-2xl border border-white/20 p-6 mb-6">
+      <div className="rounded-2xl border border-white/20 bg-white/[0.02] p-6 mb-6">
         <h2 className="text-xl font-semibold mb-2">Review Status Legend</h2>
         <p className="text-sm text-gray-400 mb-4">
           Read-only guide for what the current review states mean on this page. This helps explain the
