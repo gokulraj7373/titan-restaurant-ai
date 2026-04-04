@@ -99,6 +99,18 @@ function getItemsSummary(itemsText: string | null | undefined) {
   return text.length > 100 ? `${text.slice(0, 97)}...` : text;
 }
 
+function getSectionShellClass(sectionState: "needs-review" | "clean" | "neutral") {
+  if (sectionState === "needs-review") {
+    return "rounded-2xl border border-amber-400/30 bg-amber-400/[0.04] p-6 scroll-mt-6";
+  }
+
+  if (sectionState === "clean") {
+    return "rounded-2xl border border-white/10 bg-white/[0.02] p-6 scroll-mt-6 opacity-90";
+  }
+
+  return "rounded-2xl border border-white/20 p-6 scroll-mt-6";
+}
+
 export default function SalesTruthReviewPage() {
   const [summaryCounts, setSummaryCounts] = useState<SummaryCounts>(createEmptySummaryCounts());
   const [regularOrders, setRegularOrders] = useState<SalesTruthReviewRow[]>([]);
@@ -255,10 +267,11 @@ export default function SalesTruthReviewPage() {
     emptyMessage: string,
     helperNote?: string,
     sectionId?: string,
-    headerChips?: string[]
+    headerChips?: string[],
+    sectionState: "needs-review" | "clean" | "neutral" = "neutral"
   ) => {
     return (
-      <div id={sectionId} className="rounded-2xl border border-white/20 p-6 scroll-mt-6">
+      <div id={sectionId} className={getSectionShellClass(sectionState)}>
         <h2 className="text-xl font-semibold mb-2">{title}</h2>
         <p className="text-sm text-gray-400 mb-4">{description}</p>
         {headerChips && headerChips.length > 0 && (
@@ -651,8 +664,17 @@ export default function SalesTruthReviewPage() {
   };
 
   const renderMonthlyPolicyReconciliationSection = () => {
+    const monthReconciliationHealthy =
+      monthlyPolicyReconciliationRows.length > 0 &&
+      monthlyPolicyReconciliationRows.every((row) => row.reconciled);
+
     return (
-      <div id="monthly-policy-reconciliation" className="rounded-2xl border border-white/20 p-6 scroll-mt-6">
+      <div
+        id="monthly-policy-reconciliation"
+        className={getSectionShellClass(
+          monthlyPolicyReconciliationRows.length > 0 && monthReconciliationHealthy ? "clean" : "needs-review"
+        )}
+      >
         <h2 className="text-xl font-semibold mb-2">Monthly Policy Reconciliation</h2>
         <p className="text-sm text-gray-400 mb-4">
           For each month, this checks whether the full month total equals the sum of all current
@@ -733,8 +755,17 @@ export default function SalesTruthReviewPage() {
   };
 
   const renderUploadAttributionPolicyCheckSection = () => {
+    const uploadReconciliationHealthy =
+      latestImportBreakdownRows.length > 0 &&
+      latestImportBreakdownRows.every((row) => row.reconciled);
+
     return (
-      <div id="upload-attribution-check" className="rounded-2xl border border-white/20 p-6 scroll-mt-6">
+      <div
+        id="upload-attribution-check"
+        className={getSectionShellClass(
+          latestImportBreakdownRows.length > 0 && uploadReconciliationHealthy ? "clean" : "needs-review"
+        )}
+      >
         <h2 className="text-xl font-semibold mb-2">Upload Attribution vs Policy Attribution Check</h2>
         <p className="text-sm text-gray-400 mb-2">
           Upload attribution shows what the file inserted. Policy attribution shows how Titan currently
@@ -837,7 +868,7 @@ export default function SalesTruthReviewPage() {
     ).length;
 
     return (
-      <div id="memo-resolution-review" className="rounded-2xl border border-white/20 p-6 scroll-mt-6">
+      <div id="memo-resolution-review" className={getSectionShellClass(memoReviewRows.length > 0 ? "needs-review" : "clean")}>
         <h2 className="text-xl font-semibold mb-2">Memo Resolution Review</h2>
         <p className="text-sm text-gray-400 mb-4">
           Read-only review only. Memo rows remain unresolved, stay excluded from live sales truth, and
@@ -1555,7 +1586,8 @@ export default function SalesTruthReviewPage() {
               `Rows: ${summaryCounts.netSaleCandidateRowsCount}`,
               `Amount: ${formatCurrency(summaryCounts.netSaleCandidateAmount)}`,
               "Review Only",
-            ]
+            ],
+            "clean"
           )}
           {renderRowsSection(
             "Regular Orders",
@@ -1586,7 +1618,8 @@ export default function SalesTruthReviewPage() {
               `Rows: ${summaryCounts.memoUnresolvedRowsCount}`,
               `Amount: ${formatCurrency(summaryCounts.memoUnresolvedAmount)}`,
               "Excluded From Live Truth",
-            ]
+            ],
+            memoUnresolvedRows.length > 0 ? "needs-review" : "clean"
           )}
           {renderRowsSection(
             "Complimentary Orders",
@@ -1641,7 +1674,8 @@ export default function SalesTruthReviewPage() {
               `Rows Shown: ${ambiguousSettlementRows.length}`,
               `Part Payment Rows: ${partPaymentRows.length}`,
               ambiguousSettlementRows.length > 0 ? "Needs Closer Reading" : "None Flagged",
-            ]
+            ],
+            ambiguousSettlementRows.length > 0 ? "needs-review" : "clean"
           )}
 
           <div className="rounded-2xl border border-white/20 p-6">
