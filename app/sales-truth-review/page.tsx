@@ -1037,6 +1037,41 @@ export default function SalesTruthReviewPage() {
     );
   };
 
+  const renderReviewStatusLegendSection = () => {
+    return (
+      <div className="rounded-2xl border border-white/20 p-6 mb-6">
+        <h2 className="text-xl font-semibold mb-2">Review Status Legend</h2>
+        <p className="text-sm text-gray-400 mb-4">
+          Read-only guide for what the current review states mean on this page. This helps explain the
+          review position only and does not change live business truth.
+        </p>
+
+        <div className="space-y-3 text-sm text-gray-300">
+          <p>
+            - <span className="text-white">Net sale candidate:</span> a row currently included in the
+            read-only proposed sales review, but not automatically promoted into live dashboard truth.
+          </p>
+          <p>
+            - <span className="text-white">Unresolved memo:</span> a memo row still under review. It
+            remains unresolved and excluded from live sales truth.
+          </p>
+          <p>
+            - <span className="text-white">Excluded cancelled:</span> a row currently treated as
+            cancelled and kept out of the read-only proposed sales total.
+          </p>
+          <p>
+            - <span className="text-white">Excluded complimentary:</span> a complimentary row currently
+            kept out of the read-only proposed sales total.
+          </p>
+          <p>
+            - <span className="text-white">Excluded sales return:</span> a sales return row currently
+            kept out of the read-only proposed sales total.
+          </p>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <main className="min-h-screen bg-black text-white p-8">
       <div className="max-w-6xl mx-auto">
@@ -1243,6 +1278,7 @@ export default function SalesTruthReviewPage() {
         )}
 
         {!loadError && !loading && renderCurrentReviewSnapshotSection()}
+        {!loadError && !loading && renderReviewStatusLegendSection()}
 
         <div className="space-y-6">
           {renderMemoResolutionReviewSection()}
