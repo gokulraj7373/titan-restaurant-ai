@@ -253,10 +253,11 @@ export default function SalesTruthReviewPage() {
     description: string,
     rows: SalesTruthReviewRow[],
     emptyMessage: string,
-    helperNote?: string
+    helperNote?: string,
+    sectionId?: string
   ) => {
     return (
-      <div className="rounded-2xl border border-white/20 p-6">
+      <div id={sectionId} className="rounded-2xl border border-white/20 p-6 scroll-mt-6">
         <h2 className="text-xl font-semibold mb-2">{title}</h2>
         <p className="text-sm text-gray-400 mb-4">{description}</p>
         {helperNote && <p className="text-sm text-gray-400 mb-4">{helperNote}</p>}
@@ -512,10 +513,11 @@ export default function SalesTruthReviewPage() {
     rows: VerificationBreakdownRow[],
     keyLabel: string,
     emptyMessage: string,
-    helperNote?: string
+    helperNote?: string,
+    sectionId?: string
   ) => {
     return (
-      <div className="rounded-2xl border border-white/20 p-6">
+      <div id={sectionId} className="rounded-2xl border border-white/20 p-6 scroll-mt-6">
         <h2 className="text-xl font-semibold mb-2">{title}</h2>
         <p className="text-sm text-gray-400 mb-4">{description}</p>
         {helperNote && <p className="text-sm text-gray-400 mb-4">{helperNote}</p>}
@@ -613,7 +615,7 @@ export default function SalesTruthReviewPage() {
 
   const renderMonthlyPolicyReconciliationSection = () => {
     return (
-      <div className="rounded-2xl border border-white/20 p-6">
+      <div id="monthly-policy-reconciliation" className="rounded-2xl border border-white/20 p-6 scroll-mt-6">
         <h2 className="text-xl font-semibold mb-2">Monthly Policy Reconciliation</h2>
         <p className="text-sm text-gray-400 mb-4">
           For each month, this checks whether the full month total equals the sum of all current
@@ -695,7 +697,7 @@ export default function SalesTruthReviewPage() {
 
   const renderUploadAttributionPolicyCheckSection = () => {
     return (
-      <div className="rounded-2xl border border-white/20 p-6">
+      <div id="upload-attribution-check" className="rounded-2xl border border-white/20 p-6 scroll-mt-6">
         <h2 className="text-xl font-semibold mb-2">Upload Attribution vs Policy Attribution Check</h2>
         <p className="text-sm text-gray-400 mb-2">
           Upload attribution shows what the file inserted. Policy attribution shows how Titan currently
@@ -798,7 +800,7 @@ export default function SalesTruthReviewPage() {
     ).length;
 
     return (
-      <div className="rounded-2xl border border-white/20 p-6">
+      <div id="memo-resolution-review" className="rounded-2xl border border-white/20 p-6 scroll-mt-6">
         <h2 className="text-xl font-semibold mb-2">Memo Resolution Review</h2>
         <p className="text-sm text-gray-400 mb-4">
           Read-only review only. Memo rows remain unresolved, stay excluded from live sales truth, and
@@ -1001,7 +1003,7 @@ export default function SalesTruthReviewPage() {
       latestImportBreakdownRows.every((row) => row.reconciled);
 
     return (
-      <div className="rounded-2xl border border-white/20 bg-white/[0.02] p-6 mb-4">
+      <div id="current-review-snapshot" className="rounded-2xl border border-white/20 bg-white/[0.02] p-6 mb-4 scroll-mt-6">
         <div className="mb-4">
           <p className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-2">Top Review Context</p>
           <h2 className="text-xl font-semibold mb-2">Current Review Snapshot</h2>
@@ -1062,7 +1064,7 @@ export default function SalesTruthReviewPage() {
 
   const renderReviewStatusLegendSection = () => {
     return (
-      <div className="rounded-2xl border border-white/20 bg-white/[0.02] p-6 mb-6">
+      <div id="review-status-legend" className="rounded-2xl border border-white/20 bg-white/[0.02] p-6 mb-6 scroll-mt-6">
         <h2 className="text-xl font-semibold mb-2">Review Status Legend</h2>
         <p className="text-sm text-gray-400 mb-4">
           Read-only guide for what the current review states mean on this page. This helps explain the
@@ -1104,6 +1106,36 @@ export default function SalesTruthReviewPage() {
           <p>- Use Review Status Legend to understand what each review bucket means.</p>
           <p>- Use Memo Resolution Review only for investigation. Memo hints remain investigative hints only.</p>
           <p>- Keep this page as read-only review context, not live dashboard truth.</p>
+        </div>
+      </div>
+    );
+  };
+
+  const renderSectionJumpBar = () => {
+    const sectionLinks = [
+      { href: "#current-review-snapshot", label: "Current Review Snapshot" },
+      { href: "#review-status-legend", label: "Review Status Legend" },
+      { href: "#memo-resolution-review", label: "Memo Resolution Review" },
+      { href: "#monthly-policy-reconciliation", label: "Monthly Policy Reconciliation" },
+      { href: "#upload-attribution-check", label: "Upload Attribution Check" },
+      { href: "#net-sales-candidate-rows", label: "Net Sales Candidate Rows" },
+      { href: "#memo-unresolved-rows", label: "Memo Unresolved Rows" },
+      { href: "#ambiguous-settlement-review", label: "Ambiguous Settlement Review" },
+    ];
+
+    return (
+      <div className="rounded-2xl border border-white/20 bg-white/[0.02] p-4 mb-4">
+        <p className="text-sm text-gray-400 mb-3">Jump to a review section:</p>
+        <div className="flex flex-wrap gap-2">
+          {sectionLinks.map((section) => (
+            <a
+              key={section.href}
+              href={section.href}
+              className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200 hover:bg-white/10"
+            >
+              {section.label}
+            </a>
+          ))}
         </div>
       </div>
     );
@@ -1316,6 +1348,7 @@ export default function SalesTruthReviewPage() {
 
         {!loadError && !loading && renderCurrentReviewSnapshotSection()}
         {!loadError && !loading && renderHowToUseThisPageSection()}
+        {!loadError && !loading && renderSectionJumpBar()}
         {!loadError && !loading && renderReviewStatusLegendSection()}
 
         <div className="space-y-6">
@@ -1358,7 +1391,8 @@ export default function SalesTruthReviewPage() {
             "Latest 50 rows currently proposed for net sales inclusion under the read-only sales policy review.",
             netSaleCandidateRows,
             "No net sale candidate rows found",
-            "Read these as the rows currently landing in the review total. This is still review-only and not a live promoted sales figure."
+            "Read these as the rows currently landing in the review total. This is still review-only and not a live promoted sales figure.",
+            "net-sales-candidate-rows"
           )}
           {renderRowsSection(
             "Regular Orders",
@@ -1383,7 +1417,8 @@ export default function SalesTruthReviewPage() {
             "Latest 50 memo rows that remain unresolved and excluded from live sales truth unless a future approved memo rule is defined.",
             memoUnresolvedRows,
             "No unresolved memo rows found",
-            "Read these as memo rows still left open in review. They remain excluded from live sales truth, and memo hints stay investigative only."
+            "Read these as memo rows still left open in review. They remain excluded from live sales truth, and memo hints stay investigative only.",
+            "memo-unresolved-rows"
           )}
           {renderRowsSection(
             "Complimentary Orders",
@@ -1440,7 +1475,8 @@ export default function SalesTruthReviewPage() {
               )
             ).slice(0, 50),
             "No ambiguous settlement rows found",
-            "Use this section to spot rows that may need closer reading. It is a trust-check view only and does not change current review totals by itself."
+            "Use this section to spot rows that may need closer reading. It is a trust-check view only and does not change current review totals by itself.",
+            "ambiguous-settlement-review"
           )}
 
           <div className="rounded-2xl border border-white/20 p-6">
