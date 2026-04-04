@@ -1,6 +1,6 @@
 # READ THIS FIRST: Titan Session Handoff
 
-## Latest Safe Commit
+## LATEST SAFE COMMIT
 
 - `aa6b1ff` Add AI handoff and operating guide files for Titan
 
@@ -13,21 +13,21 @@
 - Aligned `CURRENT_STATE.md`, `NEXT_STEPS.md`, and `DECISIONS_LOG.md` to record that continuity layer.
 - Kept the milestone documentation-only with no code changes.
 
-## Current Working Tree Expectation
+## CURRENT WORKING TREE EXPECTATION
 
 - Expected state: clean working tree after the latest safe commit.
 
-## Current Active Focus
+## CURRENT ACTIVE FOCUS
 
 - Keep Titan in a read-only truth-review phase.
 - Improve owner clarity, safety, recovery, and consistency without promoting policy.
 - Treat `/sales-truth-review` as the current truth-checking control room.
 
-## Exact Next Safest Step
+## EXACT NEXT SAFEST STEP
 
 - Run a small consistency audit across the live-facing sales pages to confirm each one is using the intended source table and clearly stays separate from the read-only sales truth review layer.
 
-## Warnings And Pending Cautions
+## WARNINGS AND PENDING CAUTIONS
 
 - This file is the highest-priority latest-state baton-pass file.
 - Do not promote sales truth into live pages yet.

@@ -11,6 +11,8 @@ Do not code yet.
 5. `NEXT_STEPS.md`
 6. `DECISIONS_LOG.md`
 
+Read `SESSION_HANDOFF.md` immediately after this file.
+
 ## Authority Order
 
 - `SESSION_HANDOFF.md` = latest baton-pass state
@@ -20,6 +22,12 @@ Do not code yet.
 If there is any conflict, prefer `SESSION_HANDOFF.md` for the latest active state.
 
 Do not skip `SESSION_HANDOFF.md`.
+
+Report the exact latest safe commit from `SESSION_HANDOFF.md`.
+
+Report the exact next safest step from `SESSION_HANDOFF.md`.
+
+If there is any mismatch with older docs, prefer `SESSION_HANDOFF.md` for the latest state.
 
 ## First Response Format
 

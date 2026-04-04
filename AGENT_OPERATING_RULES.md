@@ -29,6 +29,12 @@ If there is any conflict:
 - prefer `SESSION_HANDOFF.md` for the latest baton-pass state
 - prefer `LIVE_PROJECT.md` for the stable project briefing
 
+If `SESSION_HANDOFF.md` contains a latest safe commit, use that exact commit.
+
+If `SESSION_HANDOFF.md` contains an exact next safest step, do not invent another one.
+
+If a new AI reports an older commit than `SESSION_HANDOFF.md`, treat that as a continuity failure and correct the baton-pass anchor before doing any work.
+
 Do not invent your own next step if `SESSION_HANDOFF.md` already states one.
 
 ## New-AI Startup Behavior
@@ -38,6 +44,7 @@ Any new AI taking over Titan must:
 - not skip `SESSION_HANDOFF.md`
 - anchor to the latest safe commit named there
 - use the exact next safest step named there unless the owner explicitly changes direction
+- treat any mismatch against older supporting docs as a baton-pass issue, not as permission to drift away from `SESSION_HANDOFF.md`
 
 The first response from any new AI must report:
 1. current phase
