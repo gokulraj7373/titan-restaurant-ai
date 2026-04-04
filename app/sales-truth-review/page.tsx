@@ -615,6 +615,10 @@ export default function SalesTruthReviewPage() {
           For each month, this checks whether the full month total equals the sum of all current
           policy buckets.
         </p>
+        <p className="text-sm text-gray-400 mb-4">
+          Simple reading guide: if a month is marked reconciled, the current review buckets close cleanly
+          for that month. This is still a read-only check, not live dashboard truth.
+        </p>
 
         {loadError ? (
           <p className="text-sm text-gray-300">Could not load monthly policy reconciliation</p>
@@ -696,6 +700,10 @@ export default function SalesTruthReviewPage() {
         <p className="text-sm text-gray-400 mb-4">
           With the current schema, this attribution is exact because `sales_order_imports` stores
           `upload_log_id`.
+        </p>
+        <p className="text-sm text-gray-400 mb-4">
+          Simple reading guide: a reconciled upload means the current review buckets add back to that
+          upload&apos;s attributed amount. This does not promote anything into live truth.
         </p>
 
         {loadError ? (
@@ -835,6 +843,10 @@ export default function SalesTruthReviewPage() {
           <p className="text-sm text-gray-300">No memo rows found</p>
         ) : (
           <div className="space-y-4">
+            <p className="text-sm text-gray-400">
+              Higher hint confidence still does not mean an approved link, a candidate does not mean a
+              finalized sale, and the reasons shown here are only investigation clues.
+            </p>
             {memoReviewRows.map((reviewRow, index) => (
               <div
                 key={`${reviewRow.row.id}-${index}`}
