@@ -274,6 +274,7 @@ export default function SalesTruthReviewPage() {
               const transactionFamily = detectTransactionFamily(row);
               const suggestedInterpretation = getSuggestedInterpretation(row, transactionFamily);
               const salesPolicyBucket = getSalesPolicyBucket(row, transactionFamily);
+              const isAmbiguousSettlementSection = sectionId === "ambiguous-settlement-review";
 
               return (
                 <div
@@ -293,6 +294,29 @@ export default function SalesTruthReviewPage() {
                       {getSalesPolicyBucketText(salesPolicyBucket)}
                     </p>
                   </div>
+
+                  {isAmbiguousSettlementSection && (
+                    <div className="mb-4 flex flex-wrap gap-2">
+                      <div className="rounded-full border border-white/10 bg-black/20 px-3 py-1 text-xs text-gray-200">
+                        Order: {row.order_no || "-"}
+                      </div>
+                      <div className="rounded-full border border-white/10 bg-black/20 px-3 py-1 text-xs text-gray-200">
+                        Bill Date: {formatBillDate(row.bill_date)}
+                      </div>
+                      <div className="rounded-full border border-white/10 bg-black/20 px-3 py-1 text-xs text-gray-200">
+                        Status: {row.status || "-"}
+                      </div>
+                      <div className="rounded-full border border-white/10 bg-black/20 px-3 py-1 text-xs text-gray-200">
+                        Grand Total: {formatCurrency(row.grand_total)}
+                      </div>
+                      <div className="rounded-full border border-white/10 bg-black/20 px-3 py-1 text-xs text-gray-200">
+                        Effective Total: {formatCurrency(row.effective_total)}
+                      </div>
+                      <div className="rounded-full border border-white/10 bg-black/20 px-3 py-1 text-xs text-gray-200">
+                        Payment Type: {row.payment_type || "-"}
+                      </div>
+                    </div>
+                  )}
 
                   <div className="grid grid-cols-1 gap-3 md:grid-cols-3 xl:grid-cols-6">
                     <div>
@@ -872,6 +896,24 @@ export default function SalesTruthReviewPage() {
                   <div className="xl:col-span-2">
                     <p className="text-xs text-gray-400">File Reference</p>
                     <p className="mt-1 text-sm text-white break-words">{reviewRow.uploadFileName || "-"}</p>
+                  </div>
+                </div>
+
+                <div className="mb-4 flex flex-wrap gap-2">
+                  <div className="rounded-full border border-white/10 bg-black/20 px-3 py-1 text-xs text-gray-200">
+                    Bill Date: {formatBillDate(reviewRow.row.bill_date)}
+                  </div>
+                  <div className="rounded-full border border-white/10 bg-black/20 px-3 py-1 text-xs text-gray-200">
+                    Status: {reviewRow.row.status || "-"}
+                  </div>
+                  <div className="rounded-full border border-white/10 bg-black/20 px-3 py-1 text-xs text-gray-200">
+                    Effective Total: {formatCurrency(reviewRow.row.effective_total)}
+                  </div>
+                  <div className="rounded-full border border-white/10 bg-black/20 px-3 py-1 text-xs text-gray-200">
+                    Payment Type: {reviewRow.row.payment_type || "-"}
+                  </div>
+                  <div className="rounded-full border border-white/10 bg-black/20 px-3 py-1 text-xs text-gray-200">
+                    Hint Candidates: {reviewRow.matchCandidates.length}
                   </div>
                 </div>
 
