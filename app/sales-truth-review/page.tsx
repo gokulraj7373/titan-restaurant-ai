@@ -1079,6 +1079,20 @@ export default function SalesTruthReviewPage() {
     );
   };
 
+  const renderHowToUseThisPageSection = () => {
+    return (
+      <div className="rounded-2xl border border-white/20 bg-white/[0.02] p-6 mb-4">
+        <h2 className="text-xl font-semibold mb-2">How To Use This Page</h2>
+        <div className="space-y-2 text-sm text-gray-300">
+          <p>- Start with Current Review Snapshot for the quickest read of the current review position.</p>
+          <p>- Use Review Status Legend to understand what each review bucket means.</p>
+          <p>- Use Memo Resolution Review only for investigation. Memo hints remain investigative hints only.</p>
+          <p>- Keep this page as read-only review context, not live dashboard truth.</p>
+        </div>
+      </div>
+    );
+  };
+
   return (
     <main className="min-h-screen bg-black text-white p-8">
       <div className="max-w-6xl mx-auto">
@@ -1285,6 +1299,7 @@ export default function SalesTruthReviewPage() {
         )}
 
         {!loadError && !loading && renderCurrentReviewSnapshotSection()}
+        {!loadError && !loading && renderHowToUseThisPageSection()}
         {!loadError && !loading && renderReviewStatusLegendSection()}
 
         <div className="space-y-6">
