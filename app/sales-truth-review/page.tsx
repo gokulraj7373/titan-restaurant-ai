@@ -1017,6 +1017,24 @@ export default function SalesTruthReviewPage() {
           live dashboard truth or a promoted final sales policy.
         </p>
 
+        <div className="flex flex-wrap gap-2 mb-4">
+          <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200">
+            Net Sale Candidate Total: {formatCurrency(summaryCounts.netSaleCandidateAmount)}
+          </div>
+          <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200">
+            Memo Unresolved: {summaryCounts.memoUnresolvedRowsCount} rows / {formatCurrency(summaryCounts.memoUnresolvedAmount)}
+          </div>
+          <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200">
+            Months: {monthlyPolicyReconciliationRows.length > 0 && monthReconciliationHealthy ? "Reconciled" : "Needs Check"}
+          </div>
+          <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200">
+            Uploads: {latestImportBreakdownRows.length > 0 && uploadReconciliationHealthy ? "Reconciled" : "Needs Check"}
+          </div>
+          <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200">
+            Memo Excluded From Live Truth
+          </div>
+        </div>
+
         <div className="space-y-2 text-sm text-gray-300 mb-4">
           <p>
             - Current proposed net sale candidate total:{" "}
