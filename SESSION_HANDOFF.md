@@ -1,29 +1,34 @@
 # READ THIS FIRST: Titan Session Handoff
 
-## LATEST SAFE COMMIT
+## LATEST VERIFIED BATON ANCHOR COMMIT
 
-- `96326a7` Refresh latest Titan baton-pass state after continuity cleanup
+- `ed49b38` Refresh Titan baton-pass docs and harden doc update rules
+
+This is the latest verified commit that the current baton-pass state is anchored to.
+
+This handoff file may itself be refreshed later in a docs-only commit without trying to self-reference that same new commit hash.
 
 ## What Was Completed In The Latest Session
 
-- Refreshed the latest baton-pass state after the continuity cleanup work.
-- Updated `SESSION_HANDOFF.md` to the latest verified safe commit.
-- Updated `LIVE_PROJECT.md` so the important safe commit list and current recommended direction stayed aligned with the baton-pass file.
-- Kept the milestone documentation-only with no code changes.
+- Completed a small live-facing sales-page consistency audit across `/dashboard`, `/profit-overview`, and `/sales-analytics`.
+- Confirmed `/dashboard` and `/profit-overview` stay on their intended live-facing order-level sources and remain separate from the read-only sales truth review layer.
+- Confirmed `/sales-analytics` stays on its intended item-level source and remains separate from the read-only sales truth review layer.
+- Confirmed the shared sales truth status notice remains read-only guidance only and that no accidental dependency on `lib/sales-truth-review/*` was found in the audited live-facing pages.
+- Kept the audit read-only with no code changes.
 
 ## CURRENT WORKING TREE EXPECTATION
 
-- Expected state: clean working tree after the latest safe commit.
+- Expected state: clean working tree after the latest verified baton anchor commit and its documented follow-up continuity updates.
 
 ## CURRENT ACTIVE FOCUS
 
 - Keep Titan in a read-only truth-review phase.
 - Improve owner clarity, safety, recovery, and consistency without promoting policy.
-- Treat `/sales-truth-review` as the current truth-checking control room.
+- Treat `/sales-truth-review` as the current truth-checking control room while keeping live-facing pages clearly separate from the read-only review layer.
 
 ## EXACT NEXT SAFEST STEP
 
-- Run a small consistency audit across the live-facing sales pages to confirm each one is using the intended source table and clearly stays separate from the read-only sales truth review layer.
+- Confirm that Upload History counts roughly match inserted rows in the target tables.
 
 ## WARNINGS AND PENDING CAUTIONS
 

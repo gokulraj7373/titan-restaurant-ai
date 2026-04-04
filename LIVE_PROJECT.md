@@ -18,6 +18,8 @@ The main active product surface is `/sales-truth-review`, which acts as the trut
 
 For the latest baton-pass state, `SESSION_HANDOFF.md` is the controlling handoff file and should be read first.
 
+That baton-pass file uses a latest verified baton-anchor model, so it can be refreshed in a later docs-only commit without trying to self-reference that same new commit hash.
+
 ## Confirmed Stable Truths
 
 - `/sales-truth-review` is read-only in effect.
@@ -31,6 +33,8 @@ For the latest baton-pass state, `SESSION_HANDOFF.md` is the controlling handoff
 - The current proposed net sale candidate total remains `Rs 22,18,995.00`.
 - Month-wise and upload-wise reconciliation behavior is currently clean in the verified read-only review layer.
 - No dashboard, profit overview, analytics, upload, ingestion, normalization, or live policy promotion has happened from the sales truth review work.
+- A live-facing page consistency audit has confirmed that `/dashboard`, `/profit-overview`, and `/sales-analytics` stay separate from the read-only sales truth review layer.
+- No accidental dependency on `lib/sales-truth-review/*` was found in those audited live-facing pages.
 
 ## Current Architecture State
 
@@ -88,6 +92,7 @@ That reminder points back to `/sales-truth-review` and does not mean live promot
 
 ## Latest Important Safe Commits
 
+- `ed49b38` Refresh Titan baton-pass docs and harden doc update rules
 - `96326a7` Refresh latest Titan baton-pass state after continuity cleanup
 - `f6afb45` Refresh Titan continuity files and archive old handoff
 - `935d0bc` Tighten Titan continuity authority and startup anchoring
@@ -109,6 +114,6 @@ That reminder points back to `/sales-truth-review` and does not mean live promot
 ## Current Recommended Direction
 
 The exact next safest step remains:
-- run a small consistency audit across the live-facing sales pages to confirm each one is using the intended source table and clearly stays separate from the read-only sales truth review layer
+- confirm that Upload History counts roughly match inserted rows in the target tables
 
 This section should stay aligned with `SESSION_HANDOFF.md`.

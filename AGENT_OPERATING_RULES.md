@@ -31,7 +31,7 @@ If there is any conflict:
 
 Ignore archival handoff files for the latest active state unless the owner explicitly asks for historical context.
 
-If `SESSION_HANDOFF.md` contains a latest safe commit, use that exact commit.
+If `SESSION_HANDOFF.md` contains a latest verified baton anchor commit, use that exact commit as the baton anchor.
 
 If `SESSION_HANDOFF.md` contains an exact next safest step, do not invent another one.
 
@@ -44,7 +44,7 @@ Do not invent your own next step if `SESSION_HANDOFF.md` already states one.
 Any new AI taking over Titan must:
 - read `SESSION_HANDOFF.md` first
 - not skip `SESSION_HANDOFF.md`
-- anchor to the latest safe commit named there
+- anchor to the latest verified baton anchor commit named there
 - use the exact next safest step named there unless the owner explicitly changes direction
 - treat any mismatch against older supporting docs as a baton-pass issue, not as permission to drift away from `SESSION_HANDOFF.md`
 
@@ -52,7 +52,7 @@ The first response from any new AI must report:
 1. current phase
 2. stable truths
 3. non-negotiable safety rules
-4. latest safe commit
+4. latest verified baton anchor commit
 5. exact next safest step
 
 The first response must not code.
@@ -136,11 +136,16 @@ At minimum, consider whether to update:
 - `SESSION_HANDOFF.md`
 
 Sensitivity guidance:
-- always update `SESSION_HANDOFF.md` when the latest safe commit, active focus, or exact next safest step changes
+- always update `SESSION_HANDOFF.md` when the latest verified baton anchor commit, active focus, or exact next safest step changes
 - update `LIVE_PROJECT.md` when the stable project briefing, current recommended direction, important functionality, or latest important commits change
 - update `CURRENT_STATE.md`, `NEXT_STEPS.md`, and `DECISIONS_LOG.md` whenever logic, architecture, recovery/handoff clarity, or meaningful owner-facing product surface changes
 - do not skip necessary doc updates just because the change was “small”
 - if unsure, report which docs were considered and why they were or were not updated
+
+Baton-pass anchor rule:
+- `SESSION_HANDOFF.md` should name the latest verified commit that the current baton-pass state is anchored to.
+- It does not need to self-reference the same new docs-only commit that refreshes the handoff wording itself.
+- If a continuity-only commit updates the handoff docs, keep the baton anchor explicit and truthful instead of forcing a self-staling commit hash into the file.
 
 ## Owner-First Tone And Memo-Safe Expectations
 

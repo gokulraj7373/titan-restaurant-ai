@@ -472,3 +472,25 @@ The continuity layer needs one unambiguous baton-pass source so a new AI does no
 
 Current status:
 Active
+
+## Decision 44
+
+Decision:
+Keep the live-facing sales pages separate from the read-only sales truth review layer, and treat the sales truth status notice on those pages as guidance only.
+
+Why it was taken:
+The completed live-facing consistency audit confirmed that `/dashboard`, `/profit-overview`, and `/sales-analytics` should continue using their intended live-facing sources without pulling in `lib/sales-truth-review/*`. This separation reduces accidental policy promotion and keeps the review layer clearly read-only.
+
+Current status:
+Active
+
+## Decision 45
+
+Decision:
+Use a latest verified baton-anchor commit model in `SESSION_HANDOFF.md` instead of trying to self-reference the same docs-only commit that refreshes the handoff file.
+
+Why it was taken:
+The continuity layer needs a truthful baton-pass model that can be committed cleanly. Using an explicit verified anchor commit avoids a self-staling handoff file while still giving future AIs a reliable latest-state commit anchor.
+
+Current status:
+Active

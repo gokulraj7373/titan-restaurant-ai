@@ -141,11 +141,14 @@ These are now the real sales ingestion targets for the smart sales upload flow.
 - Dashboard, Profit Overview, and Sales Analytics now also show a small owner-facing sales truth status reminder that points back to `/sales-truth-review`.
 - That reminder is read-only guidance only and does not mean live truth promotion has happened.
 - That live-facing sales truth status reminder is now shared through one reusable component for safer consistency and easier future updates.
+- A live-facing page consistency audit has now confirmed that Dashboard and Profit Overview stay on their intended live-facing order-level sources, while Sales Analytics stays on its intended item-level source.
+- That audit also confirmed that the shared sales truth status notice remains read-only guidance only and that the live-facing pages do not accidentally depend on `lib/sales-truth-review/*`.
 - Titan now also has a documentation-based AI continuity layer:
   - `LIVE_PROJECT.md`
   - `AGENT_OPERATING_RULES.md`
   - `SESSION_HANDOFF.md`
 - `SESSION_HANDOFF.md` is now the highest-priority baton-pass file for the latest project state.
+- `SESSION_HANDOFF.md` now uses a latest verified baton-anchor model so continuity docs can be refreshed cleanly without forcing a self-staling latest-commit line.
 - This continuity layer is for safe AI takeover, handoff, and recovery only. It does not change project logic, policy, totals, or product behavior.
 - Memo Resolution Review keeps memo rows unresolved and excluded from live sales truth.
 - Memo-to-later-order suggestions in Memo Resolution Review are heuristic investigative hints only.
@@ -166,7 +169,7 @@ These are now the real sales ingestion targets for the smart sales upload flow.
 - Business insight on the dashboard is rule-based, not AI-generated.
 - The project strategy is still SQL + rule-based intelligence first.
 - The next sales direction is to build a safe sales query engine on top of `sales_order_imports` and `sales_item_imports`.
-- The next safety step is to verify that all pages use the correct source tables consistently and review how changed overlap uploads should be handled later.
+- The next safety step is to confirm that Upload History counts roughly match inserted rows in the target tables and then continue the broader consistency-check process.
 
 ## Clean Snapshot
 
