@@ -417,3 +417,14 @@ The owner needs a simpler summary of the current review position without reading
 
 Current status:
 Active
+
+## Decision 39
+
+Decision:
+Add a small read-only `Promotion Readiness Snapshot` near the top of `/sales-truth-review` using already-derived review state only.
+
+Why it was taken:
+The owner needs a plain-language signal for whether the current review state is still clearly not ready for live promotion, without turning that signal into an action or policy change. A read-only readiness snapshot improves product clarity while keeping memo unresolved, excluded, and non-promoted.
+
+Current status:
+Active

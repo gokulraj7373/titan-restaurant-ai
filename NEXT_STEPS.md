@@ -23,6 +23,7 @@
 19. Only after consistency is proven, continue building the sales query engine.
 20. Keep extending the reusable read-only sales truth review policy layer with tests before any future live policy promotion is considered.
 21. Keep the Current Review Snapshot owner-friendly and read-only, and use it only to surface already-derived review outputs without changing policy behavior.
+22. Keep the Promotion Readiness Snapshot owner-friendly and read-only, and use it only to explain current review readiness without triggering any live policy action.
 
 ## Short-Term Next Steps
 

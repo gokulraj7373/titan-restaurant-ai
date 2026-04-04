@@ -1103,6 +1103,27 @@ export default function SalesTruthReviewPage() {
       latestImportBreakdownRows.every((row) => row.reconciled);
     const ambiguousSettlementReviewPresent =
       partPaymentRows.length > 0 || grandTotalZeroRows.length > 0 || differentTotalRows.length > 0;
+    const promotionReadinessReasons: string[] = [];
+
+    if (!monthReconciliationHealthy) {
+      promotionReadinessReasons.push("month-wise review checks are not fully clean yet");
+    }
+
+    if (!uploadReconciliationHealthy) {
+      promotionReadinessReasons.push("upload-wise review checks are not fully clean yet");
+    }
+
+    if (summaryCounts.memoUnresolvedRowsCount > 0) {
+      promotionReadinessReasons.push(
+        `memo remains unresolved in ${summaryCounts.memoUnresolvedRowsCount} row${summaryCounts.memoUnresolvedRowsCount === 1 ? "" : "s"}`
+      );
+    }
+
+    if (ambiguousSettlementReviewPresent) {
+      promotionReadinessReasons.push("ambiguous settlement review still has rows to read");
+    }
+
+    const notReadyForPromotion = promotionReadinessReasons.length > 0;
 
     return (
       <div id="current-review-snapshot" className="rounded-2xl border border-white/20 bg-white/[0.02] p-6 mb-4 scroll-mt-6">
@@ -1155,6 +1176,37 @@ export default function SalesTruthReviewPage() {
             <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200">
               Memo: Still Excluded From Live Truth
             </div>
+          </div>
+        </div>
+
+        <div className="rounded-2xl border border-amber-400/20 bg-amber-400/[0.05] p-4 mb-4">
+          <p className="text-xs uppercase tracking-[0.18em] text-amber-200/80 mb-3">
+            Promotion Readiness Snapshot
+          </p>
+          <p className="text-sm text-white mb-2">
+            {notReadyForPromotion
+              ? "Not ready for live promotion yet"
+              : "Closer to promotion readiness, but still review-only for now"}
+          </p>
+          <p className="text-sm text-gray-300 mb-3">
+            Read-only guidance only. This does not promote anything into live dashboard truth.
+          </p>
+          <div className="space-y-2 text-sm text-gray-300">
+            {notReadyForPromotion ? (
+              <>
+                <p>Why not ready yet:</p>
+                {promotionReadinessReasons.map((reason) => (
+                  <p key={reason}>- {reason}</p>
+                ))}
+                <p>- memo still remains excluded from live sales truth while review continues</p>
+              </>
+            ) : (
+              <>
+                <p>- month-wise review checks are currently clean</p>
+                <p>- upload-wise review checks are currently clean</p>
+                <p>- memo is still handled as excluded review-only context, not live sales truth</p>
+              </>
+            )}
           </div>
         </div>
 

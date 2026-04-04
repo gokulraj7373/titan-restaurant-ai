@@ -135,6 +135,8 @@ These are now the real sales ingestion targets for the smart sales upload flow.
 - Sales truth review now also includes a dedicated Memo Resolution Review section as a read-only review tool.
 - Sales truth review now also includes a small read-only Current Review Snapshot near the top of the page.
 - That snapshot shows already-derived review outputs in plain owner-friendly language without changing policy or totals.
+- Sales truth review now also includes a small read-only Promotion Readiness Snapshot near the top of the page.
+- That readiness snapshot uses already-derived review state to explain whether the page is still review-only or closer to future promotion readiness, without promoting anything into live truth.
 - Memo Resolution Review keeps memo rows unresolved and excluded from live sales truth.
 - Memo-to-later-order suggestions in Memo Resolution Review are heuristic investigative hints only.
 - These memo candidate hints are non-binding and are not approved memo-to-sale links.
@@ -148,6 +150,7 @@ These are now the real sales ingestion targets for the smart sales upload flow.
 - This memo-review tightening did not change dashboard, profit overview, sales analytics, upload logic, ingestion logic, or the proposed net sale candidate total.
 - This policy-layer extraction also did not change dashboard, profit overview, sales analytics, upload logic, ingestion logic, normalization logic, memo policy, or the proposed net sale candidate total.
 - The Current Review Snapshot step also did not change memo handling, reconciliation behavior, dashboard, profit overview, analytics, upload logic, ingestion logic, normalization logic, or live truth policy.
+- The Promotion Readiness Snapshot step also did not change memo handling, reconciliation behavior, dashboard, profit overview, analytics, upload logic, ingestion logic, normalization logic, or live truth policy.
 - This current step is a verification of policy totals and bucket assignment, not a final truth decision.
 - Profit overview uses `sales_order_imports` for order-level sales and `expense_imports` for expenses.
 - Business insight on the dashboard is rule-based, not AI-generated.
