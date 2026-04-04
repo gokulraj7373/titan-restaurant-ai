@@ -1001,6 +1001,8 @@ export default function SalesTruthReviewPage() {
     const uploadReconciliationHealthy =
       latestImportBreakdownRows.length > 0 &&
       latestImportBreakdownRows.every((row) => row.reconciled);
+    const ambiguousSettlementReviewPresent =
+      partPaymentRows.length > 0 || grandTotalZeroRows.length > 0 || differentTotalRows.length > 0;
 
     return (
       <div id="current-review-snapshot" className="rounded-2xl border border-white/20 bg-white/[0.02] p-6 mb-4 scroll-mt-6">
@@ -1032,6 +1034,27 @@ export default function SalesTruthReviewPage() {
           </div>
           <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200">
             Memo Excluded From Live Truth
+          </div>
+        </div>
+
+        <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 mb-4">
+          <p className="text-xs uppercase tracking-[0.18em] text-gray-500 mb-3">Needs Attention First</p>
+          <div className="flex flex-wrap gap-2">
+            <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200">
+              Months: {monthlyPolicyReconciliationRows.length === 0 ? "No Review Rows Yet" : monthReconciliationHealthy ? "Clean" : "Needs Check"}
+            </div>
+            <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200">
+              Uploads: {latestImportBreakdownRows.length === 0 ? "No Review Rows Yet" : uploadReconciliationHealthy ? "Clean" : "Needs Check"}
+            </div>
+            <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200">
+              Memo Unresolved: {summaryCounts.memoUnresolvedRowsCount} rows
+            </div>
+            <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200">
+              Ambiguous Settlement Review: {ambiguousSettlementReviewPresent ? "Present" : "None"}
+            </div>
+            <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200">
+              Memo: Still Excluded From Live Truth
+            </div>
           </div>
         </div>
 
