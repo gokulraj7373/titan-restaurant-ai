@@ -122,6 +122,10 @@ Whenever a milestone changes any of the following, documentation-update instruct
 
 Continuity docs must never be left stale after meaningful milestones.
 
+Before finalizing any milestone, run a documentation impact check and decide which sensitive docs must be updated.
+
+Do not leave sensitive docs stale after meaningful milestones.
+
 At minimum, consider whether to update:
 - `NEW_AI_START.md`
 - `CURRENT_STATE.md`
@@ -130,6 +134,13 @@ At minimum, consider whether to update:
 - `LIVE_PROJECT.md`
 - `AGENT_OPERATING_RULES.md`
 - `SESSION_HANDOFF.md`
+
+Sensitivity guidance:
+- always update `SESSION_HANDOFF.md` when the latest safe commit, active focus, or exact next safest step changes
+- update `LIVE_PROJECT.md` when the stable project briefing, current recommended direction, important functionality, or latest important commits change
+- update `CURRENT_STATE.md`, `NEXT_STEPS.md`, and `DECISIONS_LOG.md` whenever logic, architecture, recovery/handoff clarity, or meaningful owner-facing product surface changes
+- do not skip necessary doc updates just because the change was “small”
+- if unsure, report which docs were considered and why they were or were not updated
 
 ## Owner-First Tone And Memo-Safe Expectations
 

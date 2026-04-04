@@ -2,13 +2,13 @@
 
 ## LATEST SAFE COMMIT
 
-- `f6afb45` Refresh Titan continuity files and archive old handoff
+- `96326a7` Refresh latest Titan baton-pass state after continuity cleanup
 
 ## What Was Completed In The Latest Session
 
-- Refreshed the continuity layer so the latest active baton-pass state is easier to follow.
-- Marked `PROJECT_HANDOFF_2026_04_03.md` as archival / historical only.
-- Aligned `LIVE_PROJECT.md`, `NEW_AI_START.md`, and `AGENT_OPERATING_RULES.md` so older handoff files do not override the current baton-pass state.
+- Refreshed the latest baton-pass state after the continuity cleanup work.
+- Updated `SESSION_HANDOFF.md` to the latest verified safe commit.
+- Updated `LIVE_PROJECT.md` so the important safe commit list and current recommended direction stayed aligned with the baton-pass file.
 - Kept the milestone documentation-only with no code changes.
 
 ## CURRENT WORKING TREE EXPECTATION
