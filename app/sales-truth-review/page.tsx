@@ -1168,9 +1168,14 @@ export default function SalesTruthReviewPage() {
           business sales rules.
         </p>
 
+        {!loadError && !loading && renderCurrentReviewSnapshotSection()}
+        {!loadError && !loading && renderHowToUseThisPageSection()}
+        {!loadError && !loading && renderSectionJumpBar()}
+        {!loadError && !loading && renderReviewStatusLegendSection()}
+
         <div className="rounded-2xl border border-white/20 p-6 mb-6">
           <p className="text-sm text-gray-300">
-            Current proposed sales policy:
+            Current review policy view:
           </p>
           <div className="space-y-2 text-sm text-gray-300 mt-3">
             <p>- numeric Part Payment rows are included as sales</p>
@@ -1363,11 +1368,6 @@ export default function SalesTruthReviewPage() {
             <p className="text-sm text-gray-300">Loading sales truth review data...</p>
           </div>
         )}
-
-        {!loadError && !loading && renderCurrentReviewSnapshotSection()}
-        {!loadError && !loading && renderHowToUseThisPageSection()}
-        {!loadError && !loading && renderSectionJumpBar()}
-        {!loadError && !loading && renderReviewStatusLegendSection()}
 
         <div className="space-y-6">
           {renderMemoResolutionReviewSection()}
