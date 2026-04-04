@@ -494,3 +494,14 @@ The continuity layer needs a truthful baton-pass model that can be committed cle
 
 Current status:
 Active
+
+## Decision 46
+
+Decision:
+Treat Upload History row counts as directionally trustworthy for sales uploads, while keeping expense upload history wording conservative until expense logging carries the same inserted-row detail.
+
+Why it was taken:
+The completed Upload History consistency audit confirmed that sampled imported sales uploads match their logged inserted-row counts against `sales_order_imports` and `sales_item_imports`. The same audit also showed that expense uploads still use older lighter log semantics, so the page should remain owner-safe without implying stronger precision than the current expense logging supports.
+
+Current status:
+Active

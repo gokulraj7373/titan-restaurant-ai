@@ -35,6 +35,8 @@ That baton-pass file uses a latest verified baton-anchor model, so it can be ref
 - No dashboard, profit overview, analytics, upload, ingestion, normalization, or live policy promotion has happened from the sales truth review work.
 - A live-facing page consistency audit has confirmed that `/dashboard`, `/profit-overview`, and `/sales-analytics` stay separate from the read-only sales truth review layer.
 - No accidental dependency on `lib/sales-truth-review/*` was found in those audited live-facing pages.
+- A small Upload History consistency audit has confirmed that sampled imported sales uploads match their logged inserted-row counts against `sales_order_imports` and `sales_item_imports`.
+- That same audit also confirmed that expense uploads still use older lighter log semantics, so `/uploads` stays directionally safe but less precise for expenses than for sales.
 
 ## Current Architecture State
 
@@ -92,6 +94,7 @@ That reminder points back to `/sales-truth-review` and does not mean live promot
 
 ## Latest Important Safe Commits
 
+- `6e7e6d6` Finalize Titan continuity docs and baton-pass anchor model
 - `ed49b38` Refresh Titan baton-pass docs and harden doc update rules
 - `96326a7` Refresh latest Titan baton-pass state after continuity cleanup
 - `f6afb45` Refresh Titan continuity files and archive old handoff
@@ -114,6 +117,6 @@ That reminder points back to `/sales-truth-review` and does not mean live promot
 ## Current Recommended Direction
 
 The exact next safest step remains:
-- confirm that Upload History counts roughly match inserted rows in the target tables
+- run the remaining consistency audit across Expense Analytics
 
 This section should stay aligned with `SESSION_HANDOFF.md`.

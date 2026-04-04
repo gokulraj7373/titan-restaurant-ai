@@ -2,7 +2,7 @@
 
 ## LATEST VERIFIED BATON ANCHOR COMMIT
 
-- `ed49b38` Refresh Titan baton-pass docs and harden doc update rules
+- `6e7e6d6` Finalize Titan continuity docs and baton-pass anchor model
 
 This is the latest verified commit that the current baton-pass state is anchored to.
 
@@ -10,10 +10,11 @@ This handoff file may itself be refreshed later in a docs-only commit without tr
 
 ## What Was Completed In The Latest Session
 
-- Completed a small live-facing sales-page consistency audit across `/dashboard`, `/profit-overview`, and `/sales-analytics`.
-- Confirmed `/dashboard` and `/profit-overview` stay on their intended live-facing order-level sources and remain separate from the read-only sales truth review layer.
-- Confirmed `/sales-analytics` stays on its intended item-level source and remains separate from the read-only sales truth review layer.
-- Confirmed the shared sales truth status notice remains read-only guidance only and that no accidental dependency on `lib/sales-truth-review/*` was found in the audited live-facing pages.
+- Completed a small Upload History consistency audit across `/uploads`, `uploads_log`, `sales_order_imports`, `sales_item_imports`, and `expense_imports`.
+- Confirmed sampled imported sales uploads match their logged `inserted_row_count` against exact target-table rows in `sales_order_imports` and `sales_item_imports`.
+- Confirmed rejected sales uploads continue to show zero inserted rows in a way that stays directionally consistent with the target tables.
+- Confirmed `/uploads` stays owner-safe because it shows parsed, inserted, rejected, and target-table details only when those fields actually exist in `uploads_log`.
+- Confirmed expense uploads still use older lighter log semantics: the upload history remains directionally safe, but expense rows can exist in `expense_imports` without `target_table` or inserted-row detail being populated in `uploads_log`.
 - Kept the audit read-only with no code changes.
 
 ## CURRENT WORKING TREE EXPECTATION
@@ -28,7 +29,7 @@ This handoff file may itself be refreshed later in a docs-only commit without tr
 
 ## EXACT NEXT SAFEST STEP
 
-- Confirm that Upload History counts roughly match inserted rows in the target tables.
+- Run the remaining consistency audit across Expense Analytics.
 
 ## WARNINGS AND PENDING CAUTIONS
 

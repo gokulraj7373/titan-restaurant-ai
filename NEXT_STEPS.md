@@ -2,10 +2,10 @@
 
 ## Immediate Next Steps
 
-1. Confirm that Upload History counts roughly match inserted rows in the target tables.
-2. Run the remaining consistency audit across Upload History and Expense Analytics.
-3. Verify that each page uses the correct source table before adding more ingestion complexity.
-4. Fix any stale or mixed source logic before building more advanced features.
+1. Run the remaining consistency audit across Expense Analytics.
+2. Verify that each page uses the correct source table before adding more ingestion complexity.
+3. Fix any stale or mixed source logic before building more advanced features.
+4. Review whether Upload History should later expose clearer expense-ingestion detail without overstating precision.
 5. Use `DATA_CONSISTENCY_CHECKS.md` and `QA_CHECKLIST.md` as the verification guide.
 6. Use the new Sales Reconciliation page to inspect fallback-total and total-difference order rows.
 7. Test the new sales upload classifications with duplicate, append-only, gap-fill, and changed-overlap files.
@@ -29,6 +29,7 @@
 25. Keep `LIVE_PROJECT.md`, `AGENT_OPERATING_RULES.md`, and `SESSION_HANDOFF.md` current after meaningful milestones so a new AI can take over safely without re-explaining the project.
 26. Keep `SESSION_HANDOFF.md` updated first whenever the latest safe commit, active focus, or exact next safest step changes.
 27. Keep the completed live-facing sales-page consistency audit recorded as a finished check so future agents do not repeat it as the next baton step.
+28. Keep the completed Upload History consistency audit recorded as a finished check so future agents do not repeat it as the next baton step.
 
 ## Short-Term Next Steps
 
