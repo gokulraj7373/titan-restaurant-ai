@@ -1,5 +1,11 @@
-# Titan Restaurant AI — Project Handoff
+# ARCHIVAL / HISTORICAL HANDOFF ONLY: Titan Restaurant AI Project Handoff
 Date: 2026-04-03
+
+This file is historical context only.
+
+Do not use this file as the current baton-pass source.
+
+For the latest active state, use `SESSION_HANDOFF.md` first.
 
 ## Project goal
 Build a highly reliable restaurant/cafe intelligence system for Titan where sales truth is derived carefully from Petpooja exports, without double counting, silent overwrites, or incorrect policy assumptions.
@@ -69,11 +75,11 @@ Older unrelated TypeScript/Supabase paging typing issues still exist in some pag
 
 These should be fixed carefully after the sales-truth policy is finalized, unless blocking current work.
 
-## Latest active task
-A Codex prompt is currently running to build a read-only “Memo Resolution Review” on `/sales-truth-review`, including likely memo classification and possible later numeric-order matching.
+## Latest active task at the time
+A Codex prompt was running to build a read-only “Memo Resolution Review” on `/sales-truth-review`, including likely memo classification and possible later numeric-order matching.
 
-## What the next assistant must do
+## What the next assistant had to do at the time
 1. Read this file first.
 2. Do not assume memo policy is finalized.
 3. Treat current reconciliation as correct but provisional.
-4. Continue only with safe read-only memo review unless user explicitly changes priority.
+4. Continue only with safe read-only memo review unless user explicitly changed priority.

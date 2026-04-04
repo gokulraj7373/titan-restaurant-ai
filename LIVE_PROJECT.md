@@ -88,6 +88,9 @@ That reminder points back to `/sales-truth-review` and does not mean live promot
 
 ## Latest Important Safe Commits
 
+- `935d0bc` Tighten Titan continuity authority and startup anchoring
+- `66e1eff` Strengthen Titan AI continuity startup and handoff rules
+- `aa6b1ff` Add AI handoff and operating guide files for Titan
 - `d2b1bbd` Extract shared sales truth status notice component
 - `4750b41` Add sales truth status notice to live-facing pages
 - `80ba687` Add promotion readiness snapshot to sales truth review
@@ -103,9 +106,7 @@ That reminder points back to `/sales-truth-review` and does not mean live promot
 
 ## Current Recommended Direction
 
-The safest next direction is still review-first:
-- keep `/sales-truth-review` as the current truth-checking control room
-- keep live-facing pages clearly separate from read-only truth review
-- continue with small, recoverable, owner-first milestones
-- before any future promotion, verify source-table consistency across live-facing pages
-- only consider live policy promotion after memo policy is explicitly finalized and review reconciliation remains clean
+The exact next safest step remains:
+- run a small consistency audit across the live-facing sales pages to confirm each one is using the intended source table and clearly stays separate from the read-only sales truth review layer
+
+This section should stay aligned with `SESSION_HANDOFF.md`.

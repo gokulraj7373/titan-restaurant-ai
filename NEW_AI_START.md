@@ -29,6 +29,8 @@ Report the exact next safest step from `SESSION_HANDOFF.md`.
 
 If there is any mismatch with older docs, prefer `SESSION_HANDOFF.md` for the latest state.
 
+Ignore archival handoff files for the latest active state unless the owner explicitly asks for historical context.
+
 ## First Response Format
 
 Your first response must include:

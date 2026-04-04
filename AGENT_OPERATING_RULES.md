@@ -29,6 +29,8 @@ If there is any conflict:
 - prefer `SESSION_HANDOFF.md` for the latest baton-pass state
 - prefer `LIVE_PROJECT.md` for the stable project briefing
 
+Ignore archival handoff files for the latest active state unless the owner explicitly asks for historical context.
+
 If `SESSION_HANDOFF.md` contains a latest safe commit, use that exact commit.
 
 If `SESSION_HANDOFF.md` contains an exact next safest step, do not invent another one.
