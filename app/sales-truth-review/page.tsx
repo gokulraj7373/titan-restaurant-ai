@@ -254,12 +254,25 @@ export default function SalesTruthReviewPage() {
     rows: SalesTruthReviewRow[],
     emptyMessage: string,
     helperNote?: string,
-    sectionId?: string
+    sectionId?: string,
+    headerChips?: string[]
   ) => {
     return (
       <div id={sectionId} className="rounded-2xl border border-white/20 p-6 scroll-mt-6">
         <h2 className="text-xl font-semibold mb-2">{title}</h2>
         <p className="text-sm text-gray-400 mb-4">{description}</p>
+        {headerChips && headerChips.length > 0 && (
+          <div className="mb-4 flex flex-wrap gap-2">
+            {headerChips.map((chip) => (
+              <div
+                key={`${title}-${chip}`}
+                className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200"
+              >
+                {chip}
+              </div>
+            ))}
+          </div>
+        )}
         {helperNote && <p className="text-sm text-gray-400 mb-4">{helperNote}</p>}
 
         {loadError ? (
@@ -830,6 +843,20 @@ export default function SalesTruthReviewPage() {
           Read-only review only. Memo rows remain unresolved, stay excluded from live sales truth, and
           are not linked into current business totals.
         </p>
+        <div className="mb-4 flex flex-wrap gap-2">
+          <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200">
+            Memo Rows: {memoReviewRows.length}
+          </div>
+          <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200">
+            Has Hint Candidates: {possibleLaterCandidateCount}
+          </div>
+          <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200">
+            No Hint Candidates: {noCandidateHintCount}
+          </div>
+          <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200">
+            Memo Still Excluded From Live Truth
+          </div>
+        </div>
         <div className="rounded-xl border border-amber-400/20 bg-amber-400/5 p-4 mb-6">
           <div className="space-y-2 text-sm text-gray-300">
             {getMemoResolutionReviewNotes().map((note) => (
@@ -1266,6 +1293,12 @@ export default function SalesTruthReviewPage() {
     );
   };
 
+  const ambiguousSettlementRows = sortLatestRows(
+    [...partPaymentRows, ...grandTotalZeroRows, ...differentTotalRows].filter(
+      (row, index, array) => array.findIndex((candidate) => candidate.id === row.id) === index
+    )
+  ).slice(0, 50);
+
   return (
     <main className="min-h-screen bg-black text-white p-8">
       <div className="max-w-6xl mx-auto">
@@ -1517,7 +1550,12 @@ export default function SalesTruthReviewPage() {
             netSaleCandidateRows,
             "No net sale candidate rows found",
             "Read these as the rows currently landing in the review total. This is still review-only and not a live promoted sales figure.",
-            "net-sales-candidate-rows"
+            "net-sales-candidate-rows",
+            [
+              `Rows: ${summaryCounts.netSaleCandidateRowsCount}`,
+              `Amount: ${formatCurrency(summaryCounts.netSaleCandidateAmount)}`,
+              "Review Only",
+            ]
           )}
           {renderRowsSection(
             "Regular Orders",
@@ -1543,7 +1581,12 @@ export default function SalesTruthReviewPage() {
             memoUnresolvedRows,
             "No unresolved memo rows found",
             "Read these as memo rows still left open in review. They remain excluded from live sales truth, and memo hints stay investigative only.",
-            "memo-unresolved-rows"
+            "memo-unresolved-rows",
+            [
+              `Rows: ${summaryCounts.memoUnresolvedRowsCount}`,
+              `Amount: ${formatCurrency(summaryCounts.memoUnresolvedAmount)}`,
+              "Excluded From Live Truth",
+            ]
           )}
           {renderRowsSection(
             "Complimentary Orders",
@@ -1590,18 +1633,15 @@ export default function SalesTruthReviewPage() {
           {renderRowsSection(
             "Ambiguous Settlement Review",
             "Latest 50 rows where payment_type contains Part Payment, or Grand Total is zero or empty, or Effective Total differs from Grand Total by more than 1.",
-            sortLatestRows(
-              [
-                ...partPaymentRows,
-                ...grandTotalZeroRows,
-                ...differentTotalRows,
-              ].filter(
-                (row, index, array) => array.findIndex((candidate) => candidate.id === row.id) === index
-              )
-            ).slice(0, 50),
+            ambiguousSettlementRows,
             "No ambiguous settlement rows found",
             "Use this section to spot rows that may need closer reading. It is a trust-check view only and does not change current review totals by itself.",
-            "ambiguous-settlement-review"
+            "ambiguous-settlement-review",
+            [
+              `Rows Shown: ${ambiguousSettlementRows.length}`,
+              `Part Payment Rows: ${partPaymentRows.length}`,
+              ambiguousSettlementRows.length > 0 ? "Needs Closer Reading" : "None Flagged",
+            ]
           )}
 
           <div className="rounded-2xl border border-white/20 p-6">
