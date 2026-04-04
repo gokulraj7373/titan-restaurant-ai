@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 
@@ -132,6 +133,16 @@ export default function ProfitOverviewPage() {
         <p className="text-gray-300 mb-8">
           Basic business summary from imported order-level sales and expenses
         </p>
+
+        <div className="rounded-2xl border border-amber-400/20 bg-amber-400/[0.05] p-4 mb-6">
+          <p className="text-sm text-gray-200">
+            Sales truth is still under review. For the current read-only truth-checking state, use{" "}
+            <Link href="/sales-truth-review" className="text-amber-200 underline underline-offset-4">
+              Sales Truth Review
+            </Link>
+            . No live sales truth promotion has happened yet.
+          </p>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6 mb-6">
           <div className="rounded-2xl border border-white/20 p-6">

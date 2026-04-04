@@ -137,6 +137,9 @@ These are now the real sales ingestion targets for the smart sales upload flow.
 - That snapshot shows already-derived review outputs in plain owner-friendly language without changing policy or totals.
 - Sales truth review now also includes a small read-only Promotion Readiness Snapshot near the top of the page.
 - That readiness snapshot uses already-derived review state to explain whether the page is still review-only or closer to future promotion readiness, without promoting anything into live truth.
+- `/sales-truth-review` remains the current read-only truth-checking control room for sales truth review.
+- Dashboard, Profit Overview, and Sales Analytics now also show a small owner-facing sales truth status reminder that points back to `/sales-truth-review`.
+- That reminder is read-only guidance only and does not mean live truth promotion has happened.
 - Memo Resolution Review keeps memo rows unresolved and excluded from live sales truth.
 - Memo-to-later-order suggestions in Memo Resolution Review are heuristic investigative hints only.
 - These memo candidate hints are non-binding and are not approved memo-to-sale links.

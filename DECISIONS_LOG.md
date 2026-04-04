@@ -428,3 +428,14 @@ The owner needs a plain-language signal for whether the current review state is 
 
 Current status:
 Active
+
+## Decision 40
+
+Decision:
+Add a small read-only sales truth status reminder to the live-facing sales pages while `/sales-truth-review` remains the current truth-checking control room.
+
+Why it was taken:
+The owner needs a clear reminder that dashboard, profit overview, and sales analytics are still live-facing pages while sales truth remains under review. A short notice reduces confusion without changing any totals, logic, or promotion state.
+
+Current status:
+Active
