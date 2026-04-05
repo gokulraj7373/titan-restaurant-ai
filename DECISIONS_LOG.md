@@ -527,3 +527,14 @@ Titan needs to move beyond audits into a reusable live query foundation, but the
 
 Current status:
 Active
+
+## Decision 49
+
+Decision:
+Move the remaining order-level dashboard KPI family into one reusable helper based on `sales_order_imports` only.
+
+Why it was taken:
+`Today Sales`, `Orders`, and `Average Order Value` already form one tight order-level KPI family on the dashboard. Extracting them together into one helper keeps the next build step small and recoverable while reducing inline dashboard logic without mixing item-level analytics or the read-only sales truth review layer.
+
+Current status:
+Active

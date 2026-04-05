@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { SalesTruthStatusNotice } from "@/app/_components/sales-truth-status-notice";
+import { loadDashboardOrderKpis } from "@/lib/sales-query/dashboard-order-kpis";
 import { loadImportedOrderSalesAmount } from "@/lib/sales-query/order-sales-summary";
 import { supabase } from "@/lib/supabase";
 
@@ -14,13 +15,6 @@ type UploadLog = {
   file_name: string;
   created_at: string;
   storage_path: string;
-};
-
-type SalesOrderMetricRow = {
-  id: number;
-  bill_date: string | null;
-  order_no: string | null;
-  effective_total: number | null;
 };
 
 type ExpenseAmountRow = {
@@ -148,7 +142,6 @@ export default function DashboardPage() {
         { count: expensesCount, error: expensesCountError },
         { count: salesOrderImportsCount, error: salesOrderImportsCountError },
         { count: expenseImportsCount, error: expenseImportsCountError },
-        { data: latestSalesDateRow, error: latestSalesDateError },
       ] = await Promise.all([
           supabase
             .from("app_status")
@@ -176,13 +169,6 @@ export default function DashboardPage() {
           supabase
             .from("expense_imports")
             .select("*", { count: "exact", head: true }),
-          supabase
-            .schema("public")
-            .from("sales_order_imports")
-            .select("bill_date")
-            .order("bill_date", { ascending: false })
-            .limit(1)
-            .maybeSingle(),
         ]);
 
       if (statusError) {
@@ -204,33 +190,12 @@ export default function DashboardPage() {
       setImportedExpenseRowsCount(expenseImportsCountError ? 0 : expenseImportsCount ?? 0);
 
       try {
+        const dashboardOrderKpis = await loadDashboardOrderKpis();
         const totalImportedSalesAmount = await loadImportedOrderSalesAmount();
 
-        const latestBillDate = latestSalesDateError ? null : latestSalesDateRow?.bill_date ?? null;
-        const latestRows = latestBillDate
-          ? await fetchAllRows<SalesOrderMetricRow>((from, to) =>
-              supabase
-                .schema("public")
-                .from("sales_order_imports")
-                .select("id, bill_date, order_no, effective_total")
-                .eq("bill_date", latestBillDate)
-                .order("id", { ascending: true })
-                .range(from, to)
-            )
-          : [];
-
-        const latestDaySales = latestRows.reduce((sum, row) => {
-          return sum + Number(row.effective_total ?? 0);
-        }, 0);
-        const latestDayOrders = new Set(
-          latestRows.map((row) => String(row.order_no ?? "").trim()).filter(Boolean)
-        ).size;
-        const latestDayAverageOrderValue =
-          latestDayOrders > 0 ? latestDaySales / latestDayOrders : 0;
-
-        setTodaySales(latestDaySales);
-        setOrders(latestDayOrders);
-        setAverageOrderValue(latestDayAverageOrderValue);
+        setTodaySales(dashboardOrderKpis.todaySales);
+        setOrders(dashboardOrderKpis.orders);
+        setAverageOrderValue(dashboardOrderKpis.averageOrderValue);
         setImportedSalesAmount(totalImportedSalesAmount);
 
         const expenseRows = await fetchAllRows<ExpenseAmountRow>((from, to) =>
@@ -265,8 +230,8 @@ export default function DashboardPage() {
         }
 
         insights.push(
-          `The latest sales day shows ${latestDayOrders} orders with an average order value of ${formatCurrency(
-            latestDayAverageOrderValue
+          `The latest sales day shows ${dashboardOrderKpis.orders} orders with an average order value of ${formatCurrency(
+            dashboardOrderKpis.averageOrderValue
           )}.`
         );
         insights.push(

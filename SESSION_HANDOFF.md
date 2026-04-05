@@ -2,7 +2,7 @@
 
 ## LATEST VERIFIED BATON ANCHOR COMMIT
 
-- `eae96a2` Record Expense Analytics audit and refresh baton step
+- `6e173ea` Extract first order-level sales query helper for dashboard
 
 This is the latest verified commit that the current baton-pass state is anchored to.
 
@@ -10,11 +10,11 @@ This handoff file may itself be refreshed later in a docs-only commit without tr
 
 ## What Was Completed In The Latest Session
 
-- Added the first small reusable order-level sales query helper under `lib/sales-query/`.
-- Extracted the dashboard's existing `Imported Order Sales` output to use that helper.
+- Added a second small reusable order-level sales query helper under `lib/sales-query/`.
+- Extracted the dashboard's existing `Today Sales`, `Orders`, and `Average Order Value` outputs to use that helper.
 - Kept the helper narrow and deterministic by using `sales_order_imports` only.
 - Kept item-level analytics separate and avoided any dependency on `lib/sales-truth-review/*`.
-- Preserved the existing `Imported Order Sales` result while leaving the rest of the dashboard sales logic unchanged in this milestone.
+- Preserved the existing KPI results while leaving unrelated dashboard sections unchanged in this milestone.
 
 ## CURRENT WORKING TREE EXPECTATION
 
@@ -22,13 +22,13 @@ This handoff file may itself be refreshed later in a docs-only commit without tr
 
 ## CURRENT ACTIVE FOCUS
 
-- Keep Titan in a read-only truth-review phase while beginning the first small reusable live sales-query layer.
+- Keep Titan in a read-only truth-review phase while extending the first small reusable live sales-query layer.
 - Improve owner clarity, safety, recovery, and consistency without promoting policy.
 - Treat `/sales-truth-review` as the current truth-checking control room while keeping live-facing pages clearly separate from the read-only review layer.
 
 ## EXACT NEXT SAFEST STEP
 
-- Extend the new order-level sales query layer to one more safe existing dashboard output without touching item-level analytics or the read-only truth-review layer.
+- Verify that each page uses the correct source table before adding more ingestion complexity.
 
 ## WARNINGS AND PENDING CAUTIONS
 

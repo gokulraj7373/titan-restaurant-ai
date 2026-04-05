@@ -46,6 +46,8 @@ That baton-pass file uses a latest verified baton-anchor model, so it can be ref
 - `expense_imports` is the current expense source.
 - Titan now also has a first reusable order-level live sales query helper:
   - `lib/sales-query/order-sales-summary.ts`
+- Titan now also has a reusable dashboard order-level KPI helper:
+  - `lib/sales-query/dashboard-order-kpis.ts`
 - Sales truth review logic is extracted into a reusable read-only layer:
   - `lib/sales-truth-review/types.ts`
   - `lib/sales-truth-review/policy.ts`
@@ -86,6 +88,8 @@ That reminder points back to `/sales-truth-review` and does not mean live promot
 
 - The dashboard now uses one reusable order-level sales query helper for `Imported Order Sales`.
 - That helper reads from `sales_order_imports` only.
+- The dashboard now also uses one reusable order-level KPI helper for `Today Sales`, `Orders`, and `Average Order Value`.
+- That KPI helper also reads from `sales_order_imports` only.
 - This is a maintainability step only and does not promote the read-only sales truth review layer into live truth.
 
 ## Non-Negotiable Safety Rules
@@ -103,6 +107,7 @@ That reminder points back to `/sales-truth-review` and does not mean live promot
 
 ## Latest Important Safe Commits
 
+- `6e173ea` Extract first order-level sales query helper for dashboard
 - `eae96a2` Record Expense Analytics audit and refresh baton step
 - `907a233` Record Upload History audit and refresh baton step
 - `6e7e6d6` Finalize Titan continuity docs and baton-pass anchor model
@@ -128,6 +133,6 @@ That reminder points back to `/sales-truth-review` and does not mean live promot
 ## Current Recommended Direction
 
 The exact next safest step remains:
-- extend the new order-level sales query layer to one more safe existing dashboard output without touching item-level analytics or the read-only truth-review layer
+- verify that each page uses the correct source table before adding more ingestion complexity
 
 This section should stay aligned with `SESSION_HANDOFF.md`.
