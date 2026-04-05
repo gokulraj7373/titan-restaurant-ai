@@ -30,26 +30,28 @@
 26. Keep the completed Upload History consistency audit recorded as a finished check so future agents do not repeat it as the next baton step.
 27. Keep the completed Expense Analytics consistency audit recorded as a finished check so future agents do not repeat it as the next baton step.
 28. Keep the live order-level sales query helpers small, deterministic, and separate from item-level analytics and the read-only sales truth review layer.
+29. Keep the first reusable expense-side summary helper small, deterministic, and separate from the sales-query helpers and the read-only sales truth review layer.
 
 ## Short-Term Next Steps
 
 1. Keep extending the first real sales query engine layer from `sales_order_imports`.
 2. Move one safe order-level analytics output family at a time, instead of trying to rebuild all sales analytics at once.
-3. Keep item-level analytics separate and based on `sales_item_imports`.
-4. Design the first manual-review workflow for `overlap_with_changes` uploads, using the new changed-overlap review details as the starting point.
-5. Decide how corrected re-uploads should be approved later without silent replacement.
-6. Define the correct subset of Order Listing transaction families for future business sales truth.
-7. Decide the final treatment of cancelled, memo, complimentary, sales return, and Part Payment rows in business totals.
-8. Design a separate reliable payment-settlement truth layer for cash, card, due, and other split methods.
-9. Promote the read-only sales-policy layer into dashboard and profit logic only after the policy is approved.
-10. Finalize whether memo rows should remain unresolved, be excluded, or be included under a later approved rule.
-11. If memo review hints are revisited later, require an approved linking rule instead of relying on heuristic candidates alone.
-12. Treat weak memo evidence as low-confidence investigation only, not believable linkage.
-13. Promote the policy only after month-level and upload-level reconciliation remain clean.
-14. Add safer validation for spreadsheet structure before import.
-15. Add stronger success and failure messages for uploads and imports.
-16. Keep project docs updated whenever a new page, table, or flow is added.
-17. If future review rules are added, put them into the reusable read-only policy layer first and protect them with invariant tests before any UI or live-metric promotion.
+3. Start the first reusable expense query layer from `expense_imports`.
+4. Keep item-level analytics separate and based on `sales_item_imports`.
+5. Design the first manual-review workflow for `overlap_with_changes` uploads, using the new changed-overlap review details as the starting point.
+6. Decide how corrected re-uploads should be approved later without silent replacement.
+7. Define the correct subset of Order Listing transaction families for future business sales truth.
+8. Decide the final treatment of cancelled, memo, complimentary, sales return, and Part Payment rows in business totals.
+9. Design a separate reliable payment-settlement truth layer for cash, card, due, and other split methods.
+10. Promote the read-only sales-policy layer into dashboard and profit logic only after the policy is approved.
+11. Finalize whether memo rows should remain unresolved, be excluded, or be included under a later approved rule.
+12. If memo review hints are revisited later, require an approved linking rule instead of relying on heuristic candidates alone.
+13. Treat weak memo evidence as low-confidence investigation only, not believable linkage.
+14. Promote the policy only after month-level and upload-level reconciliation remain clean.
+15. Add safer validation for spreadsheet structure before import.
+16. Add stronger success and failure messages for uploads and imports.
+17. Keep project docs updated whenever a new page, table, or flow is added.
+18. If future review rules are added, put them into the reusable read-only policy layer first and protect them with invariant tests before any UI or live-metric promotion.
 
 ## Later Roadmap
 

@@ -538,3 +538,14 @@ Why it was taken:
 
 Current status:
 Active
+
+## Decision 50
+
+Decision:
+Start the reusable expense query layer with one small summary helper based on `expense_imports` only.
+
+Why it was taken:
+The dashboard expense amount and the top-level Expense Analytics summary cards already form one tight expense-side summary family. Extracting them into one helper keeps the next build step small and recoverable while preserving separation from sales-query helpers and from the read-only sales truth review layer.
+
+Current status:
+Active

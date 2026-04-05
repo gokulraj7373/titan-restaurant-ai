@@ -164,6 +164,10 @@ These are now the real sales ingestion targets for the smart sales upload flow.
 - Titan now also has a reusable dashboard order-level KPI helper under `lib/sales-query/dashboard-order-kpis.ts`.
 - The dashboard's `Today Sales`, `Orders`, and `Average Order Value` outputs now use that helper while staying on `sales_order_imports` only.
 - This KPI helper also stays separate from item-level analytics and from the read-only sales truth review layer.
+- Titan now also has a first reusable expense-side summary helper under `lib/expense-query/expense-summary.ts`.
+- The dashboard's `Imported Expense Amount` output now uses that helper while staying on `expense_imports` only.
+- Expense Analytics now uses that helper for `Imported Expense Rows`, `Total Expense Amount`, `Unique Categories`, and `Latest Expense Date`.
+- This expense helper stays separate from the sales-query helpers and from the read-only sales truth review layer.
 - Invariant tests now protect the extracted review policy behavior from silent drift.
 - No live policy promotion was done from the memo review tool.
 - This memo-review tightening did not change dashboard, profit overview, sales analytics, upload logic, ingestion logic, or the proposed net sale candidate total.

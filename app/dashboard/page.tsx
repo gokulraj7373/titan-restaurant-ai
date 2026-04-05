@@ -3,11 +3,10 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { SalesTruthStatusNotice } from "@/app/_components/sales-truth-status-notice";
+import { loadExpenseSummary } from "@/lib/expense-query/expense-summary";
 import { loadDashboardOrderKpis } from "@/lib/sales-query/dashboard-order-kpis";
 import { loadImportedOrderSalesAmount } from "@/lib/sales-query/order-sales-summary";
 import { supabase } from "@/lib/supabase";
-
-const BATCH_SIZE = 1000;
 
 type UploadLog = {
   id: number;
@@ -16,38 +15,6 @@ type UploadLog = {
   created_at: string;
   storage_path: string;
 };
-
-type ExpenseAmountRow = {
-  id: number;
-  amount: number | null;
-};
-
-async function fetchAllRows<T>(
-  loadBatch: (from: number, to: number) => Promise<{ data: T[] | null; error: unknown | null }>
-) {
-  const rows: T[] = [];
-  let from = 0;
-
-  while (true) {
-    const to = from + BATCH_SIZE - 1;
-    const { data, error } = await loadBatch(from, to);
-
-    if (error) {
-      throw error;
-    }
-
-    const batchRows = data ?? [];
-    rows.push(...batchRows);
-
-    if (batchRows.length < BATCH_SIZE) {
-      break;
-    }
-
-    from += BATCH_SIZE;
-  }
-
-  return rows;
-}
 
 export default function DashboardPage() {
   const [statusMessage, setStatusMessage] = useState("Loading connection status...");
@@ -198,16 +165,8 @@ export default function DashboardPage() {
         setAverageOrderValue(dashboardOrderKpis.averageOrderValue);
         setImportedSalesAmount(totalImportedSalesAmount);
 
-        const expenseRows = await fetchAllRows<ExpenseAmountRow>((from, to) =>
-          supabase
-            .from("expense_imports")
-            .select("id, amount")
-            .order("id", { ascending: true })
-            .range(from, to)
-        );
-        const totalExpenseAmount = expenseRows.reduce((sum, row) => {
-          return sum + Number(row.amount ?? 0);
-        }, 0);
+        const expenseSummary = await loadExpenseSummary();
+        const totalExpenseAmount = expenseSummary.totalExpenseAmount;
 
         setImportedExpenseAmount(totalExpenseAmount);
 
