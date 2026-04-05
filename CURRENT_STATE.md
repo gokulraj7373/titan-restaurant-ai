@@ -172,7 +172,8 @@ These are now the real sales ingestion targets for the smart sales upload flow.
 - The next safety step is to confirm that Upload History counts roughly match inserted rows in the target tables and then continue the broader consistency-check process.
 - A small Upload History consistency audit has now confirmed that sampled imported sales uploads match their logged inserted-row counts against `sales_order_imports` and `sales_item_imports`.
 - That same audit also confirmed that expense uploads still use older lighter log semantics in `uploads_log`, so Upload History remains directionally safe but less precise for expenses than for sales.
-- The next safety step is to run the remaining consistency audit across Expense Analytics and then continue the broader consistency-check process.
+- A small Expense Analytics consistency audit has now confirmed that `/expense-analytics` reads directly from `expense_imports` and does not accidentally depend on the read-only sales truth review layer.
+- The next safety step is to verify that each page uses the correct source table before adding more ingestion complexity and then continue the broader consistency-check process.
 
 ## Clean Snapshot
 

@@ -10,11 +10,11 @@ This handoff file may itself be refreshed later in a docs-only commit without tr
 
 ## What Was Completed In The Latest Session
 
-- Completed a small Upload History consistency audit across `/uploads`, `uploads_log`, `sales_order_imports`, `sales_item_imports`, and `expense_imports`.
-- Confirmed sampled imported sales uploads match their logged `inserted_row_count` against exact target-table rows in `sales_order_imports` and `sales_item_imports`.
-- Confirmed rejected sales uploads continue to show zero inserted rows in a way that stays directionally consistent with the target tables.
-- Confirmed `/uploads` stays owner-safe because it shows parsed, inserted, rejected, and target-table details only when those fields actually exist in `uploads_log`.
-- Confirmed expense uploads still use older lighter log semantics: the upload history remains directionally safe, but expense rows can exist in `expense_imports` without `target_table` or inserted-row detail being populated in `uploads_log`.
+- Completed the remaining consistency audit across `/expense-analytics`.
+- Confirmed `/expense-analytics` is powered by `app/expense-analytics/page.tsx`.
+- Confirmed `/expense-analytics` reads directly from `expense_imports` only and uses that intended expense-side source consistently for its summary cards, top categories, and latest rows.
+- Confirmed `/expense-analytics` does not import or depend on `lib/sales-truth-review/*` or any read-only sales truth review policy logic.
+- Confirmed the page wording stays owner-safe and does not blur expense analytics with sales truth review or live sales truth promotion.
 - Kept the audit read-only with no code changes.
 
 ## CURRENT WORKING TREE EXPECTATION
@@ -29,7 +29,7 @@ This handoff file may itself be refreshed later in a docs-only commit without tr
 
 ## EXACT NEXT SAFEST STEP
 
-- Run the remaining consistency audit across Expense Analytics.
+- Verify that each page uses the correct source table before adding more ingestion complexity.
 
 ## WARNINGS AND PENDING CAUTIONS
 

@@ -505,3 +505,14 @@ The completed Upload History consistency audit confirmed that sampled imported s
 
 Current status:
 Active
+
+## Decision 47
+
+Decision:
+Keep `/expense-analytics` directly tied to `expense_imports` and separate from the read-only sales truth review layer.
+
+Why it was taken:
+The completed Expense Analytics consistency audit confirmed that `app/expense-analytics/page.tsx` reads from `expense_imports` only and does not import or depend on `lib/sales-truth-review/*`. This keeps expense-side analytics cleanly separated from sales truth review and avoids accidental policy blur.
+
+Current status:
+Active

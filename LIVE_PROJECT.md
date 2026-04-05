@@ -37,6 +37,7 @@ That baton-pass file uses a latest verified baton-anchor model, so it can be ref
 - No accidental dependency on `lib/sales-truth-review/*` was found in those audited live-facing pages.
 - A small Upload History consistency audit has confirmed that sampled imported sales uploads match their logged inserted-row counts against `sales_order_imports` and `sales_item_imports`.
 - That same audit also confirmed that expense uploads still use older lighter log semantics, so `/uploads` stays directionally safe but less precise for expenses than for sales.
+- A small Expense Analytics consistency audit has confirmed that `/expense-analytics` reads from `expense_imports` only and stays separate from the read-only sales truth review layer.
 
 ## Current Architecture State
 
@@ -117,6 +118,6 @@ That reminder points back to `/sales-truth-review` and does not mean live promot
 ## Current Recommended Direction
 
 The exact next safest step remains:
-- run the remaining consistency audit across Expense Analytics
+- verify that each page uses the correct source table before adding more ingestion complexity
 
 This section should stay aligned with `SESSION_HANDOFF.md`.
