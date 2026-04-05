@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { SalesTruthStatusNotice } from "@/app/_components/sales-truth-status-notice";
+import { loadImportedOrderSalesAmount } from "@/lib/sales-query/order-sales-summary";
 import { supabase } from "@/lib/supabase";
 
 const BATCH_SIZE = 1000;
@@ -203,18 +204,7 @@ export default function DashboardPage() {
       setImportedExpenseRowsCount(expenseImportsCountError ? 0 : expenseImportsCount ?? 0);
 
       try {
-        const salesOrderRows = await fetchAllRows<SalesOrderMetricRow>((from, to) =>
-          supabase
-            .schema("public")
-            .from("sales_order_imports")
-            .select("id, bill_date, order_no, effective_total")
-            .order("id", { ascending: true })
-            .range(from, to)
-        );
-
-        const totalImportedSalesAmount = salesOrderRows.reduce((sum, row) => {
-          return sum + Number(row.effective_total ?? 0);
-        }, 0);
+        const totalImportedSalesAmount = await loadImportedOrderSalesAmount();
 
         const latestBillDate = latestSalesDateError ? null : latestSalesDateRow?.bill_date ?? null;
         const latestRows = latestBillDate

@@ -2,7 +2,7 @@
 
 ## LATEST VERIFIED BATON ANCHOR COMMIT
 
-- `6e7e6d6` Finalize Titan continuity docs and baton-pass anchor model
+- `eae96a2` Record Expense Analytics audit and refresh baton step
 
 This is the latest verified commit that the current baton-pass state is anchored to.
 
@@ -10,12 +10,11 @@ This handoff file may itself be refreshed later in a docs-only commit without tr
 
 ## What Was Completed In The Latest Session
 
-- Completed the remaining consistency audit across `/expense-analytics`.
-- Confirmed `/expense-analytics` is powered by `app/expense-analytics/page.tsx`.
-- Confirmed `/expense-analytics` reads directly from `expense_imports` only and uses that intended expense-side source consistently for its summary cards, top categories, and latest rows.
-- Confirmed `/expense-analytics` does not import or depend on `lib/sales-truth-review/*` or any read-only sales truth review policy logic.
-- Confirmed the page wording stays owner-safe and does not blur expense analytics with sales truth review or live sales truth promotion.
-- Kept the audit read-only with no code changes.
+- Added the first small reusable order-level sales query helper under `lib/sales-query/`.
+- Extracted the dashboard's existing `Imported Order Sales` output to use that helper.
+- Kept the helper narrow and deterministic by using `sales_order_imports` only.
+- Kept item-level analytics separate and avoided any dependency on `lib/sales-truth-review/*`.
+- Preserved the existing `Imported Order Sales` result while leaving the rest of the dashboard sales logic unchanged in this milestone.
 
 ## CURRENT WORKING TREE EXPECTATION
 
@@ -23,13 +22,13 @@ This handoff file may itself be refreshed later in a docs-only commit without tr
 
 ## CURRENT ACTIVE FOCUS
 
-- Keep Titan in a read-only truth-review phase.
+- Keep Titan in a read-only truth-review phase while beginning the first small reusable live sales-query layer.
 - Improve owner clarity, safety, recovery, and consistency without promoting policy.
 - Treat `/sales-truth-review` as the current truth-checking control room while keeping live-facing pages clearly separate from the read-only review layer.
 
 ## EXACT NEXT SAFEST STEP
 
-- Verify that each page uses the correct source table before adding more ingestion complexity.
+- Extend the new order-level sales query layer to one more safe existing dashboard output without touching item-level analytics or the read-only truth-review layer.
 
 ## WARNINGS AND PENDING CAUTIONS
 

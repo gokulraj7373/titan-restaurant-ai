@@ -44,6 +44,8 @@ That baton-pass file uses a latest verified baton-anchor model, so it can be ref
 - `sales_order_imports` is the order-level review source.
 - `sales_item_imports` is the item-level analytics source.
 - `expense_imports` is the current expense source.
+- Titan now also has a first reusable order-level live sales query helper:
+  - `lib/sales-query/order-sales-summary.ts`
 - Sales truth review logic is extracted into a reusable read-only layer:
   - `lib/sales-truth-review/types.ts`
   - `lib/sales-truth-review/policy.ts`
@@ -80,6 +82,12 @@ These pages now show a small read-only sales truth status reminder:
 
 That reminder points back to `/sales-truth-review` and does not mean live promotion has happened.
 
+### First Live Sales Query Layer
+
+- The dashboard now uses one reusable order-level sales query helper for `Imported Order Sales`.
+- That helper reads from `sales_order_imports` only.
+- This is a maintainability step only and does not promote the read-only sales truth review layer into live truth.
+
 ## Non-Negotiable Safety Rules
 
 - No policy promotion without explicit approval.
@@ -95,6 +103,8 @@ That reminder points back to `/sales-truth-review` and does not mean live promot
 
 ## Latest Important Safe Commits
 
+- `eae96a2` Record Expense Analytics audit and refresh baton step
+- `907a233` Record Upload History audit and refresh baton step
 - `6e7e6d6` Finalize Titan continuity docs and baton-pass anchor model
 - `ed49b38` Refresh Titan baton-pass docs and harden doc update rules
 - `96326a7` Refresh latest Titan baton-pass state after continuity cleanup
@@ -118,6 +128,6 @@ That reminder points back to `/sales-truth-review` and does not mean live promot
 ## Current Recommended Direction
 
 The exact next safest step remains:
-- verify that each page uses the correct source table before adding more ingestion complexity
+- extend the new order-level sales query layer to one more safe existing dashboard output without touching item-level analytics or the read-only truth-review layer
 
 This section should stay aligned with `SESSION_HANDOFF.md`.

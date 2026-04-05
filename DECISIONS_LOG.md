@@ -516,3 +516,14 @@ The completed Expense Analytics consistency audit confirmed that `app/expense-an
 
 Current status:
 Active
+
+## Decision 48
+
+Decision:
+Start the live order-level sales query layer with one small reusable helper for the dashboard's existing `Imported Order Sales` output.
+
+Why it was taken:
+Titan needs to move beyond audits into a reusable live query foundation, but the first step should stay narrow and recoverable. Extracting only the existing `Imported Order Sales` output into a helper based on `sales_order_imports` creates that foundation without mixing item-level analytics or pulling in the read-only sales truth review layer.
+
+Current status:
+Active

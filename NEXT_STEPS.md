@@ -2,10 +2,10 @@
 
 ## Immediate Next Steps
 
-1. Verify that each page uses the correct source table before adding more ingestion complexity.
-2. Fix any stale or mixed source logic before building more advanced features.
-3. Review whether Upload History should later expose clearer expense-ingestion detail without overstating precision.
-4. Use `DATA_CONSISTENCY_CHECKS.md` and `QA_CHECKLIST.md` as the verification guide.
+1. Extend the new order-level sales query layer to one more safe existing dashboard output without touching item-level analytics or the read-only truth-review layer.
+2. Verify that each page uses the correct source table before adding more ingestion complexity.
+3. Fix any stale or mixed source logic before building more advanced features.
+4. Review whether Upload History should later expose clearer expense-ingestion detail without overstating precision.
 5. Use the new Sales Reconciliation page to inspect fallback-total and total-difference order rows.
 6. Test the new sales upload classifications with duplicate, append-only, gap-fill, and changed-overlap files.
 7. Use the changed-overlap review on the sales upload page to understand why blocked Order Listing files differ before designing any merge logic.
@@ -30,11 +30,12 @@
 26. Keep the completed live-facing sales-page consistency audit recorded as a finished check so future agents do not repeat it as the next baton step.
 27. Keep the completed Upload History consistency audit recorded as a finished check so future agents do not repeat it as the next baton step.
 28. Keep the completed Expense Analytics consistency audit recorded as a finished check so future agents do not repeat it as the next baton step.
+29. Keep the first reusable live order-level sales query helper small, deterministic, and separate from item-level analytics and the read-only sales truth review layer.
 
 ## Short-Term Next Steps
 
-1. Build the first real sales query engine layer from `sales_order_imports`.
-2. Create one safe order-level analytics output first, instead of trying to rebuild all sales analytics at once.
+1. Extend the first real sales query engine layer from `sales_order_imports`.
+2. Move one safe order-level analytics output at a time, instead of trying to rebuild all sales analytics at once.
 3. Keep item-level analytics separate and based on `sales_item_imports`.
 4. Design the first manual-review workflow for `overlap_with_changes` uploads, using the new changed-overlap review details as the starting point.
 5. Decide how corrected re-uploads should be approved later without silent replacement.

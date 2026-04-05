@@ -158,6 +158,9 @@ These are now the real sales ingestion targets for the smart sales upload flow.
 - Sales truth review logic now also has a reusable read-only policy layer under `lib/sales-truth-review`.
 - This extraction was done for maintainability, safety, and testability, not for live policy promotion.
 - `/sales-truth-review` now uses that reusable read-only policy layer as its review engine while staying a read-only page in effect.
+- Titan now also has a first small reusable live order-level sales query helper under `lib/sales-query/order-sales-summary.ts`.
+- The dashboard's `Imported Order Sales` output now uses that helper while staying on `sales_order_imports` only.
+- This new helper stays separate from item-level analytics and from the read-only sales truth review layer.
 - Invariant tests now protect the extracted review policy behavior from silent drift.
 - No live policy promotion was done from the memo review tool.
 - This memo-review tightening did not change dashboard, profit overview, sales analytics, upload logic, ingestion logic, or the proposed net sale candidate total.
@@ -173,7 +176,7 @@ These are now the real sales ingestion targets for the smart sales upload flow.
 - A small Upload History consistency audit has now confirmed that sampled imported sales uploads match their logged inserted-row counts against `sales_order_imports` and `sales_item_imports`.
 - That same audit also confirmed that expense uploads still use older lighter log semantics in `uploads_log`, so Upload History remains directionally safe but less precise for expenses than for sales.
 - A small Expense Analytics consistency audit has now confirmed that `/expense-analytics` reads directly from `expense_imports` and does not accidentally depend on the read-only sales truth review layer.
-- The next safety step is to verify that each page uses the correct source table before adding more ingestion complexity and then continue the broader consistency-check process.
+- The next safety step is to extend the new order-level sales query layer to one more safe existing dashboard output without touching item-level analytics or the read-only truth-review layer.
 
 ## Clean Snapshot
 
