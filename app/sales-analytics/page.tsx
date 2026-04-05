@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { SalesTruthStatusNotice } from "@/app/_components/sales-truth-status-notice";
+import { loadItemSalesSummary } from "@/lib/sales-query/item-sales-summary";
 import { supabase } from "@/lib/supabase";
 
 const BATCH_SIZE = 1000;
@@ -59,7 +60,7 @@ export default function SalesAnalyticsPage() {
       try {
         const [
           { data: latestRowsData, error: latestRowsError },
-          { count: importedRowsCount, error: importedRowsCountError },
+          itemSalesSummary,
         ] = await Promise.all([
           supabase
             .schema("public")
@@ -68,11 +69,11 @@ export default function SalesAnalyticsPage() {
             .order("item_date", { ascending: false })
             .order("id", { ascending: false })
             .limit(10),
-          supabase.schema("public").from("sales_item_imports").select("*", { count: "exact", head: true }),
+          loadItemSalesSummary(),
         ]);
 
-        if (latestRowsError || importedRowsCountError) {
-          throw latestRowsError ?? importedRowsCountError;
+        if (latestRowsError) {
+          throw latestRowsError;
         }
 
         const allRows = await fetchAllRows<SalesItemImportRow>((from, to) =>
@@ -85,12 +86,10 @@ export default function SalesAnalyticsPage() {
         );
 
         setRows(latestRowsData ?? []);
-        setImportedRows(importedRowsCount ?? 0);
-        setTotalSalesAmount(
-          allRows.reduce((sum, row) => sum + Number(row.final_total ?? 0), 0)
-        );
-        setTotalQuantity(allRows.reduce((sum, row) => sum + Number(row.qty ?? 0), 0));
-        setUniqueBills(new Set(allRows.map((row) => row.invoice_no)).size);
+        setImportedRows(itemSalesSummary.importedRows);
+        setTotalSalesAmount(itemSalesSummary.totalSalesAmount);
+        setTotalQuantity(itemSalesSummary.totalQuantity);
+        setUniqueBills(itemSalesSummary.uniqueBills);
         setTopItems(
           Object.values(
             allRows.reduce<

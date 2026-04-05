@@ -549,3 +549,14 @@ The dashboard expense amount and the top-level Expense Analytics summary cards a
 
 Current status:
 Active
+
+## Decision 51
+
+Decision:
+Start the reusable item-level sales query layer with one small summary helper based on `sales_item_imports` only.
+
+Why it was taken:
+The Sales Analytics summary cards already form one tight item-level summary family. Extracting them into one helper keeps the build step small and recoverable while preserving separation from order-level helpers and from the read-only sales truth review layer.
+
+Current status:
+Active

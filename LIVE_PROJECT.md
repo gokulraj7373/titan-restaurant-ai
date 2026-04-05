@@ -48,6 +48,8 @@ That baton-pass file uses a latest verified baton-anchor model, so it can be ref
   - `lib/sales-query/order-sales-summary.ts`
 - Titan now also has a reusable dashboard order-level KPI helper:
   - `lib/sales-query/dashboard-order-kpis.ts`
+- Titan now also has a first reusable item-level sales summary helper:
+  - `lib/sales-query/item-sales-summary.ts`
 - Titan now also has a first reusable expense-side summary helper:
   - `lib/expense-query/expense-summary.ts`
 - Sales truth review logic is extracted into a reusable read-only layer:
@@ -94,6 +96,12 @@ That reminder points back to `/sales-truth-review` and does not mean live promot
 - That KPI helper also reads from `sales_order_imports` only.
 - This is a maintainability step only and does not promote the read-only sales truth review layer into live truth.
 
+### First Item-Level Sales Query Layer
+
+- Sales Analytics now uses one reusable item-level sales summary helper for `Imported Rows`, `Item Revenue Total`, `Total Quantity`, and `Unique Bills`.
+- That helper reads from `sales_item_imports` only.
+- This is a maintainability step only and does not affect the read-only sales truth review layer or live promotion state.
+
 ### First Expense Query Layer
 
 - The dashboard now uses one reusable expense-side summary helper for `Imported Expense Amount`.
@@ -116,6 +124,7 @@ That reminder points back to `/sales-truth-review` and does not mean live promot
 
 ## Latest Important Safe Commits
 
+- `33d3957` Extract first expense summary query helper
 - `1d1eda6` Extract dashboard order KPI query helper
 - `6e173ea` Extract first order-level sales query helper for dashboard
 - `eae96a2` Record Expense Analytics audit and refresh baton step
