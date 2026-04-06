@@ -2,10 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { SalesTruthStatusNotice } from "@/app/_components/sales-truth-status-notice";
+import { loadItemSalesDetails } from "@/lib/sales-query/item-sales-details";
 import { loadItemSalesSummary } from "@/lib/sales-query/item-sales-summary";
-import { supabase } from "@/lib/supabase";
-
-const BATCH_SIZE = 1000;
 
 type SalesItemImportRow = {
   id: number;
@@ -15,33 +13,6 @@ type SalesItemImportRow = {
   qty: number;
   final_total: number;
 };
-
-async function fetchAllRows<T>(
-  loadBatch: (from: number, to: number) => Promise<{ data: T[] | null; error: unknown | null }>
-) {
-  const rows: T[] = [];
-  let from = 0;
-
-  while (true) {
-    const to = from + BATCH_SIZE - 1;
-    const { data, error } = await loadBatch(from, to);
-
-    if (error) {
-      throw error;
-    }
-
-    const batchRows = data ?? [];
-    rows.push(...batchRows);
-
-    if (batchRows.length < BATCH_SIZE) {
-      break;
-    }
-
-    from += BATCH_SIZE;
-  }
-
-  return rows;
-}
 
 export default function SalesAnalyticsPage() {
   const [rows, setRows] = useState<SalesItemImportRow[]>([]);
@@ -58,62 +29,17 @@ export default function SalesAnalyticsPage() {
   useEffect(() => {
     const loadSalesImports = async () => {
       try {
-        const [
-          { data: latestRowsData, error: latestRowsError },
-          itemSalesSummary,
-        ] = await Promise.all([
-          supabase
-            .schema("public")
-            .from("sales_item_imports")
-            .select("id, item_date, invoice_no, item_name, qty, final_total")
-            .order("item_date", { ascending: false })
-            .order("id", { ascending: false })
-            .limit(10),
+        const [itemSalesSummary, itemSalesDetails] = await Promise.all([
           loadItemSalesSummary(),
+          loadItemSalesDetails(),
         ]);
 
-        if (latestRowsError) {
-          throw latestRowsError;
-        }
-
-        const allRows = await fetchAllRows<SalesItemImportRow>((from, to) =>
-          supabase
-            .schema("public")
-            .from("sales_item_imports")
-            .select("id, item_date, invoice_no, item_name, qty, final_total")
-            .order("id", { ascending: true })
-            .range(from, to)
-        );
-
-        setRows(latestRowsData ?? []);
+        setRows(itemSalesDetails.latestRows);
         setImportedRows(itemSalesSummary.importedRows);
         setTotalSalesAmount(itemSalesSummary.totalSalesAmount);
         setTotalQuantity(itemSalesSummary.totalQuantity);
         setUniqueBills(itemSalesSummary.uniqueBills);
-        setTopItems(
-          Object.values(
-            allRows.reduce<
-              Record<string, { item_name: string; totalQty: number; totalAmount: number }>
-            >((groupedItems, row) => {
-              const existingItem = groupedItems[row.item_name];
-
-              if (existingItem) {
-                existingItem.totalQty += Number(row.qty ?? 0);
-                existingItem.totalAmount += Number(row.final_total ?? 0);
-              } else {
-                groupedItems[row.item_name] = {
-                  item_name: row.item_name,
-                  totalQty: Number(row.qty ?? 0),
-                  totalAmount: Number(row.final_total ?? 0),
-                };
-              }
-
-              return groupedItems;
-            }, {})
-          )
-            .sort((firstItem, secondItem) => secondItem.totalAmount - firstItem.totalAmount)
-            .slice(0, 5)
-        );
+        setTopItems(itemSalesDetails.topItems);
         setLoadError(false);
       } catch {
         setLoadError(true);

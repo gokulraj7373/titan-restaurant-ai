@@ -560,3 +560,14 @@ The Sales Analytics summary cards already form one tight item-level summary fami
 
 Current status:
 Active
+
+## Decision 52
+
+Decision:
+Extract analytics detail sections into small source-specific helpers instead of keeping that shaping logic inline on the analytics pages.
+
+Why it was taken:
+`Top Selling Items`, `Latest Imported Rows`, `Top Expense Categories`, and `Latest Imported Expense Rows` already form two small detail families with clear source-table boundaries. Moving them into narrow helpers improves maintainability and recovery safety without changing visible analytics behavior or touching the read-only sales truth review layer.
+
+Current status:
+Active

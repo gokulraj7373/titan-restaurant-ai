@@ -1,8 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { loadExpenseDetails } from "@/lib/expense-query/expense-details";
 import { loadExpenseSummary } from "@/lib/expense-query/expense-summary";
-import { supabase } from "@/lib/supabase";
 
 type ExpenseImportRow = {
   id: number;
@@ -14,6 +14,9 @@ type ExpenseImportRow = {
 
 export default function ExpenseAnalyticsPage() {
   const [rows, setRows] = useState<ExpenseImportRow[]>([]);
+  const [topCategories, setTopCategories] = useState<
+    { category: string; totalRows: number; totalAmount: number }[]
+  >([]);
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState(false);
   const [importedExpenseRows, setImportedExpenseRows] = useState(0);
@@ -24,28 +27,13 @@ export default function ExpenseAnalyticsPage() {
   useEffect(() => {
     const loadExpenseImports = async () => {
       try {
-        const [{ data, error }, expenseSummaryResult] = await Promise.all([
-          supabase
-            .from("expense_imports")
-            .select("id, expense_date, category, description, amount")
-            .order("expense_date", { ascending: false })
-            .order("id", { ascending: false }),
+        const [expenseSummaryResult, expenseDetailsResult] = await Promise.all([
           loadExpenseSummary(),
+          loadExpenseDetails(),
         ]);
 
-        if (error) {
-          setLoadError(true);
-          setRows([]);
-          setImportedExpenseRows(0);
-          setTotalExpenseAmount(0);
-          setUniqueCategories(0);
-          setLatestExpenseDateRaw(null);
-          setLoading(false);
-          return;
-        }
-
-        const nextRows = data ?? [];
-        setRows(nextRows);
+        setRows(expenseDetailsResult.latestRows);
+        setTopCategories(expenseDetailsResult.topCategories);
         setImportedExpenseRows(expenseSummaryResult.importedExpenseRowsCount);
         setTotalExpenseAmount(expenseSummaryResult.totalExpenseAmount);
         setUniqueCategories(expenseSummaryResult.uniqueCategories);
@@ -55,6 +43,7 @@ export default function ExpenseAnalyticsPage() {
       } catch {
         setLoadError(true);
         setRows([]);
+        setTopCategories([]);
         setImportedExpenseRows(0);
         setTotalExpenseAmount(0);
         setUniqueCategories(0);
@@ -74,32 +63,7 @@ export default function ExpenseAnalyticsPage() {
 
   const latestExpenseDate =
     loadError || !latestExpenseDateRaw ? "-" : formatExpenseDate(latestExpenseDateRaw);
-  const topCategories = loadError
-    ? []
-    : Object.values(
-        rows.reduce<Record<string, { category: string; totalRows: number; totalAmount: number }>>(
-          (groupedCategories, row) => {
-            const existingCategory = groupedCategories[row.category];
-
-            if (existingCategory) {
-              existingCategory.totalRows += 1;
-              existingCategory.totalAmount += Number(row.amount ?? 0);
-            } else {
-              groupedCategories[row.category] = {
-                category: row.category,
-                totalRows: 1,
-                totalAmount: Number(row.amount ?? 0),
-              };
-            }
-
-            return groupedCategories;
-          },
-          {}
-        )
-      )
-        .sort((firstCategory, secondCategory) => secondCategory.totalAmount - firstCategory.totalAmount)
-        .slice(0, 5);
-  const latestRows = rows.slice(0, 10);
+  const latestRows = rows;
 
   return (
     <main className="min-h-screen bg-black text-white p-8">

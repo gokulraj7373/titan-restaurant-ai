@@ -50,8 +50,12 @@ That baton-pass file uses a latest verified baton-anchor model, so it can be ref
   - `lib/sales-query/dashboard-order-kpis.ts`
 - Titan now also has a first reusable item-level sales summary helper:
   - `lib/sales-query/item-sales-summary.ts`
+- Titan now also has a reusable item-level sales analytics detail helper:
+  - `lib/sales-query/item-sales-details.ts`
 - Titan now also has a first reusable expense-side summary helper:
   - `lib/expense-query/expense-summary.ts`
+- Titan now also has a reusable expense analytics detail helper:
+  - `lib/expense-query/expense-details.ts`
 - Sales truth review logic is extracted into a reusable read-only layer:
   - `lib/sales-truth-review/types.ts`
   - `lib/sales-truth-review/policy.ts`
@@ -101,6 +105,8 @@ That reminder points back to `/sales-truth-review` and does not mean live promot
 - Sales Analytics now uses one reusable item-level sales summary helper for `Imported Rows`, `Item Revenue Total`, `Total Quantity`, and `Unique Bills`.
 - That helper reads from `sales_item_imports` only.
 - This is a maintainability step only and does not affect the read-only sales truth review layer or live promotion state.
+- Sales Analytics now also uses one reusable detail helper for `Top Selling Items` and `Latest Imported Rows`.
+- That detail helper also reads from `sales_item_imports` only.
 
 ### First Expense Query Layer
 
@@ -108,6 +114,8 @@ That reminder points back to `/sales-truth-review` and does not mean live promot
 - Expense Analytics now uses that same helper for `Imported Expense Rows`, `Total Expense Amount`, `Unique Categories`, and `Latest Expense Date`.
 - That helper reads from `expense_imports` only.
 - This is a maintainability step only and does not affect sales truth review policy or live promotion state.
+- Expense Analytics now also uses one reusable detail helper for `Top Expense Categories` and `Latest Imported Expense Rows`.
+- That detail helper also reads from `expense_imports` only.
 
 ## Non-Negotiable Safety Rules
 
@@ -124,6 +132,7 @@ That reminder points back to `/sales-truth-review` and does not mean live promot
 
 ## Latest Important Safe Commits
 
+- `5ae65c5` Extract first item-level sales summary query helper
 - `33d3957` Extract first expense summary query helper
 - `1d1eda6` Extract dashboard order KPI query helper
 - `6e173ea` Extract first order-level sales query helper for dashboard

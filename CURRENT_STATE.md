@@ -171,6 +171,10 @@ These are now the real sales ingestion targets for the smart sales upload flow.
 - Titan now also has a first reusable item-level sales summary helper under `lib/sales-query/item-sales-summary.ts`.
 - Sales Analytics now uses that helper for `Imported Rows`, `Item Revenue Total`, `Total Quantity`, and `Unique Bills`.
 - This item-level helper stays on `sales_item_imports` only and stays separate from order-level helpers and from the read-only sales truth review layer.
+- Titan now also has a reusable item-level sales detail helper under `lib/sales-query/item-sales-details.ts`.
+- Sales Analytics now uses that helper for `Top Selling Items` and `Latest Imported Rows` while staying on `sales_item_imports` only.
+- Titan now also has a reusable expense detail helper under `lib/expense-query/expense-details.ts`.
+- Expense Analytics now uses that helper for `Top Expense Categories` and `Latest Imported Expense Rows` while staying on `expense_imports` only.
 - Invariant tests now protect the extracted review policy behavior from silent drift.
 - No live policy promotion was done from the memo review tool.
 - This memo-review tightening did not change dashboard, profit overview, sales analytics, upload logic, ingestion logic, or the proposed net sale candidate total.
