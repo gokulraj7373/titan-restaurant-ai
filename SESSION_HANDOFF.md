@@ -2,7 +2,7 @@
 
 ## LATEST VERIFIED BATON ANCHOR COMMIT
 
-- `5ae65c5` Extract first item-level sales summary query helper
+- `4e0e25e` Extract reusable analytics detail query helpers
 
 This is the latest verified commit that the current baton-pass state is anchored to.
 
@@ -10,11 +10,10 @@ This handoff file may itself be refreshed later in a docs-only commit without tr
 
 ## What Was Completed In The Latest Session
 
-- Added reusable analytics-detail helpers for Sales Analytics and Expense Analytics.
-- Extracted Sales Analytics `Top Selling Items` and `Latest Imported Rows` to a helper under `lib/sales-query/`.
-- Extracted Expense Analytics `Top Expense Categories` and `Latest Imported Expense Rows` to a helper under `lib/expense-query/`.
-- Kept the sales detail helper on `sales_item_imports` only and the expense detail helper on `expense_imports` only.
-- Kept the detail helpers separate from order-level helpers and from `lib/sales-truth-review/*`.
+- Added the first reusable profit summary helper under `lib/profit-query/profit-overview-summary.ts`.
+- Extracted `/profit-overview` summary outputs to use that helper for total sales, total expenses, estimated gross profit, profit margin, and imported row counts.
+- Kept the helper narrow and deterministic by using the page's existing live-facing sources only: `sales_order_imports` and `expense_imports`.
+- Kept the helper separate from dashboard, sales analytics, expense analytics, and `lib/sales-truth-review/*`.
 
 ## CURRENT WORKING TREE EXPECTATION
 
@@ -22,7 +21,7 @@ This handoff file may itself be refreshed later in a docs-only commit without tr
 
 ## CURRENT ACTIVE FOCUS
 
-- Keep Titan in a read-only truth-review phase while extending the first small reusable live analytics/query layer across order-level, expense-side, and item-level helpers.
+- Keep Titan in a read-only truth-review phase while extending the first small reusable live analytics/query layer across order-level, item-level, expense-side, and profit-side helpers.
 - Improve owner clarity, safety, recovery, and consistency without promoting policy.
 - Treat `/sales-truth-review` as the current truth-checking control room while keeping live-facing pages clearly separate from the read-only review layer.
 

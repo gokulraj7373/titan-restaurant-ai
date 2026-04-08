@@ -571,3 +571,14 @@ Why it was taken:
 
 Current status:
 Active
+
+## Decision 53
+
+Decision:
+Extract the `/profit-overview` summary calculations into one small reusable helper based only on the page's existing live-facing sources.
+
+Why it was taken:
+The profit page already had one tight summary family built from `sales_order_imports` and `expense_imports`. Moving that summary logic into a narrow helper improves maintainability and recovery safety without changing visible profit behavior, pulling in `sales_item_imports`, or touching the read-only sales truth review layer.
+
+Current status:
+Active

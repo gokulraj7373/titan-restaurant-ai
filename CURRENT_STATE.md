@@ -175,6 +175,9 @@ These are now the real sales ingestion targets for the smart sales upload flow.
 - Sales Analytics now uses that helper for `Top Selling Items` and `Latest Imported Rows` while staying on `sales_item_imports` only.
 - Titan now also has a reusable expense detail helper under `lib/expense-query/expense-details.ts`.
 - Expense Analytics now uses that helper for `Top Expense Categories` and `Latest Imported Expense Rows` while staying on `expense_imports` only.
+- Titan now also has a reusable profit summary helper under `lib/profit-query/profit-overview-summary.ts`.
+- Profit Overview now uses that helper for total sales, total expenses, estimated gross profit, profit margin, and imported row counts.
+- This profit helper stays on the page's existing live-facing sources only: `sales_order_imports` and `expense_imports`.
 - Invariant tests now protect the extracted review policy behavior from silent drift.
 - No live policy promotion was done from the memo review tool.
 - This memo-review tightening did not change dashboard, profit overview, sales analytics, upload logic, ingestion logic, or the proposed net sale candidate total.

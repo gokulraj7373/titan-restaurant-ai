@@ -2,50 +2,13 @@
 
 import { useEffect, useState } from "react";
 import { SalesTruthStatusNotice } from "@/app/_components/sales-truth-status-notice";
-import { supabase } from "@/lib/supabase";
-
-const BATCH_SIZE = 1000;
-
-type SalesAmountRow = {
-  id: number;
-  effective_total: number;
-};
-
-type ExpenseAmountRow = {
-  id: number;
-  amount: number;
-};
-
-async function fetchAllRows<T>(
-  loadBatch: (from: number, to: number) => Promise<{ data: T[] | null; error: unknown | null }>
-) {
-  const rows: T[] = [];
-  let from = 0;
-
-  while (true) {
-    const to = from + BATCH_SIZE - 1;
-    const { data, error } = await loadBatch(from, to);
-
-    if (error) {
-      throw error;
-    }
-
-    const batchRows = data ?? [];
-    rows.push(...batchRows);
-
-    if (batchRows.length < BATCH_SIZE) {
-      break;
-    }
-
-    from += BATCH_SIZE;
-  }
-
-  return rows;
-}
+import { loadProfitOverviewSummary } from "@/lib/profit-query/profit-overview-summary";
 
 export default function ProfitOverviewPage() {
   const [totalSalesAmount, setTotalSalesAmount] = useState(0);
   const [totalExpenseAmount, setTotalExpenseAmount] = useState(0);
+  const [estimatedGrossProfit, setEstimatedGrossProfit] = useState(0);
+  const [profitMargin, setProfitMargin] = useState(0);
   const [importedSalesRowsCount, setImportedSalesRowsCount] = useState(0);
   const [importedExpenseRowsCount, setImportedExpenseRowsCount] = useState(0);
   const [loading, setLoading] = useState(true);
@@ -54,49 +17,21 @@ export default function ProfitOverviewPage() {
   useEffect(() => {
     const loadProfitData = async () => {
       try {
-        const [
-          { count: salesCount, error: salesCountError },
-          { count: expenseCount, error: expenseCountError },
-        ] = await Promise.all([
-          supabase.schema("public").from("sales_order_imports").select("*", { count: "exact", head: true }),
-          supabase.from("expense_imports").select("*", { count: "exact", head: true }),
-        ]);
+        const summary = await loadProfitOverviewSummary();
 
-        if (salesCountError || expenseCountError) {
-          throw salesCountError ?? expenseCountError;
-        }
-
-        const [salesRows, expenseRows] = await Promise.all([
-          fetchAllRows<SalesAmountRow>((from, to) =>
-            supabase
-              .schema("public")
-              .from("sales_order_imports")
-              .select("id, effective_total")
-              .order("id", { ascending: true })
-              .range(from, to)
-          ),
-          fetchAllRows<ExpenseAmountRow>((from, to) =>
-            supabase
-              .from("expense_imports")
-              .select("id, amount")
-              .order("id", { ascending: true })
-              .range(from, to)
-          ),
-        ]);
-
-        setTotalSalesAmount(
-          salesRows.reduce((sum, row) => sum + Number(row.effective_total ?? 0), 0)
-        );
-        setTotalExpenseAmount(
-          expenseRows.reduce((sum, row) => sum + Number(row.amount ?? 0), 0)
-        );
-        setImportedSalesRowsCount(salesCount ?? 0);
-        setImportedExpenseRowsCount(expenseCount ?? 0);
+        setTotalSalesAmount(summary.totalSalesAmount);
+        setTotalExpenseAmount(summary.totalExpenseAmount);
+        setEstimatedGrossProfit(summary.estimatedGrossProfit);
+        setProfitMargin(summary.profitMargin);
+        setImportedSalesRowsCount(summary.importedSalesRowsCount);
+        setImportedExpenseRowsCount(summary.importedExpenseRowsCount);
         setLoadError(false);
       } catch {
         setLoadError(true);
         setTotalSalesAmount(0);
         setTotalExpenseAmount(0);
+        setEstimatedGrossProfit(0);
+        setProfitMargin(0);
         setImportedSalesRowsCount(0);
         setImportedExpenseRowsCount(0);
       }
@@ -119,12 +54,6 @@ export default function ProfitOverviewPage() {
       maximumFractionDigits: 2,
     })}%`;
   };
-  const estimatedGrossProfit = loadError ? 0 : totalSalesAmount - totalExpenseAmount;
-  const profitMargin = loadError
-    ? 0
-    : totalSalesAmount > 0
-      ? (estimatedGrossProfit / totalSalesAmount) * 100
-      : 0;
 
   return (
     <main className="min-h-screen bg-black text-white p-8">
