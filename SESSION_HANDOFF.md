@@ -2,7 +2,7 @@
 
 ## LATEST VERIFIED BATON ANCHOR COMMIT
 
-- `0a0e877` Extract first profit summary query helper
+- `40ba964` Extract reusable upload activity and history query helpers
 
 This is the latest verified commit that the current baton-pass state is anchored to.
 
@@ -10,11 +10,10 @@ This handoff file may itself be refreshed later in a docs-only commit without tr
 
 ## What Was Completed In The Latest Session
 
-- Added reusable upload-history helpers under `lib/upload-query/`.
-- Extracted the dashboard upload-activity family to a helper for recent upload activity, sales upload count, and expense upload count.
-- Extracted the uploads-page history list to a helper for uploads-log listing and filter-ready results.
-- Kept the moved query family pinned to `uploads_log` only.
-- Kept the upload helpers separate from sales, expense, profit, and `lib/sales-truth-review/*`.
+- Added reusable imports-page helpers under `lib/import-query/`.
+- Extracted the `/sales-imports` page list / loading / error flow to a helper pinned to `sales_imports`.
+- Extracted the `/expense-imports` page list / loading / error flow to a helper pinned to `expense_imports`.
+- Kept sales and expense import helpers separate from upload, analytics, profit, and `lib/sales-truth-review/*`.
 
 ## CURRENT WORKING TREE EXPECTATION
 
@@ -22,7 +21,7 @@ This handoff file may itself be refreshed later in a docs-only commit without tr
 
 ## CURRENT ACTIVE FOCUS
 
-- Keep Titan in a read-only truth-review phase while extending the first small reusable live analytics/query layer across order-level, item-level, expense-side, profit-side, and upload-history helpers.
+- Keep Titan in a read-only truth-review phase while extending the first small reusable live analytics/query layer across order-level, item-level, expense-side, profit-side, upload-history, and imports-page helpers.
 - Improve owner clarity, safety, recovery, and consistency without promoting policy.
 - Treat `/sales-truth-review` as the current truth-checking control room while keeping live-facing pages clearly separate from the read-only review layer.
 

@@ -61,6 +61,9 @@ That baton-pass file uses a latest verified baton-anchor model, so it can be ref
 - Titan now also has reusable upload-history helpers:
   - `lib/upload-query/upload-activity-summary.ts`
   - `lib/upload-query/upload-history-list.ts`
+- Titan now also has reusable imports-page helpers:
+  - `lib/import-query/sales-import-list.ts`
+  - `lib/import-query/expense-import-list.ts`
 - Sales truth review logic is extracted into a reusable read-only layer:
   - `lib/sales-truth-review/types.ts`
   - `lib/sales-truth-review/policy.ts`
@@ -135,6 +138,14 @@ That reminder points back to `/sales-truth-review` and does not mean live promot
 - These helpers read from `uploads_log` only.
 - This is a maintainability step only and does not affect the read-only sales truth review layer or live promotion state.
 
+### First Imports Query Layer
+
+- The `/sales-imports` page now uses one reusable helper for its current list / loading / error flow.
+- That helper reads from `sales_imports` only.
+- The `/expense-imports` page now uses one reusable helper for its current list / loading / error flow.
+- That helper reads from `expense_imports` only.
+- These helpers are a maintainability step only and do not affect the read-only sales truth review layer or live promotion state.
+
 ## Non-Negotiable Safety Rules
 
 - No policy promotion without explicit approval.
@@ -150,6 +161,7 @@ That reminder points back to `/sales-truth-review` and does not mean live promot
 
 ## Latest Important Safe Commits
 
+- `40ba964` Extract reusable upload activity and history query helpers
 - `0a0e877` Extract first profit summary query helper
 - `4e0e25e` Extract reusable analytics detail query helpers
 - `5ae65c5` Extract first item-level sales summary query helper

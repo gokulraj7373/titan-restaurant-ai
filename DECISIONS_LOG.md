@@ -593,3 +593,14 @@ These upload-history surfaces already form one tight query family that is separa
 
 Current status:
 Active
+
+## Decision 55
+
+Decision:
+Extract the `/sales-imports` page family and `/expense-imports` page family into small reusable helpers with one source table each.
+
+Why it was taken:
+These imports pages already have one tight list/query flow each, with clear table boundaries and simple load/error behavior. Moving them into narrow helpers improves maintainability and recovery safety without rewriting ingestion, changing visible page behavior, or touching the read-only sales truth review layer.
+
+Current status:
+Active

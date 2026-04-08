@@ -1,16 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { supabase } from "@/lib/supabase";
-
-type ExpenseImportRow = {
-  id: number;
-  expense_date: string;
-  category: string;
-  description: string;
-  amount: number;
-  upload_log_id: number;
-};
+import {
+  loadExpenseImportList,
+  type ExpenseImportRow,
+} from "@/lib/import-query/expense-import-list";
 
 export default function ExpenseImportsPage() {
   const [rows, setRows] = useState<ExpenseImportRow[]>([]);
@@ -19,21 +13,16 @@ export default function ExpenseImportsPage() {
 
   useEffect(() => {
     const loadExpenseImports = async () => {
-      const { data, error } = await supabase
-        .from("expense_imports")
-        .select("id, expense_date, category, description, amount, upload_log_id")
-        .order("expense_date", { ascending: false })
-        .order("id", { ascending: false });
-
-      if (error) {
+      try {
+        const expenseImports = await loadExpenseImportList();
+        setRows(expenseImports);
+        setLoadError(false);
+        setLoading(false);
+      } catch {
         setLoadError(true);
         setRows([]);
         setLoading(false);
-        return;
       }
-
-      setRows(data ?? []);
-      setLoading(false);
     };
 
     loadExpenseImports();

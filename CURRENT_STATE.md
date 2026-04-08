@@ -182,6 +182,10 @@ These are now the real sales ingestion targets for the smart sales upload flow.
 - The dashboard now uses that helper layer for recent upload activity, sales upload count, and expense upload count.
 - The uploads page now uses that helper layer for uploads-log listing and filter-ready history results.
 - These upload helpers stay on `uploads_log` only and stay separate from the sales, expense, profit, and read-only truth-review layers.
+- Titan now also has reusable imports-page helpers under `lib/import-query/`.
+- The `/sales-imports` page now uses that helper layer for its current sales-import list / loading / error flow while staying on `sales_imports` only.
+- The `/expense-imports` page now uses that helper layer for its current expense-import list / loading / error flow while staying on `expense_imports` only.
+- These imports-page helpers stay separate from upload, analytics, profit, and read-only truth-review logic.
 - Invariant tests now protect the extracted review policy behavior from silent drift.
 - No live policy promotion was done from the memo review tool.
 - This memo-review tightening did not change dashboard, profit overview, sales analytics, upload logic, ingestion logic, or the proposed net sale candidate total.

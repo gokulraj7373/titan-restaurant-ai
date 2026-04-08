@@ -1,17 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { supabase } from "@/lib/supabase";
-
-type SalesImportRow = {
-  id: number;
-  bill_date: string;
-  bill_no: string;
-  item_name: string;
-  qty: number;
-  amount: number;
-  upload_log_id: number;
-};
+import {
+  loadSalesImportList,
+  type SalesImportRow,
+} from "@/lib/import-query/sales-import-list";
 
 export default function SalesImportsPage() {
   const [rows, setRows] = useState<SalesImportRow[]>([]);
@@ -20,21 +13,16 @@ export default function SalesImportsPage() {
 
   useEffect(() => {
     const loadSalesImports = async () => {
-      const { data, error } = await supabase
-        .from("sales_imports")
-        .select("id, bill_date, bill_no, item_name, qty, amount, upload_log_id")
-        .order("bill_date", { ascending: false })
-        .order("id", { ascending: false });
-
-      if (error) {
+      try {
+        const salesImports = await loadSalesImportList();
+        setRows(salesImports);
+        setLoadError(false);
+        setLoading(false);
+      } catch {
         setLoadError(true);
         setRows([]);
         setLoading(false);
-        return;
       }
-
-      setRows(data ?? []);
-      setLoading(false);
     };
 
     loadSalesImports();
