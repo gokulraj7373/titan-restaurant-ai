@@ -58,6 +58,9 @@ That baton-pass file uses a latest verified baton-anchor model, so it can be ref
   - `lib/expense-query/expense-details.ts`
 - Titan now also has a reusable profit summary helper:
   - `lib/profit-query/profit-overview-summary.ts`
+- Titan now also has reusable upload-history helpers:
+  - `lib/upload-query/upload-activity-summary.ts`
+  - `lib/upload-query/upload-history-list.ts`
 - Sales truth review logic is extracted into a reusable read-only layer:
   - `lib/sales-truth-review/types.ts`
   - `lib/sales-truth-review/policy.ts`
@@ -125,6 +128,13 @@ That reminder points back to `/sales-truth-review` and does not mean live promot
 - That helper reads only from the page's existing live-facing sources: `sales_order_imports` and `expense_imports`.
 - This is a maintainability step only and does not affect the read-only sales truth review layer or live promotion state.
 
+### First Upload Query Layer
+
+- The dashboard now uses one reusable upload-activity helper for recent upload activity, sales upload count, and expense upload count.
+- The uploads page now uses one reusable upload-history helper for uploads-log listing and filter-ready results.
+- These helpers read from `uploads_log` only.
+- This is a maintainability step only and does not affect the read-only sales truth review layer or live promotion state.
+
 ## Non-Negotiable Safety Rules
 
 - No policy promotion without explicit approval.
@@ -140,6 +150,7 @@ That reminder points back to `/sales-truth-review` and does not mean live promot
 
 ## Latest Important Safe Commits
 
+- `0a0e877` Extract first profit summary query helper
 - `4e0e25e` Extract reusable analytics detail query helpers
 - `5ae65c5` Extract first item-level sales summary query helper
 - `33d3957` Extract first expense summary query helper

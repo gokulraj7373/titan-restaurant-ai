@@ -1,49 +1,28 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { supabase } from "@/lib/supabase";
-
-type UploadLog = {
-  id: number;
-  kind: string;
-  file_name: string;
-  created_at: string;
-  storage_path: string;
-  ingest_status: string | null;
-  detected_format: string | null;
-  target_table: string | null;
-  parsed_row_count: number | null;
-  inserted_row_count: number | null;
-  rejected_row_count: number | null;
-  ingest_message: string | null;
-};
+import { loadUploadHistoryList, type UploadHistoryRow } from "@/lib/upload-query/upload-history-list";
 
 type FilterType = "all" | "sales" | "expenses";
 
 export default function UploadsPage() {
-  const [uploads, setUploads] = useState<UploadLog[]>([]);
+  const [uploads, setUploads] = useState<UploadHistoryRow[]>([]);
   const [selectedFilter, setSelectedFilter] = useState<FilterType>("all");
   const [loading, setLoading] = useState(true);
   const [loadError, setLoadError] = useState(false);
 
   useEffect(() => {
     const loadUploads = async () => {
-      const { data, error } = await supabase
-        .from("uploads_log")
-        .select(
-          "id, kind, file_name, created_at, storage_path, ingest_status, detected_format, target_table, parsed_row_count, inserted_row_count, rejected_row_count, ingest_message"
-        )
-        .order("created_at", { ascending: false });
-
-      if (error) {
+      try {
+        const uploadHistory = await loadUploadHistoryList();
+        setUploads(uploadHistory);
+        setLoadError(false);
+        setLoading(false);
+      } catch {
         setLoadError(true);
         setUploads([]);
         setLoading(false);
-        return;
       }
-
-      setUploads(data ?? []);
-      setLoading(false);
     };
 
     loadUploads();

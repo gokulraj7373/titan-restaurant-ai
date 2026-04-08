@@ -34,6 +34,7 @@
 30. Keep the first reusable item-level sales summary helper small, deterministic, and separate from order-level helpers and the read-only sales truth review layer.
 31. Keep reusable analytics-detail helpers small, deterministic, and pinned to their intended source tables without mixing sales, expense, or review-layer logic.
 32. Keep reusable profit summary helpers small, deterministic, and pinned to the page's intended live-facing sources without mixing in review-layer logic.
+33. Keep reusable upload-history helpers small, deterministic, and pinned to `uploads_log` only without mixing in sales, expense, profit, or review-layer logic.
 
 ## Short-Term Next Steps
 
@@ -44,20 +45,21 @@
 5. Extend item-level analytics one safe summary or output family at a time, instead of rewriting the full page at once.
 6. Extend reusable analytics detail helpers one safe section family at a time, instead of rewriting whole analytics pages.
 7. Extend profit-side reusable helpers one safe summary or output family at a time, instead of rewriting the full profit page.
-8. Design the first manual-review workflow for `overlap_with_changes` uploads, using the new changed-overlap review details as the starting point.
-9. Decide how corrected re-uploads should be approved later without silent replacement.
-10. Define the correct subset of Order Listing transaction families for future business sales truth.
-11. Decide the final treatment of cancelled, memo, complimentary, sales return, and Part Payment rows in business totals.
-12. Design a separate reliable payment-settlement truth layer for cash, card, due, and other split methods.
-13. Promote the read-only sales-policy layer into dashboard and profit logic only after the policy is approved.
-14. Finalize whether memo rows should remain unresolved, be excluded, or be included under a later approved rule.
-15. If memo review hints are revisited later, require an approved linking rule instead of relying on heuristic candidates alone.
-16. Treat weak memo evidence as low-confidence investigation only, not believable linkage.
-17. Promote the policy only after month-level and upload-level reconciliation remain clean.
-18. Add safer validation for spreadsheet structure before import.
-19. Add stronger success and failure messages for uploads and imports.
-20. Keep project docs updated whenever a new page, table, or flow is added.
-21. If future review rules are added, put them into the reusable read-only policy layer first and protect them with invariant tests before any UI or live-metric promotion.
+8. Extend upload-history helpers one safe query family at a time, instead of rewriting dashboard or uploads pages broadly.
+9. Design the first manual-review workflow for `overlap_with_changes` uploads, using the new changed-overlap review details as the starting point.
+10. Decide how corrected re-uploads should be approved later without silent replacement.
+11. Define the correct subset of Order Listing transaction families for future business sales truth.
+12. Decide the final treatment of cancelled, memo, complimentary, sales return, and Part Payment rows in business totals.
+13. Design a separate reliable payment-settlement truth layer for cash, card, due, and other split methods.
+14. Promote the read-only sales-policy layer into dashboard and profit logic only after the policy is approved.
+15. Finalize whether memo rows should remain unresolved, be excluded, or be included under a later approved rule.
+16. If memo review hints are revisited later, require an approved linking rule instead of relying on heuristic candidates alone.
+17. Treat weak memo evidence as low-confidence investigation only, not believable linkage.
+18. Promote the policy only after month-level and upload-level reconciliation remain clean.
+19. Add safer validation for spreadsheet structure before import.
+20. Add stronger success and failure messages for uploads and imports.
+21. Keep project docs updated whenever a new page, table, or flow is added.
+22. If future review rules are added, put them into the reusable read-only policy layer first and protect them with invariant tests before any UI or live-metric promotion.
 
 ## Later Roadmap
 

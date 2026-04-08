@@ -6,15 +6,11 @@ import { SalesTruthStatusNotice } from "@/app/_components/sales-truth-status-not
 import { loadExpenseSummary } from "@/lib/expense-query/expense-summary";
 import { loadDashboardOrderKpis } from "@/lib/sales-query/dashboard-order-kpis";
 import { loadImportedOrderSalesAmount } from "@/lib/sales-query/order-sales-summary";
+import {
+  loadUploadActivitySummary,
+  type UploadActivityRow,
+} from "@/lib/upload-query/upload-activity-summary";
 import { supabase } from "@/lib/supabase";
-
-type UploadLog = {
-  id: number;
-  kind: string;
-  file_name: string;
-  created_at: string;
-  storage_path: string;
-};
 
 export default function DashboardPage() {
   const [statusMessage, setStatusMessage] = useState("Loading connection status...");
@@ -23,7 +19,7 @@ export default function DashboardPage() {
   const [averageOrderValue, setAverageOrderValue] = useState(0);
   const [businessInsights, setBusinessInsights] = useState<string[]>([]);
   const [businessInsightError, setBusinessInsightError] = useState(false);
-  const [recentUploads, setRecentUploads] = useState<UploadLog[] | null>(null);
+  const [recentUploads, setRecentUploads] = useState<UploadActivityRow[] | null>(null);
   const [recentUploadsError, setRecentUploadsError] = useState(false);
   const [salesUploadsCount, setSalesUploadsCount] = useState(0);
   const [expensesUploadsCount, setExpensesUploadsCount] = useState(0);
@@ -104,9 +100,6 @@ export default function DashboardPage() {
     const loadDashboardData = async () => {
       const [
         { data: statusData, error: statusError },
-        { data: uploadsData, error: uploadsError },
-        { count: salesCount, error: salesCountError },
-        { count: expensesCount, error: expensesCountError },
         { count: salesOrderImportsCount, error: salesOrderImportsCountError },
         { count: expenseImportsCount, error: expenseImportsCountError },
       ] = await Promise.all([
@@ -116,19 +109,6 @@ export default function DashboardPage() {
             .order("id", { ascending: false })
             .limit(1)
             .single(),
-          supabase
-            .from("uploads_log")
-            .select("id, kind, file_name, created_at, storage_path")
-            .order("created_at", { ascending: false })
-            .limit(10),
-          supabase
-            .from("uploads_log")
-            .select("*", { count: "exact", head: true })
-            .eq("kind", "sales"),
-          supabase
-            .from("uploads_log")
-            .select("*", { count: "exact", head: true })
-            .eq("kind", "expenses"),
           supabase
             .schema("public")
             .from("sales_order_imports")
@@ -144,18 +124,21 @@ export default function DashboardPage() {
         setStatusMessage(statusData.message);
       }
 
-      if (uploadsError) {
-        setRecentUploadsError(true);
+      try {
+        const uploadActivitySummary = await loadUploadActivitySummary();
+        setRecentUploads(uploadActivitySummary.recentUploads);
+        setRecentUploadsError(false);
+        setSalesUploadsCount(uploadActivitySummary.salesUploadsCount);
+        setExpensesUploadsCount(uploadActivitySummary.expensesUploadsCount);
+      } catch {
         setRecentUploads([]);
-      } else {
-        setRecentUploads(uploadsData ?? []);
+        setRecentUploadsError(true);
+        setSalesUploadsCount(0);
+        setExpensesUploadsCount(0);
       }
 
-      setSalesUploadsCount(salesCountError ? 0 : salesCount ?? 0);
-      setExpensesUploadsCount(expensesCountError ? 0 : expensesCount ?? 0);
       setImportedSalesRowsCount(salesOrderImportsCountError ? 0 : salesOrderImportsCount ?? 0);
       setImportedExpenseRowsCount(expenseImportsCountError ? 0 : expenseImportsCount ?? 0);
-
       try {
         const dashboardOrderKpis = await loadDashboardOrderKpis();
         const totalImportedSalesAmount = await loadImportedOrderSalesAmount();

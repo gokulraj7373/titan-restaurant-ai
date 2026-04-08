@@ -178,6 +178,10 @@ These are now the real sales ingestion targets for the smart sales upload flow.
 - Titan now also has a reusable profit summary helper under `lib/profit-query/profit-overview-summary.ts`.
 - Profit Overview now uses that helper for total sales, total expenses, estimated gross profit, profit margin, and imported row counts.
 - This profit helper stays on the page's existing live-facing sources only: `sales_order_imports` and `expense_imports`.
+- Titan now also has reusable upload-history helpers under `lib/upload-query/`.
+- The dashboard now uses that helper layer for recent upload activity, sales upload count, and expense upload count.
+- The uploads page now uses that helper layer for uploads-log listing and filter-ready history results.
+- These upload helpers stay on `uploads_log` only and stay separate from the sales, expense, profit, and read-only truth-review layers.
 - Invariant tests now protect the extracted review policy behavior from silent drift.
 - No live policy promotion was done from the memo review tool.
 - This memo-review tightening did not change dashboard, profit overview, sales analytics, upload logic, ingestion logic, or the proposed net sale candidate total.

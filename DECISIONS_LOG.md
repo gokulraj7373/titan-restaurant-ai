@@ -582,3 +582,14 @@ The profit page already had one tight summary family built from `sales_order_imp
 
 Current status:
 Active
+
+## Decision 54
+
+Decision:
+Extract the dashboard upload-activity family and uploads-page history family into small reusable helpers based on `uploads_log` only.
+
+Why it was taken:
+These upload-history surfaces already form one tight query family that is separate from sales, expense, and profit calculations. Moving them into narrow helpers improves maintainability and recovery safety without changing visible upload-list behavior or touching the read-only sales truth review layer.
+
+Current status:
+Active
