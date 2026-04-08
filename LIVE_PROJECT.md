@@ -69,6 +69,8 @@ That baton-pass file uses a latest verified baton-anchor model, so it can be ref
   - `lib/reconciliation-query/sales-reconciliation-details.ts`
 - Titan now also has a reusable sales-upload diagnostics panel:
   - `app/upload/sales/order-listing-diagnostics-panel.tsx`
+- Titan now also has a reusable changed-overlap review panel:
+  - `app/upload/sales/changed-overlap-review-panel.tsx`
 - Sales truth review logic is extracted into a reusable read-only layer:
   - `lib/sales-truth-review/types.ts`
   - `lib/sales-truth-review/policy.ts`
@@ -163,6 +165,8 @@ That reminder points back to `/sales-truth-review` and does not mean live promot
 - This extraction is presentational only.
 - Parsing, routing, overlap decisions, insertion behavior, and uploads-log behavior remain in `app/upload/sales/page.tsx`.
 - This step does not affect truth-review policy, memo handling, or live promotion state.
+- The `/upload/sales` page now also uses one pure render-support component for the `Changed Overlap Review` display block.
+- That extraction is also presentational only.
 
 ## Non-Negotiable Safety Rules
 
@@ -179,6 +183,7 @@ That reminder points back to `/sales-truth-review` and does not mean live promot
 
 ## Latest Important Safe Commits
 
+- `c8c2364` Extract order listing diagnostics panel from sales upload page
 - `4b93de1` Extract reusable sales reconciliation query helpers
 - `64ac04f` Extract reusable imports page query helpers
 - `40ba964` Extract reusable upload activity and history query helpers

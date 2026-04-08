@@ -192,6 +192,8 @@ These are now the real sales ingestion targets for the smart sales upload flow.
 - Titan now also has a pure render-support diagnostics panel under `app/upload/sales/order-listing-diagnostics-panel.tsx`.
 - The `/upload/sales` page now uses that component only for the `Order Listing Classification Diagnostics` display block.
 - All parsing, routing, overlap, insertion, and uploads-log behavior remain in `app/upload/sales/page.tsx`.
+- Titan now also has a pure render-support changed-overlap review panel under `app/upload/sales/changed-overlap-review-panel.tsx`.
+- The `/upload/sales` page now uses that component only for the `Changed Overlap Review` display block.
 - Invariant tests now protect the extracted review policy behavior from silent drift.
 - No live policy promotion was done from the memo review tool.
 - This memo-review tightening did not change dashboard, profit overview, sales analytics, upload logic, ingestion logic, or the proposed net sale candidate total.

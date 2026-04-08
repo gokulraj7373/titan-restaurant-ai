@@ -2,7 +2,7 @@
 
 ## LATEST VERIFIED BATON ANCHOR COMMIT
 
-- `4b93de1` Extract reusable sales reconciliation query helpers
+- `c8c2364` Extract order listing diagnostics panel from sales upload page
 
 This is the latest verified commit that the current baton-pass state is anchored to.
 
@@ -10,10 +10,10 @@ This handoff file may itself be refreshed later in a docs-only commit without tr
 
 ## What Was Completed In The Latest Session
 
-- Added a pure render-support diagnostics panel under `app/upload/sales/`.
-- Extracted the `Order Listing Classification Diagnostics` display block from `/upload/sales` into that panel.
+- Added a pure render-support changed-overlap review panel under `app/upload/sales/`.
+- Extracted the `Changed Overlap Review` display block from `/upload/sales` into that panel.
 - Kept all parsing, routing, overlap, insertion, and decision logic in `app/upload/sales/page.tsx`.
-- Kept the diagnostics panel separate from `/sales-truth-review` and `lib/sales-truth-review/*`.
+- Kept the changed-overlap panel separate from `/sales-truth-review` and `lib/sales-truth-review/*`.
 
 ## CURRENT WORKING TREE EXPECTATION
 

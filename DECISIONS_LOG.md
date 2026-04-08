@@ -626,3 +626,14 @@ The sales upload page is sensitive because it contains parsing, routing, overlap
 
 Current status:
 Active
+
+## Decision 58
+
+Decision:
+Extract the `Changed Overlap Review` display block from `/upload/sales` into a pure render-support component only.
+
+Why it was taken:
+The changed-overlap review is still part of a sensitive upload page, but it is a read-only display surface after classification has already happened. Moving only that rendering block improves maintainability while keeping parsing, overlap blocking decisions, insertion behavior, memo handling, and truth-review policy untouched.
+
+Current status:
+Active
