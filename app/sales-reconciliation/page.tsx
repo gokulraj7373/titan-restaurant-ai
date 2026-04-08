@@ -1,76 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { supabase } from "@/lib/supabase";
-
-const BATCH_SIZE = 1000;
-
-type SalesOrderDiagnosticRow = {
-  id: number;
-  order_no: string | null;
-  bill_date: string | null;
-  my_amount: number | null;
-  total_discount: number | null;
-  delivery_charge: number | null;
-  container_charge: number | null;
-  total_tax: number | null;
-  round_off: number | null;
-  grand_total: number | null;
-  effective_total: number | null;
-  payment_type: string | null;
-  payment_description: string | null;
-};
-
-async function fetchAllRows<T>(
-  loadBatch: (from: number, to: number) => Promise<{ data: T[] | null; error: unknown | null }>
-) {
-  const rows: T[] = [];
-  let from = 0;
-
-  while (true) {
-    const to = from + BATCH_SIZE - 1;
-    const { data, error } = await loadBatch(from, to);
-
-    if (error) {
-      throw error;
-    }
-
-    const batchRows = data ?? [];
-    rows.push(...batchRows);
-
-    if (batchRows.length < BATCH_SIZE) {
-      break;
-    }
-
-    from += BATCH_SIZE;
-  }
-
-  return rows;
-}
-
-function isFallbackTotalRow(row: SalesOrderDiagnosticRow) {
-  return row.grand_total === null || Number(row.grand_total) === 0;
-}
-
-function hasLargeTotalDifference(row: SalesOrderDiagnosticRow) {
-  const effectiveTotal = Number(row.effective_total ?? 0);
-  const grandTotal = Number(row.grand_total ?? 0);
-
-  return Math.abs(effectiveTotal - grandTotal) > 1;
-}
-
-function sortLatestRows(rows: SalesOrderDiagnosticRow[]) {
-  return [...rows].sort((firstRow, secondRow) => {
-    const firstTime = firstRow.bill_date ? new Date(firstRow.bill_date).getTime() : 0;
-    const secondTime = secondRow.bill_date ? new Date(secondRow.bill_date).getTime() : 0;
-
-    if (secondTime !== firstTime) {
-      return secondTime - firstTime;
-    }
-
-    return secondRow.id - firstRow.id;
-  });
-}
+import {
+  loadSalesReconciliationDetails,
+  type SalesOrderDiagnosticRow,
+} from "@/lib/reconciliation-query/sales-reconciliation-details";
+import {
+  buildSalesReconciliationSummary,
+  loadSalesReconciliationTotalOrders,
+} from "@/lib/reconciliation-query/sales-reconciliation-summary";
 
 export default function SalesReconciliationPage() {
   const [totalOrders, setTotalOrders] = useState(0);
@@ -86,40 +24,19 @@ export default function SalesReconciliationPage() {
   useEffect(() => {
     const loadDiagnostics = async () => {
       try {
-        const { count, error: totalOrdersError } = await supabase
-          .schema("public")
-          .from("sales_order_imports")
-          .select("*", { count: "exact", head: true });
+        const [totalOrdersCount, reconciliationDetails] = await Promise.all([
+          loadSalesReconciliationTotalOrders(),
+          loadSalesReconciliationDetails(),
+        ]);
+        const reconciliationSummary = buildSalesReconciliationSummary(reconciliationDetails.allRows);
 
-        if (totalOrdersError) {
-          throw totalOrdersError;
-        }
-
-        const allRows = await fetchAllRows<SalesOrderDiagnosticRow>((from, to) =>
-          supabase
-            .schema("public")
-            .from("sales_order_imports")
-            .select(
-              "id, order_no, bill_date, my_amount, total_discount, delivery_charge, container_charge, total_tax, round_off, grand_total, effective_total, payment_type, payment_description"
-            )
-            .order("id", { ascending: true })
-            .range(from, to)
-        );
-
-        const fallbackRowsData = sortLatestRows(allRows.filter(isFallbackTotalRow)).slice(0, 50);
-        const differentRowsData = sortLatestRows(allRows.filter(hasLargeTotalDifference)).slice(0, 50);
-
-        setTotalOrders(count ?? 0);
-        setDistinctOrders(
-          new Set(allRows.map((row) => String(row.order_no ?? "").trim()).filter(Boolean)).size
-        );
-        setTotalOrderLevelSales(
-          allRows.reduce((sum, row) => sum + Number(row.effective_total ?? 0), 0)
-        );
-        setFallbackTotalRowsCount(allRows.filter(isFallbackTotalRow).length);
-        setDifferentTotalRowsCount(allRows.filter(hasLargeTotalDifference).length);
-        setFallbackRows(fallbackRowsData);
-        setDifferentRows(differentRowsData);
+        setTotalOrders(totalOrdersCount);
+        setDistinctOrders(reconciliationSummary.distinctOrders);
+        setTotalOrderLevelSales(reconciliationSummary.totalOrderLevelSales);
+        setFallbackTotalRowsCount(reconciliationSummary.fallbackTotalRowsCount);
+        setDifferentTotalRowsCount(reconciliationSummary.differentTotalRowsCount);
+        setFallbackRows(reconciliationDetails.fallbackRows);
+        setDifferentRows(reconciliationDetails.differentRows);
         setLoadError(false);
       } catch {
         setLoadError(true);

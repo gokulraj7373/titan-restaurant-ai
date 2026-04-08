@@ -604,3 +604,14 @@ These imports pages already have one tight list/query flow each, with clear tabl
 
 Current status:
 Active
+
+## Decision 56
+
+Decision:
+Extract the `/sales-reconciliation` read-only diagnostic query family into small reusable helpers based on `sales_order_imports` only.
+
+Why it was taken:
+The reconciliation page already had one tight read-only diagnostic family: summary diagnostics plus two clearly defined row sections. Moving that query logic into narrow helpers improves maintainability and recovery safety without changing reconciliation behavior, touching truth-review policy, or blurring the boundary with `/sales-truth-review`.
+
+Current status:
+Active

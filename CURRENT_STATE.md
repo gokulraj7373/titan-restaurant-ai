@@ -186,6 +186,9 @@ These are now the real sales ingestion targets for the smart sales upload flow.
 - The `/sales-imports` page now uses that helper layer for its current sales-import list / loading / error flow while staying on `sales_imports` only.
 - The `/expense-imports` page now uses that helper layer for its current expense-import list / loading / error flow while staying on `expense_imports` only.
 - These imports-page helpers stay separate from upload, analytics, profit, and read-only truth-review logic.
+- Titan now also has reusable reconciliation-query helpers under `lib/reconciliation-query/`.
+- The `/sales-reconciliation` page now uses that helper layer for its current read-only summary diagnostics and diagnostic row sections while staying on `sales_order_imports` only.
+- These reconciliation helpers stay separate from `/sales-truth-review`, memo policy, and live promotion logic.
 - Invariant tests now protect the extracted review policy behavior from silent drift.
 - No live policy promotion was done from the memo review tool.
 - This memo-review tightening did not change dashboard, profit overview, sales analytics, upload logic, ingestion logic, or the proposed net sale candidate total.
