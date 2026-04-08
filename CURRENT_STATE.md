@@ -189,6 +189,9 @@ These are now the real sales ingestion targets for the smart sales upload flow.
 - Titan now also has reusable reconciliation-query helpers under `lib/reconciliation-query/`.
 - The `/sales-reconciliation` page now uses that helper layer for its current read-only summary diagnostics and diagnostic row sections while staying on `sales_order_imports` only.
 - These reconciliation helpers stay separate from `/sales-truth-review`, memo policy, and live promotion logic.
+- Titan now also has a pure render-support diagnostics panel under `app/upload/sales/order-listing-diagnostics-panel.tsx`.
+- The `/upload/sales` page now uses that component only for the `Order Listing Classification Diagnostics` display block.
+- All parsing, routing, overlap, insertion, and uploads-log behavior remain in `app/upload/sales/page.tsx`.
 - Invariant tests now protect the extracted review policy behavior from silent drift.
 - No live policy promotion was done from the memo review tool.
 - This memo-review tightening did not change dashboard, profit overview, sales analytics, upload logic, ingestion logic, or the proposed net sale candidate total.

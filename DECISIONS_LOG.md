@@ -615,3 +615,14 @@ The reconciliation page already had one tight read-only diagnostic family: summa
 
 Current status:
 Active
+
+## Decision 57
+
+Decision:
+Start `/upload/sales` modularization with a pure render-support extraction for the `Order Listing Classification Diagnostics` display block only.
+
+Why it was taken:
+The sales upload page is sensitive because it contains parsing, routing, overlap, and insertion behavior. Moving only the diagnostics display boundary into a presentational component improves maintainability without changing ingestion behavior, overlap behavior, memo handling, or truth-review policy.
+
+Current status:
+Active
