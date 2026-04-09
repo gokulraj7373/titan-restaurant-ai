@@ -769,3 +769,14 @@ The page already had Current Review Snapshot, Promotion Readiness Snapshot, fami
 
 Current status:
 Active
+
+## Decision 71
+
+Decision:
+Keep future live-promotion evidence review owner-friendly and conservative by showing the smallest safe evidence checklist through one read-only snapshot using existing review posture only.
+
+Why it was taken:
+The page already showed strong evidence, unresolved evidence, and later-promotion posture across multiple separate sections, but the owner still had to combine them to understand the minimum checklist for any future explicit promotion discussion. Adding one bounded checklist improves inspection clarity without changing policy buckets, totals, memo stance, readiness logic, or live promotion state.
+
+Current status:
+Active

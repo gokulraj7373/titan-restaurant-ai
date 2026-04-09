@@ -138,6 +138,8 @@ These are now the real sales ingestion targets for the smart sales upload flow.
 - That snapshot uses the existing family counts and section posture to explain which Order Listing families currently look later includable, clearly excludable, unresolved, or diagnostic-only without changing policy, totals, or promotion state.
 - Sales truth review now also includes a compact Later Promotion Decision Snapshot near the top of the page.
 - That snapshot uses the existing review posture only to explain what already looks strong, what still remains unresolved, and why live promotion still has not happened without changing policy, totals, readiness logic, or promotion state.
+- Sales truth review now also includes a compact Live Promotion Evidence Checklist near the top of the page.
+- That checklist uses the existing review posture only to explain what already looks strong, what still remains unresolved, what still blocks live promotion, and what would still need later explicit approval without changing policy, totals, readiness logic, or promotion state.
 - Sales truth review now also includes verification breakdowns by month, source family, sales-policy bucket, and latest imported sales-order files.
 - Sales truth review now also includes monthly policy reconciliation and upload-attribution vs policy-attribution checks.
 - Memo rows now stay in `unresolved_memo` during read-only policy review even if they also look cancelled.
@@ -230,7 +232,7 @@ These are now the real sales ingestion targets for the smart sales upload flow.
 - A broader read-only source-boundary audit has now confirmed that the audited pages stay on their intended helper layers and source tables overall, with no source-boundary mismatch requiring product changes.
 - A read-only Upload History precision review has now confirmed that the current UI does not falsely claim exact expense inserted-row precision, so the real issue is logging-detail asymmetry rather than a product mismatch.
 - A bounded repo-local validation step has now confirmed that duplicate, append-only, gap-fill, and changed-overlap classifications still behave as intended for the current sales upload flow.
-- The next safety step is to design the smallest safe evidence checklist that must be satisfied before any future explicit live-promotion decision, while keeping the system fully read-only for now.
+- The next safety step is to review whether the current read-only evidence posture is now strong enough to support drafting a later explicit promotion-decision protocol, without promoting anything live yet.
 
 ## Clean Snapshot
 
