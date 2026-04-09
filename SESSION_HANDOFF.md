@@ -2,7 +2,7 @@
 
 ## LATEST VERIFIED BATON ANCHOR COMMIT
 
-- `40178b5` Extract changed overlap review panel from sales upload page
+- `5228835` Extract full order listing diagnostics subsystem from sales upload page
 
 This is the latest verified commit that the current baton-pass state is anchored to.
 

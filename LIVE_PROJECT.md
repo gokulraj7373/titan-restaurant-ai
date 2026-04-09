@@ -184,6 +184,7 @@ That reminder points back to `/sales-truth-review` and does not mean live promot
 
 ## Latest Important Safe Commits
 
+- `5228835` Extract full order listing diagnostics subsystem from sales upload page
 - `40178b5` Extract changed overlap review panel from sales upload page
 - `c8c2364` Extract order listing diagnostics panel from sales upload page
 - `4b93de1` Extract reusable sales reconciliation query helpers
