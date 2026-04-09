@@ -142,6 +142,8 @@ These are now the real sales ingestion targets for the smart sales upload flow.
 - That checklist uses the existing review posture only to explain what already looks strong, what still remains unresolved, what still blocks live promotion, and what would still need later explicit approval without changing policy, totals, readiness logic, or promotion state.
 - Sales truth review now also includes a compact Later Promotion Protocol Readiness snapshot near the top of the page.
 - That snapshot uses the existing review posture only to explain whether the current evidence is organized enough to support drafting a later explicit promotion-decision protocol while still remaining read-only and unapproved.
+- Sales truth review now also includes a compact Future Promotion-Decision Protocol Draft snapshot near the top of the page.
+- That snapshot uses the existing review posture only to explain the smallest later protocol structure Titan could support across strong evidence, unresolved evidence, live-promotion blockers, and later approval-needed areas while still remaining read-only and unapproved.
 - Sales truth review now also includes verification breakdowns by month, source family, sales-policy bucket, and latest imported sales-order files.
 - Sales truth review now also includes monthly policy reconciliation and upload-attribution vs policy-attribution checks.
 - Memo rows now stay in `unresolved_memo` during read-only policy review even if they also look cancelled.
@@ -234,7 +236,7 @@ These are now the real sales ingestion targets for the smart sales upload flow.
 - A broader read-only source-boundary audit has now confirmed that the audited pages stay on their intended helper layers and source tables overall, with no source-boundary mismatch requiring product changes.
 - A read-only Upload History precision review has now confirmed that the current UI does not falsely claim exact expense inserted-row precision, so the real issue is logging-detail asymmetry rather than a product mismatch.
 - A bounded repo-local validation step has now confirmed that duplicate, append-only, gap-fill, and changed-overlap classifications still behave as intended for the current sales upload flow.
-- The next safety step is to design the smallest read-only draft structure for a future explicit promotion-decision protocol, without approving or implementing promotion.
+- The next safety step is to review whether the current read-only protocol-draft posture is now clear enough to support a later explicit promotion-decision protocol document, without approving or implementing promotion.
 
 ## Clean Snapshot
 

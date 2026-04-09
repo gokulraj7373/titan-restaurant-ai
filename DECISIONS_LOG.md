@@ -791,3 +791,14 @@ The page already showed strong evidence, unresolved evidence, blockers, and appr
 
 Current status:
 Active
+
+## Decision 73
+
+Decision:
+Keep the future promotion-decision protocol draft structure owner-friendly and conservative by showing the smallest later protocol structure through one read-only snapshot using existing review posture only.
+
+Why it was taken:
+The page already showed strong evidence, unresolved evidence, blockers, and later-protocol-readiness posture, but the owner still had to infer what the smallest future protocol structure would actually look like. Adding one bounded protocol-draft snapshot improves inspection clarity without changing policy buckets, totals, memo stance, readiness logic, or live promotion state.
+
+Current status:
+Active
