@@ -703,3 +703,14 @@ The next baton step needed a real confidence check for duplicate, append-only, g
 
 Current status:
 Active
+
+## Decision 65
+
+Decision:
+Improve `/sales-truth-review` scanability for the key row families with one compact snapshot and clearer section-level cues using already-derived review data only.
+
+Why it was taken:
+The page already surfaced the right regular, memo, complimentary, sales return, cancelled, Part Payment, and fallback-total attention families, but the owner still had to stitch them together across multiple sections. Adding one family-level scan aid improves inspection flow without changing review policy, memo stance, row membership, totals, upload attribution behavior, or live promotion state.
+
+Current status:
+Active

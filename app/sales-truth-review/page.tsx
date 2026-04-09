@@ -111,6 +111,18 @@ function getSectionShellClass(sectionState: "needs-review" | "clean" | "neutral"
   return "rounded-2xl border border-white/20 p-6 scroll-mt-6";
 }
 
+function getSnapshotCardClass(sectionState: "needs-review" | "clean" | "neutral") {
+  if (sectionState === "needs-review") {
+    return "rounded-2xl border border-amber-400/30 bg-amber-400/[0.05] p-4";
+  }
+
+  if (sectionState === "clean") {
+    return "rounded-2xl border border-white/10 bg-white/[0.04] p-4";
+  }
+
+  return "rounded-2xl border border-white/15 bg-white/[0.02] p-4";
+}
+
 export default function SalesTruthReviewPage() {
   const [summaryCounts, setSummaryCounts] = useState<SummaryCounts>(createEmptySummaryCounts());
   const [regularOrders, setRegularOrders] = useState<SalesTruthReviewRow[]>([]);
@@ -433,12 +445,29 @@ export default function SalesTruthReviewPage() {
     title: string,
     description: string,
     rows: SalesTruthReviewRow[],
-    emptyMessage: string
+    emptyMessage: string,
+    helperNote?: string,
+    sectionId?: string,
+    headerChips?: string[],
+    sectionState: "needs-review" | "clean" | "neutral" = "neutral"
   ) => {
     return (
-      <div className="rounded-2xl border border-white/20 p-6">
+      <div id={sectionId} className={getSectionShellClass(sectionState)}>
         <h2 className="text-xl font-semibold mb-2">{title}</h2>
         <p className="text-sm text-gray-400 mb-4">{description}</p>
+        {headerChips && headerChips.length > 0 && (
+          <div className="mb-4 flex flex-wrap gap-2">
+            {headerChips.map((chip) => (
+              <div
+                key={`${title}-${chip}`}
+                className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200"
+              >
+                {chip}
+              </div>
+            ))}
+          </div>
+        )}
+        {helperNote && <p className="text-sm text-gray-400 mb-4">{helperNote}</p>}
 
         {loadError ? (
           <p className="text-sm text-gray-300">Could not load payment review rows</p>
@@ -1255,6 +1284,116 @@ export default function SalesTruthReviewPage() {
     );
   };
 
+  const renderKeyRowFamilySnapshotSection = () => {
+    const familyCards = [
+      {
+        title: "Regular",
+        href: "#regular-orders",
+        countLabel: `${summaryCounts.regularOrderMainCount} regular main rows`,
+        detail:
+          "Use this family to scan the normal numeric order rows before later policy decisions.",
+        cue: "Current Main Family",
+        sectionState: "neutral" as const,
+      },
+      {
+        title: "Memo",
+        href: "#memo-unresolved-rows",
+        countLabel: `${summaryCounts.memoUnresolvedRowsCount} unresolved memo rows`,
+        detail:
+          "Memo remains excluded from live truth. Hints stay investigative only while review continues.",
+        cue:
+          summaryCounts.memoUnresolvedRowsCount > 0 ? "Needs Review" : "None Open",
+        sectionState:
+          summaryCounts.memoUnresolvedRowsCount > 0 ? ("needs-review" as const) : ("clean" as const),
+      },
+      {
+        title: "Complimentary",
+        href: "#complimentary-orders",
+        countLabel: `${summaryCounts.complimentaryExcludedRowsCount} excluded complimentary rows`,
+        detail:
+          "Tracked separately so complimentary activity stays out of the current proposed sales total.",
+        cue:
+          summaryCounts.complimentaryExcludedRowsCount > 0 ? "Excluded Family" : "None Flagged",
+        sectionState: "clean" as const,
+      },
+      {
+        title: "Sales Return",
+        href: "#sales-return-orders",
+        countLabel: `${summaryCounts.salesReturnExcludedRowsCount} excluded sales return rows`,
+        detail:
+          "Use this family to confirm return activity stays separate from the current proposed sales total.",
+        cue:
+          summaryCounts.salesReturnExcludedRowsCount > 0 ? "Excluded Family" : "None Flagged",
+        sectionState: "clean" as const,
+      },
+      {
+        title: "Cancelled",
+        href: "#cancelled-orders",
+        countLabel: `${summaryCounts.cancelledExcludedRowsCount} excluded cancelled rows`,
+        detail:
+          "Use this family to confirm cancellation signals before any future business rule decision.",
+        cue:
+          summaryCounts.cancelledExcludedRowsCount > 0 ? "Excluded Family" : "None Flagged",
+        sectionState: "clean" as const,
+      },
+      {
+        title: "Part Payment",
+        href: "#part-payment-sale-review",
+        countLabel: `${summaryCounts.partPaymentRowsCount} Part Payment rows`,
+        detail:
+          "These rows stay in current sale review, but settlement detail may still be extractable, unavailable, or ambiguous.",
+        cue:
+          summaryCounts.partPaymentRowsCount > 0 ? "Settlement Review" : "None Flagged",
+        sectionState:
+          summaryCounts.partPaymentRowsCount > 0 ? ("needs-review" as const) : ("clean" as const),
+      },
+      {
+        title: "Fallback-Total Attention",
+        href: "#fallback-total-attention-rows",
+        countLabel: `${summaryCounts.grandTotalZeroCount} fallback-total attention rows`,
+        detail:
+          "These are the rows where grand_total is zero or empty, so effective_total may be carrying the usable amount.",
+        cue:
+          summaryCounts.grandTotalZeroCount > 0 ? "Needs Review" : "None Flagged",
+        sectionState:
+          summaryCounts.grandTotalZeroCount > 0 ? ("needs-review" as const) : ("clean" as const),
+      },
+    ];
+
+    return (
+      <div id="key-row-family-snapshot" className="rounded-2xl border border-white/20 bg-white/[0.02] p-6 mb-4 scroll-mt-6">
+        <div className="mb-4">
+          <p className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-2">Key Row Family Scan</p>
+          <h2 className="text-xl font-semibold mb-2">Key Row Family Snapshot</h2>
+          <p className="text-sm text-gray-400">
+            Use this as the fastest read across the row families that most often affect review posture:
+            regular, memo, complimentary, sales return, cancelled, Part Payment, and fallback-total
+            attention rows.
+          </p>
+        </div>
+
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-3">
+          {familyCards.map((card) => (
+            <a
+              key={card.title}
+              href={card.href}
+              className={`${getSnapshotCardClass(card.sectionState)} block transition hover:bg-white/[0.07]`}
+            >
+              <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+                <h3 className="text-sm font-semibold text-white">{card.title}</h3>
+                <span className="rounded-full border border-white/10 bg-black/20 px-2 py-1 text-[10px] uppercase tracking-[0.14em] text-gray-200">
+                  {card.cue}
+                </span>
+              </div>
+              <p className="text-base font-semibold text-white mb-2">{card.countLabel}</p>
+              <p className="text-sm text-gray-300">{card.detail}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    );
+  };
+
   const renderReviewStatusLegendSection = () => {
     return (
       <div id="review-status-legend" className="rounded-2xl border border-white/20 bg-white/[0.02] p-6 mb-6 scroll-mt-6">
@@ -1296,6 +1435,7 @@ export default function SalesTruthReviewPage() {
         <h2 className="text-xl font-semibold mb-2">How To Use This Page</h2>
         <div className="space-y-2 text-sm text-gray-300">
           <p>- Start with Current Review Snapshot for the quickest read of the current review position.</p>
+          <p>- Use Key Row Family Snapshot next for the fastest scan across regular, memo, complimentary, sales return, cancelled, Part Payment, and fallback-total attention rows.</p>
           <p>- Use Review Status Legend to understand what each review bucket means.</p>
           <p>- Use Memo Resolution Review only for investigation. Memo hints remain investigative hints only.</p>
           <p>- Keep this page as read-only review context, not live dashboard truth.</p>
@@ -1392,6 +1532,7 @@ export default function SalesTruthReviewPage() {
         </p>
 
         {!loadError && !loading && renderCurrentReviewSnapshotSection()}
+        {!loadError && !loading && renderKeyRowFamilySnapshotSection()}
         {!loadError && !loading && renderHowToUseThisPageSection()}
         {!loadError && !loading && renderSectionJumpBar()}
         {!loadError && !loading && renderReviewStatusLegendSection()}
@@ -1645,7 +1786,14 @@ export default function SalesTruthReviewPage() {
             "Regular Orders",
             "Latest 50 rows currently interpreted as regular main order rows.",
             regularOrders,
-            "No regular order rows found"
+            "No regular order rows found",
+            "Use this family as the main numeric order baseline before later inclusion or settlement questions are finalized.",
+            "regular-orders",
+            [
+              `Rows: ${summaryCounts.regularOrderMainCount}`,
+              regularOrders.length > 0 ? `Showing latest ${regularOrders.length}` : "No rows loaded",
+              "Main Numeric Family",
+            ]
           )}
           {renderRowsSection(
             "Advance Orders",
@@ -1677,19 +1825,43 @@ export default function SalesTruthReviewPage() {
             "Complimentary Orders",
             "Latest 50 rows where Order No suggests a complimentary transaction.",
             complimentaryOrders,
-            "No complimentary rows found"
+            "No complimentary rows found",
+            "These rows are tracked separately so complimentary activity stays outside the current proposed sales total.",
+            "complimentary-orders",
+            [
+              `Rows: ${summaryCounts.complimentaryExcludedRowsCount}`,
+              `Amount: ${formatCurrency(summaryCounts.complimentaryExcludedAmount)}`,
+              "Excluded In Review",
+            ],
+            "clean"
           )}
           {renderRowsSection(
             "Sales Return Orders",
             "Latest 50 rows where Order No suggests a sales return transaction.",
             salesReturnOrders,
-            "No sales return rows found"
+            "No sales return rows found",
+            "These rows are tracked separately so sales return activity stays outside the current proposed sales total.",
+            "sales-return-orders",
+            [
+              `Rows: ${summaryCounts.salesReturnExcludedRowsCount}`,
+              `Amount: ${formatCurrency(summaryCounts.salesReturnExcludedAmount)}`,
+              "Excluded In Review",
+            ],
+            "clean"
           )}
           {renderRowsSection(
             "Cancelled Orders",
             "Latest 50 rows currently flagged as cancelled by status or stored parse note.",
             cancelledOrders,
-            "No cancelled rows found"
+            "No cancelled rows found",
+            "Use this section to confirm which rows are currently staying out of the proposed sales total because Titan sees a cancellation signal.",
+            "cancelled-orders",
+            [
+              `Rows: ${summaryCounts.cancelledExcludedRowsCount}`,
+              `Amount: ${formatCurrency(summaryCounts.cancelledExcludedAmount)}`,
+              "Excluded In Review",
+            ],
+            "clean"
           )}
           {renderRowsSection(
             "Payment Split Child Rows",
@@ -1701,13 +1873,30 @@ export default function SalesTruthReviewPage() {
             "Part Payment Sale Review",
             "Latest 50 numeric sale rows where payment_type contains Part Payment. These remain valid sale candidates, but Titan is only checking whether payment split detail is clearly extractable from text.",
             partPaymentRows,
-            "No Part Payment rows found"
+            "No Part Payment rows found",
+            "Read this section as settlement-detail review only. These rows stay in the current sale review unless a later approved rule changes that.",
+            "part-payment-sale-review",
+            [
+              `Rows: ${summaryCounts.partPaymentRowsCount}`,
+              `Extractable: ${summaryCounts.extractablePaymentSplitRowsCount}`,
+              `Unavailable: ${summaryCounts.unavailablePaymentSplitRowsCount}`,
+              `Ambiguous: ${summaryCounts.ambiguousPaymentTextRowsCount}`,
+            ],
+            partPaymentRows.length > 0 ? "needs-review" : "clean"
           )}
           {renderRowsSection(
-            "Grand Total Zero Rows",
-            "Latest 50 rows where Grand Total is zero or empty and may need careful rule selection.",
+            "Fallback-Total Attention Rows",
+            "Latest 50 rows where Grand Total is zero or empty, so fallback-style reading may be needed to understand the usable total.",
             grandTotalZeroRows,
-            "No grand total zero rows found"
+            "No fallback-total attention rows found",
+            "Use this section when effective_total may be carrying the usable order value instead of grand_total. This is a trust-check only and does not change the current review totals by itself.",
+            "fallback-total-attention-rows",
+            [
+              `Rows: ${summaryCounts.grandTotalZeroCount}`,
+              grandTotalZeroRows.length > 0 ? `Showing latest ${grandTotalZeroRows.length}` : "No rows loaded",
+              grandTotalZeroRows.length > 0 ? "Needs Closer Reading" : "None Flagged",
+            ],
+            grandTotalZeroRows.length > 0 ? "needs-review" : "clean"
           )}
           {renderRowsSection(
             "Effective vs Grand Total Difference Rows",
