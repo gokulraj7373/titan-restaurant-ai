@@ -10,10 +10,10 @@ This handoff file may itself be refreshed later in a docs-only commit without tr
 
 ## What Was Completed In The Latest Session
 
-- Completed a read-only Upload History precision review across `/uploads`, the dashboard upload-summary area, `/upload/expenses`, and `/upload/sales`.
-- Confirmed `/uploads` and the dashboard upload-summary area are `uploads_log` surfaces.
-- Confirmed sales uploads persist richer ingestion detail in `uploads_log`, while expense uploads still use older lighter log semantics there.
-- Confirmed the current UI does not falsely claim exact expense inserted-row precision, so the real issue is logging-detail asymmetry rather than a product mismatch.
+- Completed one bounded wording-only `/uploads` clarification step so lighter expense rows read more clearly as stored upload history.
+- Preserved exact parsed, inserted, and rejected detail when those fields are genuinely logged in `uploads_log`.
+- Stopped showing fake zero fallback values for partially populated count fields on Upload History rows.
+- Kept the change page-local in `app/uploads/page.tsx` without changing upload logging, helper/query logic, database behavior, or policy framing.
 
 ## CURRENT WORKING TREE EXPECTATION
 
@@ -21,13 +21,13 @@ This handoff file may itself be refreshed later in a docs-only commit without tr
 
 ## CURRENT ACTIVE FOCUS
 
-- Keep Titan in a read-only truth-review phase while preserving the confirmed clean source boundaries and the owner-safe Upload History precision framing across the live-facing pages, the review layer, the reconciliation layer, the uploads/imports pages, and the safe upload-page render helpers.
+- Keep Titan in a read-only truth-review phase while preserving the confirmed clean source boundaries, the clarified owner-safe Upload History wording, and the separation between live-facing pages and the read-only review layer.
 - Improve owner clarity, safety, recovery, and consistency without promoting policy.
 - Treat `/sales-truth-review` as the current truth-checking control room while keeping live-facing pages clearly separate from the read-only review layer.
 
 ## EXACT NEXT SAFEST STEP
 
-- Plan one bounded wording-only milestone for `/uploads` so expense rows more explicitly read as raw upload history unless exact expense-ingestion counts are available in `uploads_log`.
+- Use the new Sales Reconciliation page to inspect fallback-total and total-difference order rows.
 
 ## WARNINGS AND PENDING CAUTIONS
 

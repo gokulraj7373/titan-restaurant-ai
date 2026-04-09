@@ -670,3 +670,14 @@ The completed review confirmed that `/uploads` and the dashboard upload-summary 
 
 Current status:
 Active
+
+## Decision 62
+
+Decision:
+Keep Upload History wording conservative for lighter expense rows and show exact parsed, inserted, and rejected counts only when those values are actually logged.
+
+Why it was taken:
+The completed precision review found an owner-clarity gap rather than a product mismatch. A bounded wording-only step on `/uploads` keeps sales-side precision intact where exact log detail exists, avoids fake zero fallback values, and makes lighter expense rows read more clearly as stored upload history without changing logging behavior, database behavior, or policy framing.
+
+Current status:
+Active

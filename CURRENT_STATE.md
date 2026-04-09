@@ -185,6 +185,7 @@ These are now the real sales ingestion targets for the smart sales upload flow.
 - These upload helpers stay on `uploads_log` only and stay separate from the sales, expense, profit, and read-only truth-review layers.
 - A completed Upload History precision review has now confirmed that these `uploads_log` surfaces are directionally safe overall without falsely claiming exact expense inserted-row precision.
 - That same review also confirmed that sales uploads persist richer ingestion detail in `uploads_log`, while expense uploads still use older lighter log semantics there.
+- The `/uploads` page now also uses calmer owner-facing wording so lighter expense rows read more clearly as stored upload history unless exact ingest counts were actually logged.
 - Titan now also has reusable imports-page helpers under `lib/import-query/`.
 - The `/sales-imports` page now uses that helper layer for its current sales-import list / loading / error flow while staying on `sales_imports` only.
 - The `/expense-imports` page now uses that helper layer for its current expense-import list / loading / error flow while staying on `expense_imports` only.
@@ -214,7 +215,7 @@ These are now the real sales ingestion targets for the smart sales upload flow.
 - A small Expense Analytics consistency audit has now confirmed that `/expense-analytics` reads directly from `expense_imports` and does not accidentally depend on the read-only sales truth review layer.
 - A broader read-only source-boundary audit has now confirmed that the audited pages stay on their intended helper layers and source tables overall, with no source-boundary mismatch requiring product changes.
 - A read-only Upload History precision review has now confirmed that the current UI does not falsely claim exact expense inserted-row precision, so the real issue is logging-detail asymmetry rather than a product mismatch.
-- The next safety step is to plan one bounded wording-only milestone for `/uploads` so expense rows more explicitly read as raw upload history unless exact expense-ingestion counts are available in `uploads_log`.
+- The next safety step is to use the new Sales Reconciliation page to inspect fallback-total and total-difference order rows.
 
 ## Clean Snapshot
 

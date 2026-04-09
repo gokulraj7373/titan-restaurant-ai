@@ -2,32 +2,32 @@
 
 ## Immediate Next Steps
 
-1. Plan one bounded wording-only milestone for `/uploads` so expense rows more explicitly read as raw upload history unless exact expense-ingestion counts are available in `uploads_log`.
+1. Use the new Sales Reconciliation page to inspect fallback-total and total-difference order rows.
 2. Fix any stale or mixed source logic before building more advanced features if a later check finds any.
-3. Use the new Sales Reconciliation page to inspect fallback-total and total-difference order rows.
-4. Test the new sales upload classifications with duplicate, append-only, gap-fill, and changed-overlap files.
-5. Use the changed-overlap review on the sales upload page to understand why blocked Order Listing files differ before designing any merge logic.
-6. Use the Sales Truth Review page to inspect regular, memo, complimentary, sales return, cancelled, Part Payment, and fallback-total rows.
-7. Review which Part Payment rows have clearly extractable settlement detail and which do not.
-8. Review the proposed sales-policy buckets and confirm whether net sale candidates, excluded rows, and unresolved memo rows match business intent.
-9. Use the new verification breakdowns to confirm where the current proposed net sales amount comes from by month, source family, and upload.
-10. Use the monthly and upload reconciliation checks to confirm every policy bucket closes cleanly before promoting anything into dashboard or profit views.
-11. Use the Memo Resolution Review section only as a read-only investigative tool while memo remains unresolved and excluded from live sales truth.
-12. Review memo candidate hints as non-binding heuristics only and do not treat them as approved memo-to-sale links.
-13. Finalize a memo rule only after stronger evidence standards are agreed and documented.
-14. Do not promote memo into dashboard, profit overview, sales analytics, upload logic, ingestion logic, or live business truth in this review stage.
-15. Confirm which Order Listing transaction families should be included later in true business sales totals, while keeping payment settlement logic separate from sales truth.
-16. Only after consistency is proven, continue building the sales query engine.
-17. Keep extending the reusable read-only sales truth review policy layer with tests before any future live policy promotion is considered.
-18. Keep the Current Review Snapshot owner-friendly and read-only, and use it only to surface already-derived review outputs without changing policy behavior.
-19. Keep the Promotion Readiness Snapshot owner-friendly and read-only, and use it only to explain current review readiness without triggering any live policy action.
-20. Keep the live-facing sales truth status reminder short, owner-friendly, and clearly read-only until a later explicit promotion decision is approved.
-21. Keep the shared sales truth status notice component consistent across live-facing pages, and treat it only as read-only guidance until a later approved promotion decision exists.
-22. Keep `LIVE_PROJECT.md`, `AGENT_OPERATING_RULES.md`, and `SESSION_HANDOFF.md` current after meaningful milestones so a new AI can take over safely without re-explaining the project.
-23. Keep `SESSION_HANDOFF.md` updated first whenever the latest safe commit, active focus, or exact next safest step changes.
-24. Keep the completed live-facing sales-page consistency audit recorded as a finished check so future agents do not repeat it as the next baton step.
-25. Keep the completed Upload History consistency audit recorded as a finished check so future agents do not repeat it as the next baton step.
-26. Keep the completed Upload History precision review recorded as a finished check so future agents do not repeat it as the next baton step.
+3. Test the new sales upload classifications with duplicate, append-only, gap-fill, and changed-overlap files.
+4. Use the changed-overlap review on the sales upload page to understand why blocked Order Listing files differ before designing any merge logic.
+5. Use the Sales Truth Review page to inspect regular, memo, complimentary, sales return, cancelled, Part Payment, and fallback-total rows.
+6. Review which Part Payment rows have clearly extractable settlement detail and which do not.
+7. Review the proposed sales-policy buckets and confirm whether net sale candidates, excluded rows, and unresolved memo rows match business intent.
+8. Use the new verification breakdowns to confirm where the current proposed net sales amount comes from by month, source family, and upload.
+9. Use the monthly and upload reconciliation checks to confirm every policy bucket closes cleanly before promoting anything into dashboard or profit views.
+10. Use the Memo Resolution Review section only as a read-only investigative tool while memo remains unresolved and excluded from live sales truth.
+11. Review memo candidate hints as non-binding heuristics only and do not treat them as approved memo-to-sale links.
+12. Finalize a memo rule only after stronger evidence standards are agreed and documented.
+13. Do not promote memo into dashboard, profit overview, sales analytics, upload logic, ingestion logic, or live business truth in this review stage.
+14. Confirm which Order Listing transaction families should be included later in true business sales totals, while keeping payment settlement logic separate from sales truth.
+15. Only after consistency is proven, continue building the sales query engine.
+16. Keep extending the reusable read-only sales truth review policy layer with tests before any future live policy promotion is considered.
+17. Keep the Current Review Snapshot owner-friendly and read-only, and use it only to surface already-derived review outputs without changing policy behavior.
+18. Keep the Promotion Readiness Snapshot owner-friendly and read-only, and use it only to explain current review readiness without triggering any live policy action.
+19. Keep the live-facing sales truth status reminder short, owner-friendly, and clearly read-only until a later explicit promotion decision is approved.
+20. Keep the shared sales truth status notice component consistent across live-facing pages, and treat it only as read-only guidance until a later approved promotion decision exists.
+21. Keep `LIVE_PROJECT.md`, `AGENT_OPERATING_RULES.md`, and `SESSION_HANDOFF.md` current after meaningful milestones so a new AI can take over safely without re-explaining the project.
+22. Keep `SESSION_HANDOFF.md` updated first whenever the latest safe commit, active focus, or exact next safest step changes.
+23. Keep the completed live-facing sales-page consistency audit recorded as a finished check so future agents do not repeat it as the next baton step.
+24. Keep the completed Upload History consistency audit recorded as a finished check so future agents do not repeat it as the next baton step.
+25. Keep the completed Upload History precision review recorded as a finished check so future agents do not repeat it as the next baton step.
+26. Keep the completed Upload History wording clarification recorded as a finished owner-facing check so future agents do not repeat it as the next baton step.
 27. Keep the completed Expense Analytics consistency audit recorded as a finished check so future agents do not repeat it as the next baton step.
 28. Keep the completed page-by-page source-boundary audit recorded as a finished continuity check so future agents do not repeat it as the next baton step.
 29. Keep the live order-level sales query helpers small, deterministic, and separate from item-level analytics and the read-only sales truth review layer.

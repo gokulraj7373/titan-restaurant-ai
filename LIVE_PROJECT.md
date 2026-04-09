@@ -43,6 +43,7 @@ That baton-pass file uses a latest verified baton-anchor model, so it can be ref
 - A read-only Upload History precision review has now confirmed that `/uploads` and the dashboard upload-summary area remain directionally safe overall.
 - That same review also confirmed that sales uploads persist richer ingestion detail in `uploads_log`, while expense uploads still use older lighter log semantics there.
 - The current Upload History UI does not falsely claim exact expense inserted-row precision, so the real issue is logging-detail asymmetry rather than a product mismatch.
+- A bounded wording-only `/uploads` clarification step has now made lighter expense rows read more clearly as stored upload history unless exact ingest counts are actually logged there.
 
 ## Current Architecture State
 
@@ -155,6 +156,7 @@ That reminder points back to `/sales-truth-review` and does not mean live promot
 - Upload History is still directionally safe overall.
 - Sales-side upload logging currently carries stronger persisted ingestion detail than expense-side upload logging.
 - Expense upload rows in Upload History should still be read as raw upload history unless exact expense-ingestion counts are explicitly present in `uploads_log`.
+- Upload History now also explains that parsed, inserted, and rejected counts appear only when that detail was logged for a specific upload.
 
 ### First Imports Query Layer
 
@@ -232,6 +234,6 @@ That reminder points back to `/sales-truth-review` and does not mean live promot
 ## Current Recommended Direction
 
 The exact next safest step remains:
-- plan one bounded wording-only milestone for `/uploads` so expense rows more explicitly read as raw upload history unless exact expense-ingestion counts are available in `uploads_log`
+- use the new Sales Reconciliation page to inspect fallback-total and total-difference order rows
 
 This section should stay aligned with `SESSION_HANDOFF.md`.
