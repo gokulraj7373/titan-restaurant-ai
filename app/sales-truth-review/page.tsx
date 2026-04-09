@@ -1506,6 +1506,123 @@ export default function SalesTruthReviewPage() {
     );
   };
 
+  const renderReconciliationClosureSnapshotSection = () => {
+    const totalMonthChecks = monthlyPolicyReconciliationRows.length;
+    const monthMismatchCount = monthlyPolicyReconciliationRows.filter((row) => !row.reconciled).length;
+    const monthCleanCount = totalMonthChecks - monthMismatchCount;
+    const monthReconciliationHealthy =
+      totalMonthChecks > 0 && monthlyPolicyReconciliationRows.every((row) => row.reconciled);
+
+    const totalUploadChecks = latestImportBreakdownRows.length;
+    const uploadMismatchCount = latestImportBreakdownRows.filter((row) => !row.reconciled).length;
+    const uploadCleanCount = totalUploadChecks - uploadMismatchCount;
+    const uploadReconciliationHealthy =
+      totalUploadChecks > 0 && latestImportBreakdownRows.every((row) => row.reconciled);
+
+    const closureLooksClean = monthReconciliationHealthy && uploadReconciliationHealthy;
+
+    return (
+      <div
+        id="reconciliation-closure-snapshot"
+        className="rounded-2xl border border-white/20 bg-white/[0.02] p-6 mb-4 scroll-mt-6"
+      >
+        <div className="mb-4">
+          <p className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-2">Closure Scan</p>
+          <h2 className="text-xl font-semibold mb-2">Reconciliation Closure Snapshot</h2>
+          <p className="text-sm text-gray-400">
+            This is the fastest read of whether the current proposed policy buckets are closing cleanly
+            by month and by upload. It uses the existing read-only reconciliation outputs only.
+          </p>
+        </div>
+
+        <div className="mb-4 flex flex-wrap gap-2">
+          <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200">
+            Month Checks: {totalMonthChecks}
+          </div>
+          <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200">
+            Upload Checks: {totalUploadChecks}
+          </div>
+          <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200">
+            Closure: {closureLooksClean ? "Currently Clean" : "Needs Review"}
+          </div>
+          <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200">
+            Review Only
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3 mb-4">
+          <a
+            href="#monthly-policy-reconciliation"
+            className={`${getSnapshotCardClass(
+              totalMonthChecks === 0 ? "neutral" : monthMismatchCount > 0 ? "needs-review" : "clean"
+            )} block transition hover:bg-white/[0.07]`}
+          >
+            <div className="mb-3 flex items-center justify-between gap-2">
+              <h3 className="text-sm font-semibold text-white">Month Closure</h3>
+              <span className="rounded-full border border-white/10 bg-black/20 px-2 py-1 text-[10px] uppercase tracking-[0.14em] text-gray-200">
+                {totalMonthChecks === 0 ? "No Rows" : monthMismatchCount > 0 ? "Needs Review" : "Clean"}
+              </span>
+            </div>
+            <p className="text-base font-semibold text-white mb-2">
+              {totalMonthChecks === 0
+                ? "No month rows loaded"
+                : `${monthCleanCount} clean / ${monthMismatchCount} mismatch`}
+            </p>
+            <p className="text-sm text-gray-300">
+              Current repo rule: a month is marked reconciled when the full month total matches the sum
+              of the current policy buckets within the existing tolerance.
+            </p>
+          </a>
+
+          <a
+            href="#upload-attribution-check"
+            className={`${getSnapshotCardClass(
+              totalUploadChecks === 0 ? "neutral" : uploadMismatchCount > 0 ? "needs-review" : "clean"
+            )} block transition hover:bg-white/[0.07]`}
+          >
+            <div className="mb-3 flex items-center justify-between gap-2">
+              <h3 className="text-sm font-semibold text-white">Upload Closure</h3>
+              <span className="rounded-full border border-white/10 bg-black/20 px-2 py-1 text-[10px] uppercase tracking-[0.14em] text-gray-200">
+                {totalUploadChecks === 0 ? "No Rows" : uploadMismatchCount > 0 ? "Needs Review" : "Clean"}
+              </span>
+            </div>
+            <p className="text-base font-semibold text-white mb-2">
+              {totalUploadChecks === 0
+                ? "No upload rows loaded"
+                : `${uploadCleanCount} clean / ${uploadMismatchCount} mismatch`}
+            </p>
+            <p className="text-sm text-gray-300">
+              Current repo rule: an upload is marked reconciled when the upload-attributed amount matches
+              the sum of the current policy buckets for that upload.
+            </p>
+          </a>
+
+          <div
+            className={getSnapshotCardClass(
+              closureLooksClean ? "clean" : totalMonthChecks === 0 && totalUploadChecks === 0 ? "neutral" : "needs-review"
+            )}
+          >
+            <div className="mb-3 flex items-center justify-between gap-2">
+              <h3 className="text-sm font-semibold text-white">What This Means Right Now</h3>
+              <span className="rounded-full border border-white/10 bg-black/20 px-2 py-1 text-[10px] uppercase tracking-[0.14em] text-gray-200">
+                Read-Only
+              </span>
+            </div>
+            <p className="text-sm text-gray-300">
+              {closureLooksClean
+                ? "The current repo posture supports later promotion review because both month-level and upload-level bucket checks are closing cleanly."
+                : "The current repo posture still needs closer reading in one or both reconciliation views before any later promotion review."}
+            </p>
+            <p className="text-sm text-gray-400 mt-3">
+              This still does not approve live promotion by itself. It only shows whether the current
+              review buckets are mathematically closing cleanly in the existing read-only checks.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   const renderKeyRowFamilySnapshotSection = () => {
     const familyCards = [
       {
@@ -1658,6 +1775,7 @@ export default function SalesTruthReviewPage() {
         <div className="space-y-2 text-sm text-gray-300">
           <p>- Start with Current Review Snapshot for the quickest read of the current review position.</p>
           <p>- Use Sales Policy Bucket Snapshot next to see what Titan currently treats as candidate, excluded, and unresolved before reading row-level detail.</p>
+          <p>- Use Reconciliation Closure Snapshot next to see whether the current policy buckets are closing cleanly by month and by upload before reading the detailed check tables.</p>
           <p>- Use Key Row Family Snapshot next for the fastest scan across regular, memo, complimentary, sales return, cancelled, Part Payment, and fallback-total attention rows.</p>
           <p>- Use Review Status Legend to understand what each review bucket means.</p>
           <p>- Use Memo Resolution Review only for investigation. Memo hints remain investigative hints only.</p>
@@ -1683,6 +1801,11 @@ export default function SalesTruthReviewPage() {
         href: "#sales-policy-bucket-snapshot",
         label: "Sales Policy Snapshot",
         cue: "Candidate vs Excluded",
+      },
+      {
+        href: "#reconciliation-closure-snapshot",
+        label: "Closure Snapshot",
+        cue: "Month vs Upload",
       },
       { href: "#review-status-legend", label: "Review Status Legend", cue: "Reference" },
       {
@@ -1967,6 +2090,7 @@ export default function SalesTruthReviewPage() {
         )}
 
         <div className="space-y-6">
+          {renderReconciliationClosureSnapshotSection()}
           {renderSalesPolicyBucketSnapshotSection()}
           {renderMemoResolutionReviewSection()}
           {renderMonthlyPolicyReconciliationSection()}

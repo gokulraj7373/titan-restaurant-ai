@@ -736,3 +736,14 @@ The page already had the right bucket logic, row sections, and verification brea
 
 Current status:
 Active
+
+## Decision 68
+
+Decision:
+Keep reconciliation-closure review owner-friendly and conservative by showing month-wise and upload-wise closure posture through one read-only snapshot using existing derived reconciliation checks only.
+
+Why it was taken:
+The page already had the right month-level and upload-level reconciliation tables, but the owner still had to combine multiple sections to answer whether the current policy buckets are closing cleanly right now. Adding one bounded snapshot improves inspection clarity without changing reconciliation math, bucket logic, totals, attribution logic, memo stance, or live promotion state.
+
+Current status:
+Active

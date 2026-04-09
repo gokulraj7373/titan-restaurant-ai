@@ -49,6 +49,7 @@ That baton-pass file uses a latest verified baton-anchor model, so it can be ref
 - A bounded page-local Sales Truth Review scanability step has now added a compact Key Row Family Snapshot and clearer section-level cues for regular, memo, complimentary, sales return, cancelled, Part Payment, and fallback-total attention rows without changing review policy, totals, or promotion state.
 - A bounded page-local Part Payment review step has now confirmed that the current review surface separates clearly extractable, unavailable-from-export, and ambiguous settlement-detail rows from existing exported text and derived review state only.
 - A bounded page-local sales-policy bucket review step has now confirmed that the current proposed policy posture still matches repo truth and has added a compact candidate-versus-excluded-versus-unresolved snapshot using existing derived counts only.
+- A bounded page-local reconciliation-closure review step has now confirmed that the current repo posture still shows month-wise and upload-wise closure as clean in the verified read-only review layer and has added a compact closure snapshot using existing derived checks only.
 
 ## Current Architecture State
 
@@ -99,6 +100,7 @@ That baton-pass file uses a latest verified baton-anchor model, so it can be ref
 `/sales-truth-review` now includes:
 - Current Review Snapshot
 - Sales Policy Bucket Snapshot
+- Reconciliation Closure Snapshot
 - Key Row Family Snapshot
 - Part Payment Settlement Snapshot
 - Promotion Readiness Snapshot
@@ -113,6 +115,7 @@ That baton-pass file uses a latest verified baton-anchor model, so it can be ref
 - deeper section guidance, summary chips, and scan aids
 - clearer family-level scan cues for regular, memo, complimentary, sales return, cancelled, Part Payment, and fallback-total attention rows
 - clearer sales-policy guidance about what Titan currently treats as candidate, excluded, and unresolved in review
+- clearer reconciliation-closure guidance about whether policy buckets are currently closing cleanly by month and by upload
 - clearer Part Payment guidance about what the current export text can and cannot safely prove about settlement breakup
 
 This page remains read-only in effect.
@@ -249,6 +252,6 @@ That reminder points back to `/sales-truth-review` and does not mean live promot
 ## Current Recommended Direction
 
 The exact next safest step remains:
-- use the monthly and upload reconciliation checks to confirm every policy bucket closes cleanly before promoting anything into dashboard or profit views
+- confirm which Order Listing transaction families should be included later in true business sales totals, while keeping payment settlement logic separate from sales truth
 
 This section should stay aligned with `SESSION_HANDOFF.md`.
