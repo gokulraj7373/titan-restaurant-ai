@@ -824,3 +824,14 @@ The page already had the needed evidence, but the owner-facing top area had beco
 
 Current status:
 Active
+
+## Decision 76
+
+Decision:
+Move the later protocol-handoff draft posture into its own small read-only page under `/sales-truth-review/protocol-handoff` and leave only one local entry point on the main `/sales-truth-review` page.
+
+Why it was taken:
+After the top posture consolidation, the main review page was finally composed enough that adding another later-handoff block there would have started stacking the same posture language again. A separate handoff page keeps the main page focused on operational review detail while giving the owner one calmer read-only surface for later explicit promotion discussion, without changing policy buckets, totals, memo stance, reconciliation behavior, or promotion state.
+
+Current status:
+Active

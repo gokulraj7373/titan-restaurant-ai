@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { buildSalesTruthReviewDerivedData } from "@/lib/sales-truth-review/engine";
 import {
@@ -1426,146 +1427,35 @@ export default function SalesTruthReviewPage() {
     );
   };
 
-
-  const renderFuturePromotionDecisionProtocolDocumentOutlineSection = () => {
-    const monthReconciliationHealthy =
-      monthlyPolicyReconciliationRows.length > 0 &&
-      monthlyPolicyReconciliationRows.every((row) => row.reconciled);
-    const uploadReconciliationHealthy =
-      latestImportBreakdownRows.length > 0 &&
-      latestImportBreakdownRows.every((row) => row.reconciled);
-    const salesPolicyPostureVisible = salesPolicyBreakdownRows.length > 0;
-    const transactionFamilyPostureVisible =
-      summaryCounts.regularOrderMainCount +
-        summaryCounts.partPaymentRowsCount +
-        summaryCounts.memoSpecialCount +
-        summaryCounts.complimentaryCount +
-        summaryCounts.salesReturnCount +
-        summaryCounts.cancelledRowsCount +
-        summaryCounts.grandTotalZeroCount >
-      0;
-    const ambiguousSettlementReviewPresent =
-      partPaymentRows.length > 0 || grandTotalZeroRows.length > 0 || differentTotalRows.length > 0;
-    const documentOutlineReady =
-      monthReconciliationHealthy &&
-      uploadReconciliationHealthy &&
-      salesPolicyPostureVisible &&
-      transactionFamilyPostureVisible;
-    const sectionCount = 5;
-    const unresolvedSectionCount =
-      (summaryCounts.memoUnresolvedRowsCount > 0 ? 1 : 0) +
-      (summaryCounts.unresolvedOtherRowsCount > 0 ? 1 : 0) +
-      (ambiguousSettlementReviewPresent ? 1 : 0);
-
+  const renderProtocolHandoffEntrySection = () => {
     return (
-      <div
-        id="future-promotion-decision-protocol-document-outline"
-        className="rounded-2xl border border-white/20 bg-white/[0.02] p-6 mb-4 scroll-mt-6"
-      >
-        <div className="mb-4">
-          <p className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-2">Protocol Document</p>
-          <h2 className="text-xl font-semibold mb-2">Future Promotion-Decision Protocol Document Outline</h2>
-          <p className="text-sm text-gray-400">
-            This is the smallest read-only outline Titan can show today for any later explicit
-            promotion-decision protocol document. It turns the current review posture into document-style
-            sections without approving promotion or changing any live truth.
-          </p>
-        </div>
-
-        <div className="mb-4 flex flex-wrap gap-2">
-          <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200">
-            Outline Sections: {sectionCount}
-          </div>
-          <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200">
-            Unresolved Sections: {unresolvedSectionCount}
-          </div>
-          <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200">
-            Document Posture: {documentOutlineReady ? "Clearer" : "Still Early"}
-          </div>
-          <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200">
-            Read-Only
-          </div>
-        </div>
-
-        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-5">
-          <a
-            href="#reconciliation-closure-snapshot"
-            className={`${getSnapshotCardClass(documentOutlineReady ? "clean" : "neutral")} block transition hover:bg-white/[0.07]`}
-          >
-            <div className="mb-3 flex items-center justify-between gap-2">
-              <h3 className="text-sm font-semibold text-white">Section 1: Strong Evidence</h3>
-              <span className="rounded-full border border-white/10 bg-black/20 px-2 py-1 text-[10px] uppercase tracking-[0.14em] text-gray-200">
-                Foundation
-              </span>
-            </div>
-            <div className="space-y-2 text-sm text-gray-300">
-              <p>- Month-wise reconciliation</p>
-              <p>- Upload-wise reconciliation</p>
-              <p>- Visible sales-policy buckets</p>
-              <p>- Visible transaction-family posture</p>
-            </div>
-          </a>
-
-          <a
-            href="#memo-unresolved-rows"
-            className={`${getSnapshotCardClass(
-              summaryCounts.memoUnresolvedRowsCount > 0 || summaryCounts.unresolvedOtherRowsCount > 0 || ambiguousSettlementReviewPresent
-                ? "needs-review"
-                : "clean"
-            )} block transition hover:bg-white/[0.07]`}
-          >
-            <div className="mb-3 flex items-center justify-between gap-2">
-              <h3 className="text-sm font-semibold text-white">Section 2: Unresolved Evidence</h3>
-              <span className="rounded-full border border-white/10 bg-black/20 px-2 py-1 text-[10px] uppercase tracking-[0.14em] text-gray-200">
-                Open Questions
-              </span>
-            </div>
-            <div className="space-y-2 text-sm text-gray-300">
-              <p>- Memo unresolved rows: {summaryCounts.memoUnresolvedRowsCount}</p>
-              <p>- Unresolved-other rows: {summaryCounts.unresolvedOtherRowsCount}</p>
-              <p>- Ambiguous settlement review: {ambiguousSettlementReviewPresent ? "present" : "quiet"}</p>
-            </div>
-          </a>
-
-          <div className={getSnapshotCardClass("needs-review")}>
-            <div className="mb-3 flex items-center justify-between gap-2">
-              <h3 className="text-sm font-semibold text-white">Section 3: Live-Promotion Blockers</h3>
-              <span className="rounded-full border border-white/10 bg-black/20 px-2 py-1 text-[10px] uppercase tracking-[0.14em] text-gray-200">
-                Still Blocked
-              </span>
-            </div>
-            <div className="space-y-2 text-sm text-gray-300">
-              <p>- Memo still blocks live promotion.</p>
-              <p>- Settlement truth remains separate and limited.</p>
-              <p>- No explicit business approval exists yet.</p>
-            </div>
-          </div>
-
-          <div className={getSnapshotCardClass(documentOutlineReady ? "clean" : "neutral")}>
-            <div className="mb-3 flex items-center justify-between gap-2">
-              <h3 className="text-sm font-semibold text-white">Section 4: Later Approvals</h3>
-              <span className="rounded-full border border-white/10 bg-black/20 px-2 py-1 text-[10px] uppercase tracking-[0.14em] text-gray-200">
-                Owner Decision
-              </span>
-            </div>
-            <div className="space-y-2 text-sm text-gray-300">
-              <p>- Approve whether review policy should ever become live truth.</p>
-              <p>- Approve final memo treatment.</p>
-              <p>- Approve any later settlement-rule relationship to sales truth.</p>
-            </div>
-          </div>
-
-          <div className={getSnapshotCardClass("neutral")}>
-            <div className="mb-3 flex items-center justify-between gap-2">
-              <h3 className="text-sm font-semibold text-white">Section 5: Read-Only Boundary</h3>
-              <span className="rounded-full border border-white/10 bg-black/20 px-2 py-1 text-[10px] uppercase tracking-[0.14em] text-gray-200">
-                No Approval
-              </span>
-            </div>
-            <p className="text-sm text-gray-300">
-              This outline only shows how a future protocol document could be organized. It does not
-              mean live promotion is near, approved, or automatic.
+      <div className="rounded-2xl border border-white/20 bg-white/[0.02] p-6 mb-4">
+        <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+          <div className="max-w-3xl">
+            <p className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-2">Later Handoff Surface</p>
+            <h2 className="text-xl font-semibold mb-2">Protocol Handoff Draft</h2>
+            <p className="text-sm text-gray-400">
+              Keep this main page focused on day-to-day review detail. Use the separate handoff draft
+              page only when you want the calmer read-only summary for a later explicit promotion
+              discussion.
             </p>
+          </div>
+
+          <div className="flex flex-col gap-3 sm:items-start lg:items-end">
+            <div className="flex flex-wrap gap-2 text-xs text-gray-200">
+              <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">
+                Read-Only
+              </span>
+              <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1">
+                Separate From Main Review Flow
+              </span>
+            </div>
+            <Link
+              href="/sales-truth-review/protocol-handoff"
+              className="inline-flex items-center justify-center rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm text-white transition hover:bg-white/10"
+            >
+              Open Protocol Handoff Draft
+            </Link>
           </div>
         </div>
       </div>
@@ -2190,7 +2080,7 @@ export default function SalesTruthReviewPage() {
         <div className="space-y-2 text-sm text-gray-300">
           <p>- Start with Current Review Snapshot for the quickest read of the current review position.</p>
           <p>- Use Live Promotion Evidence Checklist next for the clearest read of what already looks strong, what still remains unresolved, what still blocks live promotion, and what would still need later explicit approval.</p>
-          <p>- Use Future Promotion-Decision Protocol Document Outline after that to see the smallest later handoff or document shape Titan could support while still staying read-only.</p>
+          <p>- If you need the later handoff-ready summary, use the separate Protocol Handoff Draft entry instead of expecting more posture blocks on this page.</p>
           <p>- Then use Key Row Family Snapshot, Transaction Family Inclusion Snapshot, Sales Policy Bucket Snapshot, Reconciliation Closure Snapshot, and Part Payment Settlement Snapshot for the more concrete review evidence below.</p>
           <p>- Use Review Status Legend if you need a quick reference for how the page labels review status.</p>
           <p>- Use Memo Resolution Review only for investigation. Memo hints remain investigative hints only.</p>
@@ -2216,11 +2106,6 @@ export default function SalesTruthReviewPage() {
         href: "#live-promotion-evidence-checklist",
         label: "Evidence Checklist",
         cue: "Readiness & Blockers",
-      },
-      {
-        href: "#future-promotion-decision-protocol-document-outline",
-        label: "Protocol Outline",
-        cue: "Later Handoff Shape",
       },
       {
         href: "#key-row-family-snapshot",
@@ -2525,7 +2410,7 @@ export default function SalesTruthReviewPage() {
 
         <div className="space-y-6">
           {renderLivePromotionEvidenceChecklistSection()}
-          {renderFuturePromotionDecisionProtocolDocumentOutlineSection()}
+          {renderProtocolHandoffEntrySection()}
           {renderKeyRowFamilySnapshotSection()}
           {renderTransactionFamilyInclusionSnapshotSection()}
           {renderReconciliationClosureSnapshotSection()}

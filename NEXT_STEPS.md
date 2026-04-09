@@ -2,7 +2,7 @@
 
 ## Immediate Next Steps
 
-1. Review whether the consolidated read-only posture is now clear enough to stop adding new review blocks and shift the next safe work toward a later protocol-handoff draft, while still keeping the system fully read-only.
+1. Review whether the new read-only handoff draft page is clear enough to stop further protocol-document buildup on the main sales-truth-review page, while keeping the system fully read-only.
 2. Use the new verification breakdowns to confirm where the current proposed net sales amount comes from by month, source family, and upload.
 3. Use the Memo Resolution Review section only as a read-only investigative tool while memo remains unresolved and excluded from live sales truth.
 4. Review memo candidate hints as non-binding heuristics only and do not treat them as approved memo-to-sale links.
@@ -17,11 +17,11 @@
 13. Keep the Reconciliation Closure Snapshot owner-friendly and read-only, and use it only to explain current month-versus-upload closure posture without implying approved live policy.
 14. Keep the Transaction Family Inclusion Snapshot owner-friendly and read-only, and use it only to explain current later-includable-versus-excludable-versus-unresolved-versus-diagnostic family posture without implying approved live policy.
 16. Keep the Live Promotion Evidence Checklist owner-friendly and read-only, and use it only to explain what already looks strong, what still remains unresolved, what still blocks live promotion, and what would still need later explicit approval.
-19. Keep the Future Promotion-Decision Protocol Document Outline snapshot owner-friendly and read-only, and use it only to explain the smallest later protocol document shape without implying approval.
-20. Keep the consolidated read-only posture area owner-friendly and read-only, and use it to separate current review state, evidence and blockers, and later protocol-document posture without implying approval.
+19. Keep the separate read-only protocol handoff draft page owner-friendly and read-only, and use it only to explain the smallest later handoff posture without implying approval.
+20. Keep the consolidated read-only posture area on the main sales-truth-review page owner-friendly and read-only, and use it to separate current review state from evidence and blockers without letting protocol-document buildup stack there again.
 21. Keep the Key Row Family Snapshot owner-friendly and read-only, and use it only to speed up inspection of already-derived row families without changing policy behavior.
 22. Keep the Part Payment Settlement Snapshot owner-friendly and read-only, and use it only to explain current export limits without overstating settlement certainty.
-23. Keep the Promotion Readiness Snapshot owner-friendly and read-only, and use it only to explain current review readiness without triggering any live policy action.
+23. Keep the Why It Stays Read-Only guidance owner-friendly and conservative, and use it only to explain current review posture without triggering any live policy action.
 24. Keep the live-facing sales truth status reminder short, owner-friendly, and clearly read-only until a later explicit promotion decision is approved.
 25. Keep the shared sales truth status notice component consistent across live-facing pages, and treat it only as read-only guidance until a later approved promotion decision exists.
 26. Keep `LIVE_PROJECT.md`, `AGENT_OPERATING_RULES.md`, and `SESSION_HANDOFF.md` current after meaningful milestones so a new AI can take over safely without re-explaining the project.

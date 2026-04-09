@@ -10,10 +10,10 @@ This handoff file may itself be refreshed later in a docs-only commit without tr
 
 ## What Was Completed In The Latest Session
 
-- Completed one bounded consolidation step for the top and mid-upper posture area of `/sales-truth-review`.
-- Confirmed the page still stays read-only in effect, remains pinned to the current review layer, and keeps policy buckets, totals, memo stance, and promotion state unchanged.
-- Confirmed the owner-facing top posture now reads in fewer stronger groups: current review state, read-only evidence and blockers, and later protocol-document posture.
-- Consolidated overlapping later-decision and later-protocol sections into the stronger remaining posture sections instead of adding another new review block.
+- Completed one bounded separation step so future protocol-handoff posture no longer needs to accumulate on the main `/sales-truth-review` page.
+- Added a new small read-only handoff page at `/sales-truth-review/protocol-handoff` for later explicit promotion-decision discussion only.
+- Kept `/sales-truth-review` as the operational truth-checking control room and replaced the old top protocol-document block with one small local entry point to the new handoff page.
+- Confirmed both surfaces stay read-only in effect, remain pinned to the current review layer, and keep policy buckets, totals, memo stance, and promotion state unchanged.
 
 ## CURRENT WORKING TREE EXPECTATION
 
@@ -21,13 +21,13 @@ This handoff file may itself be refreshed later in a docs-only commit without tr
 
 ## CURRENT ACTIVE FOCUS
 
-- Keep Titan in a read-only truth-review phase while preserving the confirmed clean source boundaries, the clarified owner-safe Upload History wording, the improved Sales Reconciliation scan path, the validated sales upload classifications, the improved Sales Truth Review family scan path, the improved Part Payment review scan path, the improved sales-policy bucket scan path, the improved reconciliation-closure scan path, the improved transaction-family inclusion scan path, the improved live-promotion evidence-checklist scan path, the improved future-protocol-document scan path, the newly consolidated sales-truth-review posture scan path, and the separation between live-facing pages and the read-only review layer.
+- Keep Titan in a read-only truth-review phase while preserving the confirmed clean source boundaries, the clarified owner-safe Upload History wording, the improved Sales Reconciliation scan path, the validated sales upload classifications, the improved Sales Truth Review family scan path, the improved Part Payment review scan path, the improved sales-policy bucket scan path, the improved reconciliation-closure scan path, the improved transaction-family inclusion scan path, the improved live-promotion evidence-checklist scan path, the separated protocol-handoff draft surface, the consolidated sales-truth-review posture scan path, and the separation between live-facing pages and the read-only review layer.
 - Improve owner clarity, safety, recovery, and consistency without promoting policy.
-- Treat `/sales-truth-review` as the current truth-checking control room while keeping live-facing pages clearly separate from the read-only review layer.
+- Treat `/sales-truth-review` as the current truth-checking control room, treat `/sales-truth-review/protocol-handoff` as the small later handoff-draft surface, and keep live-facing pages clearly separate from the read-only review layer.
 
 ## EXACT NEXT SAFEST STEP
 
-- Review whether the consolidated read-only posture is now clear enough to stop adding new review blocks and shift the next safe work toward a later protocol-handoff draft, while still keeping the system fully read-only.
+- Review whether the new read-only handoff draft page is clear enough to stop further protocol-document buildup on the main sales-truth-review page, while keeping the system fully read-only.
 
 ## WARNINGS AND PENDING CAUTIONS
 
@@ -51,4 +51,5 @@ This handoff file may itself be refreshed later in a docs-only commit without tr
 - Future-protocol-draft review now gives a clearer smallest-draft-structure-versus-live-approval scan path, but it still does not approve live policy promotion by itself.
 - Future-protocol-document review now gives a clearer smallest-document-structure-versus-live-approval scan path, but it still does not approve live policy promotion by itself.
 - The stacked top posture area is now intentionally consolidated into fewer stronger read-only groups, but that cleanup still does not approve live policy promotion by itself.
+- The new `/sales-truth-review/protocol-handoff` page now gives a calmer later handoff draft surface, but it still does not approve live policy promotion by itself.
 - If a future milestone changes logic, architecture, handoff clarity, or meaningful owner-facing surface, update continuity docs immediately.

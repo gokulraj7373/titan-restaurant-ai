@@ -17,6 +17,7 @@ The project now has smart sales ingestion live for 2 known Petpooja spreadsheet 
 - `/sales-analytics`
 - `/sales-reconciliation`
 - `/sales-truth-review`
+- `/sales-truth-review/protocol-handoff`
 - `/expense-analytics`
 - `/profit-overview`
 - `/login`
@@ -84,6 +85,7 @@ These are now the real sales ingestion targets for the smart sales upload flow.
 - Sales analytics top selling items section
 - Sales reconciliation page for order-level diagnostics and trust-checking
 - Sales truth review page for transaction-type review before finalizing business sales rules
+- Sales truth protocol handoff draft page for later explicit promotion-decision discussion
 - Expense analytics page with summary cards
 - Expense analytics top expense categories section
 - Profit overview page
@@ -138,9 +140,10 @@ These are now the real sales ingestion targets for the smart sales upload flow.
 - That snapshot uses the existing family counts and section posture to explain which Order Listing families currently look later includable, clearly excludable, unresolved, or diagnostic-only without changing policy, totals, or promotion state.
 - Sales truth review now also includes a compact Live Promotion Evidence Checklist near the top of the page.
 - That checklist uses the existing review posture only to explain what already looks strong, what still remains unresolved, what still blocks live promotion, and what would still need later explicit approval without changing policy, totals, readiness logic, or promotion state.
-- Sales truth review now also includes a compact Future Promotion-Decision Protocol Document Outline snapshot near the top of the page.
-- That snapshot uses the existing review posture only to explain the smallest later document outline Titan could support across strong evidence, unresolved evidence, live-promotion blockers, later approval-needed areas, and the read-only boundary while still remaining unapproved.
 - Sales truth review now also uses a more consolidated top and mid-upper posture layout so those strongest read-only signals are grouped into fewer stronger sections instead of several overlapping posture blocks.
+- Sales truth review now keeps its later handoff posture in one small local entry point instead of another stacked protocol-document block.
+- Sales truth review now points from that local entry point to a separate read-only `/sales-truth-review/protocol-handoff` page.
+- That handoff page uses existing derived review posture only to explain strong evidence, unresolved evidence, current blockers, later explicit approvals, and the read-only boundary for later discussion.
 - Sales truth review now also includes verification breakdowns by month, source family, sales-policy bucket, and latest imported sales-order files.
 - Sales truth review now also includes monthly policy reconciliation and upload-attribution vs policy-attribution checks.
 - Memo rows now stay in `unresolved_memo` during read-only policy review even if they also look cancelled.
@@ -151,9 +154,8 @@ These are now the real sales ingestion targets for the smart sales upload flow.
 - That snapshot uses already-derived review outputs to make regular, memo, complimentary, sales return, cancelled, Part Payment, and fallback-total attention rows faster to inspect without changing policy, totals, or promotion state.
 - Sales truth review now also includes a compact Part Payment Settlement Snapshot near the relevant review section.
 - That snapshot uses the current derived Part Payment counts plus exported `payment_description` evidence rules to explain which rows are clearly extractable, unavailable from the current export, or still ambiguous.
-- Sales truth review now also includes a small read-only Promotion Readiness Snapshot near the top of the page.
-- That readiness snapshot uses already-derived review state to explain whether the page is still review-only or closer to future promotion readiness, without promoting anything into live truth.
 - `/sales-truth-review` remains the current read-only truth-checking control room for sales truth review.
+- `/sales-truth-review/protocol-handoff` now remains a separate read-only handoff-draft surface for later explicit promotion discussion only.
 - Dashboard, Profit Overview, and Sales Analytics now also show a small owner-facing sales truth status reminder that points back to `/sales-truth-review`.
 - That reminder is read-only guidance only and does not mean live truth promotion has happened.
 - That live-facing sales truth status reminder is now shared through one reusable component for safer consistency and easier future updates.
@@ -233,7 +235,7 @@ These are now the real sales ingestion targets for the smart sales upload flow.
 - A broader read-only source-boundary audit has now confirmed that the audited pages stay on their intended helper layers and source tables overall, with no source-boundary mismatch requiring product changes.
 - A read-only Upload History precision review has now confirmed that the current UI does not falsely claim exact expense inserted-row precision, so the real issue is logging-detail asymmetry rather than a product mismatch.
 - A bounded repo-local validation step has now confirmed that duplicate, append-only, gap-fill, and changed-overlap classifications still behave as intended for the current sales upload flow.
-- The next safety step is to review whether the consolidated read-only posture is now clear enough to stop adding new review blocks and shift the next safe work toward a later protocol-handoff draft, while still keeping the system fully read-only.
+- The next safety step is to review whether the new read-only handoff draft page is clear enough to stop further protocol-document buildup on the main sales-truth-review page, while keeping the system fully read-only.
 
 ## Clean Snapshot
 

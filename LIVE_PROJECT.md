@@ -16,6 +16,8 @@ Titan is currently in a read-only sales truth review phase.
 
 The main active product surface is `/sales-truth-review`, which acts as the truth-checking control room before any future live sales truth promotion is considered.
 
+Titan now also has a separate read-only handoff surface at `/sales-truth-review/protocol-handoff` for later explicit promotion-decision discussion only.
+
 For the latest baton-pass state, `SESSION_HANDOFF.md` is the controlling handoff file and should be read first.
 
 That baton-pass file uses a latest verified baton-anchor model, so it can be refreshed in a later docs-only commit without trying to self-reference that same new commit hash.
@@ -57,6 +59,7 @@ That baton-pass file uses a latest verified baton-anchor model, so it can be ref
 - A bounded page-local future-protocol-draft-structure review step has now confirmed that the current page can show the smallest later promotion-decision protocol draft structure without changing policy, totals, memo stance, or promotion state.
 - A bounded page-local future-protocol-document-structure review step has now confirmed that the current page can show the smallest later promotion-decision protocol document outline without changing policy, totals, memo stance, or promotion state.
 - A bounded page-local consolidation step has now reduced overlap in the top and mid-upper posture area of `/sales-truth-review` so the page reads in fewer stronger read-only groups without changing policy, totals, memo stance, or promotion state.
+- A bounded follow-up separation step has now moved the later protocol-handoff draft posture into its own small read-only page so the main `/sales-truth-review` surface can stay focused on operational review detail.
 
 ## Current Architecture State
 
@@ -107,13 +110,12 @@ That baton-pass file uses a latest verified baton-anchor model, so it can be ref
 `/sales-truth-review` now includes:
 - Current Review Snapshot
 - Live Promotion Evidence Checklist
-- Future Promotion-Decision Protocol Document Outline
+- Protocol Handoff Draft entry point
 - Transaction Family Inclusion Snapshot
 - Sales Policy Bucket Snapshot
 - Reconciliation Closure Snapshot
 - Key Row Family Snapshot
 - Part Payment Settlement Snapshot
-- Promotion Readiness Snapshot
 - Review Status Legend
 - How To Use This Page
 - section jump navigation
@@ -126,7 +128,6 @@ That baton-pass file uses a latest verified baton-anchor model, so it can be ref
 - clearer family-level scan cues for regular, memo, complimentary, sales return, cancelled, Part Payment, and fallback-total attention rows
 - clearer later-promotion guidance about what already looks strong, what still remains unresolved, and why live promotion still has not happened
 - clearer live-promotion evidence guidance about what already looks strong, what still remains unresolved, what still blocks live promotion, and what would still need later explicit approval
-- clearer future-protocol-document guidance about the smallest later promotion-decision protocol document outline Titan could support while still remaining read-only
 - fewer overlapping top posture blocks, with a more composed read-only scan path across current review state, evidence and blockers, and later document posture
 - clearer transaction-family inclusion guidance about which Order Listing families currently look later includable, clearly excludable, unresolved, or diagnostic-only
 - clearer sales-policy guidance about what Titan currently treats as candidate, excluded, and unresolved in review
@@ -135,6 +136,19 @@ That baton-pass file uses a latest verified baton-anchor model, so it can be ref
 
 This page remains read-only in effect.
 It primarily reviews `sales_order_imports` and also uses `uploads_log` for upload-attribution and latest-import review sections.
+
+### Read-Only Protocol Handoff Draft
+
+`/sales-truth-review/protocol-handoff` now includes:
+- strong evidence already visible in the current review layer
+- unresolved evidence still blocking live promotion
+- current blocker summary
+- later explicit approvals still required
+- read-only / no-approval boundary
+- a calmer owner-facing handoff posture that points back to the main review page for detail
+
+This page also remains read-only in effect.
+It uses the same existing read-only review outputs only and does not approve or implement live promotion.
 
 ### Live-Facing Reminder
 
@@ -267,6 +281,6 @@ That reminder points back to `/sales-truth-review` and does not mean live promot
 ## Current Recommended Direction
 
 The exact next safest step remains:
-- review whether the consolidated read-only posture is now clear enough to stop adding new review blocks and shift the next safe work toward a later protocol-handoff draft, while still keeping the system fully read-only
+- review whether the new read-only handoff draft page is clear enough to stop further protocol-document buildup on the main sales-truth-review page, while keeping the system fully read-only
 
 This section should stay aligned with `SESSION_HANDOFF.md`.
