@@ -10,10 +10,10 @@ This handoff file may itself be refreshed later in a docs-only commit without tr
 
 ## What Was Completed In The Latest Session
 
-- Completed one bounded inspection-and-clarity step for `/sales-truth-review`.
+- Completed one bounded Part Payment inspection-and-clarity step for `/sales-truth-review`.
 - Confirmed the page still stays read-only in effect, remains pinned to the current review layer, and keeps policy buckets, totals, memo stance, and promotion state unchanged.
-- Added one compact Key Row Family Snapshot plus clearer section-level scan cues for regular, memo, complimentary, sales return, cancelled, Part Payment, and fallback-total attention rows.
-- Kept the improvement page-local and presentational-only, using already-derived review data without changing the review engine, policy helpers, or upload attribution behavior.
+- Confirmed the current Part Payment review surface still groups rows into clearly extractable, unavailable-from-export, and ambiguous settlement-detail buckets using exported `payment_description` text plus the current derived review flags.
+- Added one compact Part Payment Settlement Snapshot so the owner can see what Titan can and cannot currently infer from Part Payment rows without changing policy, inclusion logic, or settlement-truth certainty.
 
 ## CURRENT WORKING TREE EXPECTATION
 
@@ -21,13 +21,13 @@ This handoff file may itself be refreshed later in a docs-only commit without tr
 
 ## CURRENT ACTIVE FOCUS
 
-- Keep Titan in a read-only truth-review phase while preserving the confirmed clean source boundaries, the clarified owner-safe Upload History wording, the improved Sales Reconciliation scan path, the validated sales upload classifications, the improved Sales Truth Review family scan path, and the separation between live-facing pages and the read-only review layer.
+- Keep Titan in a read-only truth-review phase while preserving the confirmed clean source boundaries, the clarified owner-safe Upload History wording, the improved Sales Reconciliation scan path, the validated sales upload classifications, the improved Sales Truth Review family scan path, the improved Part Payment review scan path, and the separation between live-facing pages and the read-only review layer.
 - Improve owner clarity, safety, recovery, and consistency without promoting policy.
 - Treat `/sales-truth-review` as the current truth-checking control room while keeping live-facing pages clearly separate from the read-only review layer.
 
 ## EXACT NEXT SAFEST STEP
 
-- Review which Part Payment rows have clearly extractable settlement detail and which do not.
+- Review the proposed sales-policy buckets and confirm whether net sale candidates, excluded rows, and unresolved memo rows match business intent.
 
 ## WARNINGS AND PENDING CAUTIONS
 
@@ -41,4 +41,5 @@ This handoff file may itself be refreshed later in a docs-only commit without tr
 - Sales Reconciliation remains a diagnostic trust-check page, not final business truth.
 - Sales upload classifications validated cleanly in repo-local checks, but they remain conservative upload decisions, not business truth or merge-policy approval.
 - Sales Truth Review now gives a faster family-level scan path, but it still remains read-only guidance and not final approved business truth.
+- Part Payment review now gives a clearer extractable-versus-unavailable-versus-ambiguous scan path, but it still does not prove final payment-settlement truth from the current export alone.
 - If a future milestone changes logic, architecture, handoff clarity, or meaningful owner-facing surface, update continuity docs immediately.

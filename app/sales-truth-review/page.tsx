@@ -1284,6 +1284,103 @@ export default function SalesTruthReviewPage() {
     );
   };
 
+  const renderPartPaymentSettlementSnapshotSection = () => {
+    const extractableCount = summaryCounts.extractablePaymentSplitRowsCount;
+    const unavailableCount = summaryCounts.unavailablePaymentSplitRowsCount;
+    const ambiguousCount = summaryCounts.ambiguousPaymentTextRowsCount;
+    const totalReviewed = summaryCounts.partPaymentRowsCount;
+
+    return (
+      <div id="part-payment-settlement-snapshot" className="rounded-2xl border border-white/20 bg-white/[0.02] p-6 scroll-mt-6">
+        <div className="mb-4">
+          <p className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-2">Part Payment Scan</p>
+          <h2 className="text-xl font-semibold mb-2">Part Payment Settlement Snapshot</h2>
+          <p className="text-sm text-gray-400">
+            This is a read-only scan of what the current export text can and cannot tell Titan about
+            settlement breakup on Part Payment rows. It does not change sale inclusion, policy buckets,
+            or promotion readiness.
+          </p>
+        </div>
+
+        <div className="mb-4 flex flex-wrap gap-2">
+          <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200">
+            Part Payment Rows: {totalReviewed}
+          </div>
+          <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200">
+            Extractable: {extractableCount}
+          </div>
+          <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200">
+            Unavailable: {unavailableCount}
+          </div>
+          <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200">
+            Ambiguous: {ambiguousCount}
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3 mb-4">
+          <div className={getSnapshotCardClass(extractableCount > 0 ? "clean" : "neutral")}>
+            <div className="mb-3 flex items-center justify-between gap-2">
+              <h3 className="text-sm font-semibold text-white">Clearly Extractable</h3>
+              <span className="rounded-full border border-white/10 bg-black/20 px-2 py-1 text-[10px] uppercase tracking-[0.14em] text-gray-200">
+                {extractableCount} rows
+              </span>
+            </div>
+            <p className="text-sm text-gray-300">
+              These rows currently have enough text evidence for Titan to detect payment methods with
+              amounts from the exported `payment_description`.
+            </p>
+            <p className="text-sm text-gray-400 mt-3">
+              Current repo rule: one or more clear method-and-amount patterns are detected from the
+              exported text. When two or more components are found, the split is especially easy to read.
+            </p>
+          </div>
+
+          <div className={getSnapshotCardClass(unavailableCount > 0 ? "needs-review" : "clean")}>
+            <div className="mb-3 flex items-center justify-between gap-2">
+              <h3 className="text-sm font-semibold text-white">Unavailable From Export</h3>
+              <span className="rounded-full border border-white/10 bg-black/20 px-2 py-1 text-[10px] uppercase tracking-[0.14em] text-gray-200">
+                {unavailableCount} rows
+              </span>
+            </div>
+            <p className="text-sm text-gray-300">
+              These rows do not currently give Titan enough settlement detail in the export text to read
+              a usable split.
+            </p>
+            <p className="text-sm text-gray-400 mt-3">
+              Current repo rule: the `payment_description` is empty, or it only says a generic total
+              without naming usable payment methods.
+            </p>
+          </div>
+
+          <div className={getSnapshotCardClass(ambiguousCount > 0 ? "needs-review" : "clean")}>
+            <div className="mb-3 flex items-center justify-between gap-2">
+              <h3 className="text-sm font-semibold text-white">Ambiguous Text</h3>
+              <span className="rounded-full border border-white/10 bg-black/20 px-2 py-1 text-[10px] uppercase tracking-[0.14em] text-gray-200">
+                {ambiguousCount} rows
+              </span>
+            </div>
+            <p className="text-sm text-gray-300">
+              These rows have some payment text, but Titan cannot safely treat it as a reliable settlement
+              breakup yet.
+            </p>
+            <p className="text-sm text-gray-400 mt-3">
+              Current repo rule: payment text exists, but it does not clearly resolve into a trustworthy
+              split from the current export wording.
+            </p>
+          </div>
+        </div>
+
+        <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+          <p className="text-sm text-gray-300">
+            Read this snapshot as settlement-detail evidence only. Numeric Part Payment rows still remain
+            valid sale candidates in the current review layer, but settlement-breakup truth is still
+            limited by what the export text clearly shows.
+          </p>
+        </div>
+      </div>
+    );
+  };
+
   const renderKeyRowFamilySnapshotSection = () => {
     const familyCards = [
       {
@@ -1492,6 +1589,11 @@ export default function SalesTruthReviewPage() {
         href: "#ambiguous-settlement-review",
         label: "Ambiguous Settlement Review",
         cue: ambiguousSettlementReviewPresent ? "Needs Review" : "None Flagged",
+      },
+      {
+        href: "#part-payment-settlement-snapshot",
+        label: "Part Payment Snapshot",
+        cue: partPaymentRows.length > 0 ? "Settlement Detail" : "No Rows",
       },
     ];
 
@@ -1869,6 +1971,7 @@ export default function SalesTruthReviewPage() {
             paymentSplitChildRows,
             "No payment split child rows found"
           )}
+          {renderPartPaymentSettlementSnapshotSection()}
           {renderPartPaymentRowsSection(
             "Part Payment Sale Review",
             "Latest 50 numeric sale rows where payment_type contains Part Payment. These remain valid sale candidates, but Titan is only checking whether payment split detail is clearly extractable from text.",

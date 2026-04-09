@@ -138,6 +138,8 @@ These are now the real sales ingestion targets for the smart sales upload flow.
 - That snapshot shows already-derived review outputs in plain owner-friendly language without changing policy or totals.
 - Sales truth review now also includes a compact Key Row Family Snapshot near the top of the page.
 - That snapshot uses already-derived review outputs to make regular, memo, complimentary, sales return, cancelled, Part Payment, and fallback-total attention rows faster to inspect without changing policy, totals, or promotion state.
+- Sales truth review now also includes a compact Part Payment Settlement Snapshot near the relevant review section.
+- That snapshot uses the current derived Part Payment counts plus exported `payment_description` evidence rules to explain which rows are clearly extractable, unavailable from the current export, or still ambiguous.
 - Sales truth review now also includes a small read-only Promotion Readiness Snapshot near the top of the page.
 - That readiness snapshot uses already-derived review state to explain whether the page is still review-only or closer to future promotion readiness, without promoting anything into live truth.
 - `/sales-truth-review` remains the current read-only truth-checking control room for sales truth review.
@@ -220,7 +222,7 @@ These are now the real sales ingestion targets for the smart sales upload flow.
 - A broader read-only source-boundary audit has now confirmed that the audited pages stay on their intended helper layers and source tables overall, with no source-boundary mismatch requiring product changes.
 - A read-only Upload History precision review has now confirmed that the current UI does not falsely claim exact expense inserted-row precision, so the real issue is logging-detail asymmetry rather than a product mismatch.
 - A bounded repo-local validation step has now confirmed that duplicate, append-only, gap-fill, and changed-overlap classifications still behave as intended for the current sales upload flow.
-- The next safety step is to review which Part Payment rows have clearly extractable settlement detail and which do not.
+- The next safety step is to review the proposed sales-policy buckets and confirm whether net sale candidates, excluded rows, and unresolved memo rows match business intent.
 
 ## Clean Snapshot
 

@@ -714,3 +714,14 @@ The page already surfaced the right regular, memo, complimentary, sales return, 
 
 Current status:
 Active
+
+## Decision 66
+
+Decision:
+Keep Part Payment settlement-detail review owner-friendly and conservative by showing clearly extractable, unavailable-from-export, and ambiguous rows through one read-only snapshot using existing derived counts only.
+
+Why it was taken:
+The page already had the Part Payment row section and the underlying derived counts, but the owner still had to combine top-level cards, section chips, and row-level statuses to understand what the current export could really prove. Adding one bounded snapshot improves inspection clarity without changing Part Payment inclusion logic, totals, memo stance, upload attribution behavior, or settlement-truth certainty.
+
+Current status:
+Active
