@@ -86,7 +86,72 @@ type Props = {
   diagnostics: OrderListingDiagnostics;
 };
 
+function getClassificationOutcome(classification: UploadClassification) {
+  if (classification === "append_only") {
+    return {
+      badgeLabel: "Allowed",
+      badgeClasses: "border-emerald-500/30 bg-emerald-500/10 text-emerald-200",
+      title: "Titan found only new safe order rows in this file.",
+      nextStep: "Titan can insert the new safe rows from this upload.",
+    };
+  }
+
+  if (classification === "gap_fill") {
+    return {
+      badgeLabel: "Allowed",
+      badgeClasses: "border-emerald-500/30 bg-emerald-500/10 text-emerald-200",
+      title: "Titan found safe missing order rows inside an already covered date range.",
+      nextStep: "Titan can insert only the missing safe rows from this upload.",
+    };
+  }
+
+  if (classification === "exact_duplicate") {
+    return {
+      badgeLabel: "Blocked",
+      badgeClasses: "border-white/10 bg-white/5 text-gray-200",
+      title: "This file already matches a previously imported Order Listing file.",
+      nextStep: "No new rows will be inserted from this file.",
+    };
+  }
+
+  if (classification === "overlap_unchanged") {
+    return {
+      badgeLabel: "Blocked",
+      badgeClasses: "border-white/10 bg-white/5 text-gray-200",
+      title: "The overlapping order rows already match existing data.",
+      nextStep: "No new rows will be inserted because Titan did not find any changed or missing rows.",
+    };
+  }
+
+  if (classification === "overlap_with_changes") {
+    return {
+      badgeLabel: "Blocked For Review",
+      badgeClasses: "border-amber-500/30 bg-amber-500/10 text-amber-100",
+      title: "Some comparable order rows changed against existing data.",
+      nextStep: "Review the changed-overlap details below. Titan did not overwrite older rows.",
+    };
+  }
+
+  if (classification === "manual_review_needed") {
+    return {
+      badgeLabel: "Blocked For Safety",
+      badgeClasses: "border-amber-500/30 bg-amber-500/10 text-amber-100",
+      title: "Titan could not classify this Order Listing file safely.",
+      nextStep: "Review the suspicious-order clues below before trying another upload.",
+    };
+  }
+
+  return {
+    badgeLabel: "Unsupported",
+    badgeClasses: "border-white/10 bg-white/5 text-gray-200",
+    title: "This file could not be used for Order Listing import.",
+    nextStep: "No rows will be inserted until Titan can classify the file safely.",
+  };
+}
+
 export function OrderListingDiagnosticsPanel({ diagnostics }: Props) {
+  const outcome = getClassificationOutcome(diagnostics.finalClassification);
+
   return (
     <div className="border border-white/10 rounded-lg p-4 space-y-4">
       <div>
@@ -94,6 +159,23 @@ export function OrderListingDiagnosticsPanel({ diagnostics }: Props) {
         <p className="text-xs text-gray-400 mt-1">
           This is a compact debug view showing how Titan classified this Order Listing upload.
         </p>
+      </div>
+
+      <div className="rounded-lg border border-white/10 bg-white/5 p-4 space-y-3">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+          <div>
+            <h3 className="text-sm font-semibold text-white">What This Result Means</h3>
+            <p className="text-sm text-gray-200 mt-1">{outcome.title}</p>
+          </div>
+          <span
+            className={`inline-flex rounded-full border px-3 py-1 text-xs font-medium ${outcome.badgeClasses}`}
+          >
+            {outcome.badgeLabel}
+          </span>
+        </div>
+
+        <p className="text-sm text-gray-300">{diagnostics.finalDecisionReason}</p>
+        <p className="text-xs text-gray-400">{outcome.nextStep}</p>
       </div>
 
       <div className="grid grid-cols-1 gap-3 md:grid-cols-2 text-sm">

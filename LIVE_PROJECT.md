@@ -45,6 +45,7 @@ That baton-pass file uses a latest verified baton-anchor model, so it can be ref
 - The current Upload History UI does not falsely claim exact expense inserted-row precision, so the real issue is logging-detail asymmetry rather than a product mismatch.
 - A bounded wording-only `/uploads` clarification step has now made lighter expense rows read more clearly as stored upload history unless exact ingest counts are actually logged there.
 - A bounded page-local Sales Reconciliation scanability step has now added a compact Inspection Snapshot and clearer row-family guidance without changing reconciliation math, helper logic, or policy behavior.
+- A bounded validation step has now confirmed that duplicate, append-only, gap-fill, and changed-overlap classifications still behave as intended in the current sales upload flow.
 
 ## Current Architecture State
 
@@ -184,6 +185,8 @@ That reminder points back to `/sales-truth-review` and does not mean live promot
 - This step does not affect truth-review policy, memo handling, or live promotion state.
 - The `/upload/sales` page now also uses one pure render-support component for the `Changed Overlap Review` display block.
 - That extraction is also presentational only.
+- The Order Listing diagnostics panel now also explains what the current classification means and what Titan will do next, using already-derived upload state only.
+- This clarity step does not change classification behavior, upload logging semantics, overlap rules, or database behavior.
 
 ## Non-Negotiable Safety Rules
 
@@ -237,6 +240,6 @@ That reminder points back to `/sales-truth-review` and does not mean live promot
 ## Current Recommended Direction
 
 The exact next safest step remains:
-- test the new sales upload classifications with duplicate, append-only, gap-fill, and changed-overlap files
+- use the Sales Truth Review page to inspect regular, memo, complimentary, sales return, cancelled, Part Payment, and fallback-total rows
 
 This section should stay aligned with `SESSION_HANDOFF.md`.

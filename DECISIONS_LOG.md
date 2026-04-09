@@ -692,3 +692,14 @@ The page already had the right fallback-total and large-total-difference rows, b
 
 Current status:
 Active
+
+## Decision 64
+
+Decision:
+Validate the current `/upload/sales` classification families with a bounded repo-local harness and keep the owner-facing classification explanation presentational only.
+
+Why it was taken:
+The next baton step needed a real confidence check for duplicate, append-only, gap-fill, and changed-overlap scenarios before more ingestion complexity was added. The completed validation confirmed those families still behave as intended, and the follow-up UI improvement keeps the results easier to read without changing classification rules, upload logging semantics, totals, or policy framing.
+
+Current status:
+Active

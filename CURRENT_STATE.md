@@ -197,6 +197,7 @@ These are now the real sales ingestion targets for the smart sales upload flow.
 - Titan now also has a pure render-support diagnostics panel under `app/upload/sales/order-listing-diagnostics-panel.tsx`.
 - The `/upload/sales` page now uses that component as the bounded presentational container for the full `Order Listing Classification Diagnostics` UI subsystem.
 - That diagnostics container now composes the already-extracted changed-overlap review panel.
+- The Order Listing diagnostics panel now also gives a calmer owner-facing explanation of what the current classification means and whether Titan will insert rows or hold the file for review.
 - All parsing, routing, overlap, insertion, and uploads-log behavior remain in `app/upload/sales/page.tsx`.
 - Titan now also has a pure render-support changed-overlap review panel under `app/upload/sales/changed-overlap-review-panel.tsx`.
 - The `/upload/sales` page now uses that component only for the `Changed Overlap Review` display block.
@@ -216,7 +217,8 @@ These are now the real sales ingestion targets for the smart sales upload flow.
 - A small Expense Analytics consistency audit has now confirmed that `/expense-analytics` reads directly from `expense_imports` and does not accidentally depend on the read-only sales truth review layer.
 - A broader read-only source-boundary audit has now confirmed that the audited pages stay on their intended helper layers and source tables overall, with no source-boundary mismatch requiring product changes.
 - A read-only Upload History precision review has now confirmed that the current UI does not falsely claim exact expense inserted-row precision, so the real issue is logging-detail asymmetry rather than a product mismatch.
-- The next safety step is to test the new sales upload classifications with duplicate, append-only, gap-fill, and changed-overlap files.
+- A bounded repo-local validation step has now confirmed that duplicate, append-only, gap-fill, and changed-overlap classifications still behave as intended for the current sales upload flow.
+- The next safety step is to use the Sales Truth Review page to inspect regular, memo, complimentary, sales return, cancelled, Part Payment, and fallback-total rows.
 
 ## Clean Snapshot
 
