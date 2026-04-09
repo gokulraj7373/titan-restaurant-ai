@@ -637,3 +637,14 @@ The changed-overlap review is still part of a sensitive upload page, but it is a
 
 Current status:
 Active
+
+## Decision 59
+
+Decision:
+Extract the full `Order Listing Classification Diagnostics` UI subsystem from `/upload/sales` into one bounded presentational container that composes the already-extracted changed-overlap review panel.
+
+Why it was taken:
+The sales upload page is still sensitive because it owns parsing, routing, overlap, and insertion behavior. Consolidating the full diagnostics UI subsystem into one presentational container improves maintainability and takeover clarity while keeping the render gate, all computed diagnostic state, and all behavior-sensitive logic in `app/upload/sales/page.tsx`.
+
+Current status:
+Active

@@ -38,7 +38,7 @@
 34. Keep reusable imports-page helpers small, deterministic, and pinned to their intended import tables without mixing in upload, analytics, profit, or review-layer logic.
 35. Keep reusable reconciliation-query helpers small, deterministic, and pinned to `sales_order_imports` only without mixing in truth-review policy or live-facing analytics logic.
 36. Keep `/upload/sales` modularization steps conservative and presentational-first, without moving parsing, routing, overlap, insertion, or policy logic.
-37. Keep `/upload/sales` render extractions narrowly scoped so changed-overlap review and diagnostics remain presentational only.
+37. Keep `/upload/sales` render extractions narrowly scoped so the full diagnostics subsystem and the changed-overlap review remain presentational only.
 
 ## Short-Term Next Steps
 
@@ -53,7 +53,7 @@
 9. Extend imports-page helpers one safe query family at a time, instead of rewriting import pages or ingestion flows broadly.
 10. Extend reconciliation-query helpers one safe diagnostic family at a time, instead of rewriting the read-only reconciliation page broadly.
 11. If `/upload/sales` is modularized further, keep the next step read-only or presentational before touching any sensitive ingestion or overlap boundary.
-12. If `/upload/sales` is modularized again after this, keep the next slice display-only unless a new bounded milestone explicitly approves touching behavior.
+12. If `/upload/sales` is modularized again after this diagnostics-subsystem extraction, keep the next slice display-only unless a new bounded milestone explicitly approves touching behavior.
 13. Design the first manual-review workflow for `overlap_with_changes` uploads, using the new changed-overlap review details as the starting point.
 14. Decide how corrected re-uploads should be approved later without silent replacement.
 15. Define the correct subset of Order Listing transaction families for future business sales truth.

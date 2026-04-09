@@ -190,7 +190,8 @@ These are now the real sales ingestion targets for the smart sales upload flow.
 - The `/sales-reconciliation` page now uses that helper layer for its current read-only summary diagnostics and diagnostic row sections while staying on `sales_order_imports` only.
 - These reconciliation helpers stay separate from `/sales-truth-review`, memo policy, and live promotion logic.
 - Titan now also has a pure render-support diagnostics panel under `app/upload/sales/order-listing-diagnostics-panel.tsx`.
-- The `/upload/sales` page now uses that component only for the `Order Listing Classification Diagnostics` display block.
+- The `/upload/sales` page now uses that component as the bounded presentational container for the full `Order Listing Classification Diagnostics` UI subsystem.
+- That diagnostics container now composes the already-extracted changed-overlap review panel.
 - All parsing, routing, overlap, insertion, and uploads-log behavior remain in `app/upload/sales/page.tsx`.
 - Titan now also has a pure render-support changed-overlap review panel under `app/upload/sales/changed-overlap-review-panel.tsx`.
 - The `/upload/sales` page now uses that component only for the `Changed Overlap Review` display block.

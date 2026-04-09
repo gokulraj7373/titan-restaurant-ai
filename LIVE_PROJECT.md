@@ -161,7 +161,8 @@ That reminder points back to `/sales-truth-review` and does not mean live promot
 
 ### First Safe Upload-Sales Render Extraction
 
-- The `/upload/sales` page now uses one pure render-support component for the `Order Listing Classification Diagnostics` display block.
+- The `/upload/sales` page now uses one bounded presentational container for the full `Order Listing Classification Diagnostics` UI subsystem.
+- That diagnostics container now composes the already-extracted `Changed Overlap Review` panel.
 - This extraction is presentational only.
 - Parsing, routing, overlap decisions, insertion behavior, and uploads-log behavior remain in `app/upload/sales/page.tsx`.
 - This step does not affect truth-review policy, memo handling, or live promotion state.
@@ -183,6 +184,7 @@ That reminder points back to `/sales-truth-review` and does not mean live promot
 
 ## Latest Important Safe Commits
 
+- `40178b5` Extract changed overlap review panel from sales upload page
 - `c8c2364` Extract order listing diagnostics panel from sales upload page
 - `4b93de1` Extract reusable sales reconciliation query helpers
 - `64ac04f` Extract reusable imports page query helpers

@@ -2,7 +2,7 @@
 
 ## LATEST VERIFIED BATON ANCHOR COMMIT
 
-- `c8c2364` Extract order listing diagnostics panel from sales upload page
+- `40178b5` Extract changed overlap review panel from sales upload page
 
 This is the latest verified commit that the current baton-pass state is anchored to.
 
@@ -10,10 +10,10 @@ This handoff file may itself be refreshed later in a docs-only commit without tr
 
 ## What Was Completed In The Latest Session
 
-- Added a pure render-support changed-overlap review panel under `app/upload/sales/`.
-- Extracted the `Changed Overlap Review` display block from `/upload/sales` into that panel.
+- Consolidated the full `Order Listing Classification Diagnostics` UI subsystem into one bounded presentational container under `app/upload/sales/`.
+- Updated that diagnostics container to compose the already-extracted changed-overlap review panel.
 - Kept all parsing, routing, overlap, insertion, and decision logic in `app/upload/sales/page.tsx`.
-- Kept the changed-overlap panel separate from `/sales-truth-review` and `lib/sales-truth-review/*`.
+- Kept the diagnostics subsystem separate from `/sales-truth-review` and `lib/sales-truth-review/*`.
 
 ## CURRENT WORKING TREE EXPECTATION
 
