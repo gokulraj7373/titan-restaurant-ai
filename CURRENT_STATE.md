@@ -117,7 +117,8 @@ These are now the real sales ingestion targets for the smart sales upload flow.
 - `sales_item_imports` is for item-level analytics, not the final business sales truth.
 - Sales reconciliation uses `sales_order_imports` as a read-only diagnostic source.
 - Sales reconciliation is a trust-check page, not a business dashboard page.
-- Sales truth review uses `sales_order_imports` as a read-only transaction-review source.
+- Sales truth review uses `sales_order_imports` as its primary read-only transaction-review source.
+- Sales truth review also uses `uploads_log` for upload-attribution and latest-import review sections.
 - Sales truth review is for classification and business-rule review, not final business totals.
 - Numeric `Part Payment` rows are currently still treated as valid order-level sale candidates.
 - The current Order Listing export does not yet reliably provide full payment breakup for every `Part Payment` row.
@@ -210,7 +211,8 @@ These are now the real sales ingestion targets for the smart sales upload flow.
 - A small Upload History consistency audit has now confirmed that sampled imported sales uploads match their logged inserted-row counts against `sales_order_imports` and `sales_item_imports`.
 - That same audit also confirmed that expense uploads still use older lighter log semantics in `uploads_log`, so Upload History remains directionally safe but less precise for expenses than for sales.
 - A small Expense Analytics consistency audit has now confirmed that `/expense-analytics` reads directly from `expense_imports` and does not accidentally depend on the read-only sales truth review layer.
-- The next safety step is to verify that each page uses the correct source table before adding more ingestion complexity and then continue the broader consistency-check process.
+- A broader read-only source-boundary audit has now confirmed that the audited pages stay on their intended helper layers and source tables overall, with no source-boundary mismatch requiring product changes.
+- The next safety step is to review whether Upload History should later expose clearer expense-ingestion detail without overstating precision and then continue the broader consistency-check process.
 
 ## Clean Snapshot
 

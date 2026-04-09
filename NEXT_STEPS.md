@@ -2,9 +2,9 @@
 
 ## Immediate Next Steps
 
-1. Verify that each page uses the correct source table before adding more ingestion complexity.
-2. Fix any stale or mixed source logic before building more advanced features.
-3. Review whether Upload History should later expose clearer expense-ingestion detail without overstating precision.
+1. Review whether Upload History should later expose clearer expense-ingestion detail without overstating precision.
+2. Fix any stale or mixed source logic before building more advanced features if a later check finds any.
+3. Keep the completed page-by-page source-boundary audit recorded as a finished check so future agents do not repeat it as the next baton step.
 4. Use the new Sales Reconciliation page to inspect fallback-total and total-difference order rows.
 5. Test the new sales upload classifications with duplicate, append-only, gap-fill, and changed-overlap files.
 6. Use the changed-overlap review on the sales upload page to understand why blocked Order Listing files differ before designing any merge logic.
@@ -29,16 +29,17 @@
 25. Keep the completed live-facing sales-page consistency audit recorded as a finished check so future agents do not repeat it as the next baton step.
 26. Keep the completed Upload History consistency audit recorded as a finished check so future agents do not repeat it as the next baton step.
 27. Keep the completed Expense Analytics consistency audit recorded as a finished check so future agents do not repeat it as the next baton step.
-28. Keep the live order-level sales query helpers small, deterministic, and separate from item-level analytics and the read-only sales truth review layer.
-29. Keep the first reusable expense-side summary helper small, deterministic, and separate from the sales-query helpers and the read-only sales truth review layer.
-30. Keep the first reusable item-level sales summary helper small, deterministic, and separate from order-level helpers and the read-only sales truth review layer.
-31. Keep reusable analytics-detail helpers small, deterministic, and pinned to their intended source tables without mixing sales, expense, or review-layer logic.
-32. Keep reusable profit summary helpers small, deterministic, and pinned to the page's intended live-facing sources without mixing in review-layer logic.
-33. Keep reusable upload-history helpers small, deterministic, and pinned to `uploads_log` only without mixing in sales, expense, profit, or review-layer logic.
-34. Keep reusable imports-page helpers small, deterministic, and pinned to their intended import tables without mixing in upload, analytics, profit, or review-layer logic.
-35. Keep reusable reconciliation-query helpers small, deterministic, and pinned to `sales_order_imports` only without mixing in truth-review policy or live-facing analytics logic.
-36. Keep `/upload/sales` modularization steps conservative and presentational-first, without moving parsing, routing, overlap, insertion, or policy logic.
-37. Keep `/upload/sales` render extractions narrowly scoped so the full diagnostics subsystem and the changed-overlap review remain presentational only.
+28. Keep the completed page-by-page source-boundary audit recorded as a finished continuity check so future agents do not repeat it as the next baton step.
+29. Keep the live order-level sales query helpers small, deterministic, and separate from item-level analytics and the read-only sales truth review layer.
+30. Keep the first reusable expense-side summary helper small, deterministic, and separate from the sales-query helpers and the read-only sales truth review layer.
+31. Keep the first reusable item-level sales summary helper small, deterministic, and separate from order-level helpers and the read-only sales truth review layer.
+32. Keep reusable analytics-detail helpers small, deterministic, and pinned to their intended source tables without mixing sales, expense, or review-layer logic.
+33. Keep reusable profit summary helpers small, deterministic, and pinned to the page's intended live-facing sources without mixing in review-layer logic.
+34. Keep reusable upload-history helpers small, deterministic, and pinned to `uploads_log` only without mixing in sales, expense, profit, or review-layer logic.
+35. Keep reusable imports-page helpers small, deterministic, and pinned to their intended import tables without mixing in upload, analytics, profit, or review-layer logic.
+36. Keep reusable reconciliation-query helpers small, deterministic, and pinned to `sales_order_imports` only without mixing in truth-review policy or live-facing analytics logic.
+37. Keep `/upload/sales` modularization steps conservative and presentational-first, without moving parsing, routing, overlap, insertion, or policy logic.
+38. Keep `/upload/sales` render extractions narrowly scoped so the full diagnostics subsystem and the changed-overlap review remain presentational only.
 
 ## Short-Term Next Steps
 

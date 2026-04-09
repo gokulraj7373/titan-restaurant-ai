@@ -10,10 +10,10 @@ This handoff file may itself be refreshed later in a docs-only commit without tr
 
 ## What Was Completed In The Latest Session
 
-- Consolidated the full `Order Listing Classification Diagnostics` UI subsystem into one bounded presentational container under `app/upload/sales/`.
-- Updated that diagnostics container to compose the already-extracted changed-overlap review panel.
-- Kept all parsing, routing, overlap, insertion, and decision logic in `app/upload/sales/page.tsx`.
-- Kept the diagnostics subsystem separate from `/sales-truth-review` and `lib/sales-truth-review/*`.
+- Completed a read-only source-boundary audit across the live-facing pages, the read-only review page, the reconciliation page, the uploads/imports pages, and `/upload/sales`.
+- Confirmed the audited pages stay pinned to their intended helper layers and source tables overall, with no source-boundary mismatch requiring product changes.
+- Confirmed `/sales-truth-review` primarily reviews `sales_order_imports` and also uses `uploads_log` for upload-attribution and latest-import review sections.
+- Confirmed `/upload/sales` still keeps parsing, routing, overlap, insertion, and uploads-log behavior in `app/upload/sales/page.tsx` while the extracted diagnostics panels remain presentational only.
 
 ## CURRENT WORKING TREE EXPECTATION
 
@@ -21,13 +21,13 @@ This handoff file may itself be refreshed later in a docs-only commit without tr
 
 ## CURRENT ACTIVE FOCUS
 
-- Keep Titan in a read-only truth-review phase while extending the first small reusable live analytics/query layer across order-level, item-level, expense-side, profit-side, upload-history, imports-page, reconciliation-query, and safe upload-page render helpers.
+- Keep Titan in a read-only truth-review phase while preserving the confirmed clean source boundaries across the live-facing pages, the review layer, the reconciliation layer, the uploads/imports pages, and the safe upload-page render helpers.
 - Improve owner clarity, safety, recovery, and consistency without promoting policy.
 - Treat `/sales-truth-review` as the current truth-checking control room while keeping live-facing pages clearly separate from the read-only review layer.
 
 ## EXACT NEXT SAFEST STEP
 
-- Verify that each page uses the correct source table before adding more ingestion complexity.
+- Review whether Upload History should later expose clearer expense-ingestion detail without overstating precision.
 
 ## WARNINGS AND PENDING CAUTIONS
 

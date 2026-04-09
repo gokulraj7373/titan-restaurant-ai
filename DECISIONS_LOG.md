@@ -648,3 +648,14 @@ The sales upload page is still sensitive because it owns parsing, routing, overl
 
 Current status:
 Active
+
+## Decision 60
+
+Decision:
+Record the completed read-only source-boundary audit as a finished continuity-significant check and move the baton forward to the next conservative consistency step.
+
+Why it was taken:
+The completed audit confirmed that the audited pages stay on their intended helper layers and source tables overall, with no source-boundary mismatch requiring product changes. Recording that result prevents future agents from repeating the same audit as the next baton step and preserves the important nuance that `/sales-truth-review` primarily reviews `sales_order_imports` while also using `uploads_log` for upload-attribution review.
+
+Current status:
+Active

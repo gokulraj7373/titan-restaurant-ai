@@ -38,6 +38,8 @@ That baton-pass file uses a latest verified baton-anchor model, so it can be ref
 - A small Upload History consistency audit has confirmed that sampled imported sales uploads match their logged inserted-row counts against `sales_order_imports` and `sales_item_imports`.
 - That same audit also confirmed that expense uploads still use older lighter log semantics, so `/uploads` stays directionally safe but less precise for expenses than for sales.
 - A small Expense Analytics consistency audit has confirmed that `/expense-analytics` reads from `expense_imports` only and stays separate from the read-only sales truth review layer.
+- A broader read-only source-boundary audit has now confirmed that the audited live-facing pages, uploads/imports pages, reconciliation page, and `/upload/sales` stay on their intended helper layers and source tables overall.
+- That same audit also confirmed that `/sales-truth-review` remains separate from the live-facing pages while intentionally using `sales_order_imports` as its primary review source and `uploads_log` for upload-attribution and latest-import review sections.
 
 ## Current Architecture State
 
@@ -97,6 +99,9 @@ That baton-pass file uses a latest verified baton-anchor model, so it can be ref
 - monthly policy reconciliation
 - upload attribution vs policy attribution check
 - deeper section guidance, summary chips, and scan aids
+
+This page remains read-only in effect.
+It primarily reviews `sales_order_imports` and also uses `uploads_log` for upload-attribution and latest-import review sections.
 
 ### Live-Facing Reminder
 
@@ -221,6 +226,6 @@ That reminder points back to `/sales-truth-review` and does not mean live promot
 ## Current Recommended Direction
 
 The exact next safest step remains:
-- verify that each page uses the correct source table before adding more ingestion complexity
+- review whether Upload History should later expose clearer expense-ingestion detail without overstating precision
 
 This section should stay aligned with `SESSION_HANDOFF.md`.
