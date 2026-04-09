@@ -758,3 +758,14 @@ The page already had the right family sections, policy snapshot, Part Payment sn
 
 Current status:
 Active
+
+## Decision 70
+
+Decision:
+Keep later-promotion posture review owner-friendly and conservative by showing what already looks strong, what still remains unresolved, and why live promotion still has not happened through one read-only snapshot using existing review posture only.
+
+Why it was taken:
+The page already had Current Review Snapshot, Promotion Readiness Snapshot, family posture, bucket posture, and reconciliation closure, but the owner still had to combine several sections to understand whether the project was becoming clear enough for a later explicit promotion decision. Adding one bounded snapshot improves inspection clarity without changing policy buckets, totals, memo stance, readiness logic, or live promotion state.
+
+Current status:
+Active

@@ -1284,6 +1284,134 @@ export default function SalesTruthReviewPage() {
     );
   };
 
+  const renderLaterPromotionDecisionSnapshotSection = () => {
+    const monthReconciliationHealthy =
+      monthlyPolicyReconciliationRows.length > 0 &&
+      monthlyPolicyReconciliationRows.every((row) => row.reconciled);
+    const uploadReconciliationHealthy =
+      latestImportBreakdownRows.length > 0 &&
+      latestImportBreakdownRows.every((row) => row.reconciled);
+    const ambiguousSettlementReviewPresent =
+      partPaymentRows.length > 0 || grandTotalZeroRows.length > 0 || differentTotalRows.length > 0;
+    const excludedRowsCount =
+      summaryCounts.cancelledExcludedRowsCount +
+      summaryCounts.complimentaryExcludedRowsCount +
+      summaryCounts.salesReturnExcludedRowsCount;
+    const strongSignalsCount =
+      (monthReconciliationHealthy ? 1 : 0) +
+      (uploadReconciliationHealthy ? 1 : 0) +
+      (summaryCounts.netSaleCandidateRowsCount > 0 ? 1 : 0) +
+      (excludedRowsCount > 0 ? 1 : 0);
+    const unresolvedSignalsCount =
+      (summaryCounts.memoUnresolvedRowsCount > 0 ? 1 : 0) +
+      (ambiguousSettlementReviewPresent ? 1 : 0) +
+      (summaryCounts.unresolvedOtherRowsCount > 0 ? 1 : 0);
+    const clearForLaterDecisionReview =
+      monthReconciliationHealthy && uploadReconciliationHealthy;
+
+    return (
+      <div
+        id="later-promotion-decision-snapshot"
+        className="rounded-2xl border border-white/20 bg-white/[0.02] p-6 mb-4 scroll-mt-6"
+      >
+        <div className="mb-4">
+          <p className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-2">Later Decision Scan</p>
+          <h2 className="text-xl font-semibold mb-2">Later Promotion Decision Snapshot</h2>
+          <p className="text-sm text-gray-400">
+            This is the fastest read of what already looks strong enough for a later explicit decision
+            review, what still remains unresolved, and why Titan is still fully read-only right now.
+          </p>
+        </div>
+
+        <div className="mb-4 flex flex-wrap gap-2">
+          <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200">
+            Strong Signals: {strongSignalsCount}
+          </div>
+          <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200">
+            Unresolved Signals: {unresolvedSignalsCount}
+          </div>
+          <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200">
+            Later Decision Review: {clearForLaterDecisionReview ? "Clearer" : "Still Early"}
+          </div>
+          <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200">
+            Read-Only
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
+          <a
+            href="#reconciliation-closure-snapshot"
+            className={`${getSnapshotCardClass(clearForLaterDecisionReview ? "clean" : "needs-review")} block transition hover:bg-white/[0.07]`}
+          >
+            <div className="mb-3 flex items-center justify-between gap-2">
+              <h3 className="text-sm font-semibold text-white">Already Strong</h3>
+              <span className="rounded-full border border-white/10 bg-black/20 px-2 py-1 text-[10px] uppercase tracking-[0.14em] text-gray-200">
+                {clearForLaterDecisionReview ? "Stronger" : "Still Building"}
+              </span>
+            </div>
+            <p className="text-sm text-gray-300">
+              Month-wise and upload-wise reconciliation are the strongest current closure checks, and the
+              page now clearly shows candidate, excluded, and family-level review posture.
+            </p>
+          </a>
+
+          <a
+            href="#memo-unresolved-rows"
+            className={`${getSnapshotCardClass(
+              summaryCounts.memoUnresolvedRowsCount > 0 || ambiguousSettlementReviewPresent || summaryCounts.unresolvedOtherRowsCount > 0
+                ? "needs-review"
+                : "clean"
+            )} block transition hover:bg-white/[0.07]`}
+          >
+            <div className="mb-3 flex items-center justify-between gap-2">
+              <h3 className="text-sm font-semibold text-white">Still Unresolved</h3>
+              <span className="rounded-full border border-white/10 bg-black/20 px-2 py-1 text-[10px] uppercase tracking-[0.14em] text-gray-200">
+                Needs Reading
+              </span>
+            </div>
+            <p className="text-sm text-gray-300">
+              Memo stays unresolved in {summaryCounts.memoUnresolvedRowsCount} row
+              {summaryCounts.memoUnresolvedRowsCount === 1 ? "" : "s"}, ambiguous settlement review is{" "}
+              {ambiguousSettlementReviewPresent ? "still present" : "currently quiet"}, and unresolved-other
+              rows remain {summaryCounts.unresolvedOtherRowsCount}.
+            </p>
+          </a>
+
+          <div className={getSnapshotCardClass("needs-review")}>
+            <div className="mb-3 flex items-center justify-between gap-2">
+              <h3 className="text-sm font-semibold text-white">Why Live Promotion Is Still Blocked</h3>
+              <span className="rounded-full border border-white/10 bg-black/20 px-2 py-1 text-[10px] uppercase tracking-[0.14em] text-gray-200">
+                Not Approved
+              </span>
+            </div>
+            <p className="text-sm text-gray-300">
+              Titan still has unresolved memo posture, settlement-reading limits, and no explicit
+              business approval to move this review layer into dashboard or profit truth.
+            </p>
+          </div>
+
+          <div className={getSnapshotCardClass(clearForLaterDecisionReview ? "clean" : "neutral")}>
+            <div className="mb-3 flex items-center justify-between gap-2">
+              <h3 className="text-sm font-semibold text-white">What This Means Right Now</h3>
+              <span className="rounded-full border border-white/10 bg-black/20 px-2 py-1 text-[10px] uppercase tracking-[0.14em] text-gray-200">
+                Review Stage
+              </span>
+            </div>
+            <p className="text-sm text-gray-300">
+              {clearForLaterDecisionReview
+                ? "The current page is now clearer for a later explicit decision review because the strongest checks and the unresolved blockers are both visible in one place."
+                : "The current page still needs closer reading before it will feel clear enough for a later explicit decision review."}
+            </p>
+            <p className="text-sm text-gray-400 mt-3">
+              This still does not approve live promotion. It only explains the current later-decision
+              posture in read-only terms.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   const renderPartPaymentSettlementSnapshotSection = () => {
     const extractableCount = summaryCounts.extractablePaymentSplitRowsCount;
     const unavailableCount = summaryCounts.unavailablePaymentSplitRowsCount;
@@ -1901,6 +2029,7 @@ export default function SalesTruthReviewPage() {
         <h2 className="text-xl font-semibold mb-2">How To Use This Page</h2>
         <div className="space-y-2 text-sm text-gray-300">
           <p>- Start with Current Review Snapshot for the quickest read of the current review position.</p>
+          <p>- Use Later Promotion Decision Snapshot next to see what already looks strong, what still remains unresolved, and why the page is still read-only.</p>
           <p>- Use Transaction Family Inclusion Snapshot next to see which Order Listing families currently look later includable, clearly excludable, unresolved, or diagnostic-only.</p>
           <p>- Use Sales Policy Bucket Snapshot next to see what Titan currently treats as candidate, excluded, and unresolved before reading row-level detail.</p>
           <p>- Use Reconciliation Closure Snapshot next to see whether the current policy buckets are closing cleanly by month and by upload before reading the detailed check tables.</p>
@@ -1925,6 +2054,11 @@ export default function SalesTruthReviewPage() {
 
     const sectionLinks = [
       { href: "#current-review-snapshot", label: "Current Review Snapshot", cue: "Start Here" },
+      {
+        href: "#later-promotion-decision-snapshot",
+        label: "Later Decision Snapshot",
+        cue: "Strong vs Blocked",
+      },
       {
         href: "#transaction-family-inclusion-snapshot",
         label: "Family Inclusion Snapshot",
@@ -2223,6 +2357,7 @@ export default function SalesTruthReviewPage() {
         )}
 
         <div className="space-y-6">
+          {renderLaterPromotionDecisionSnapshotSection()}
           {renderTransactionFamilyInclusionSnapshotSection()}
           {renderReconciliationClosureSnapshotSection()}
           {renderSalesPolicyBucketSnapshotSection()}

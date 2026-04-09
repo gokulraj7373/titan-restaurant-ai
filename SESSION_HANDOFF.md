@@ -10,10 +10,10 @@ This handoff file may itself be refreshed later in a docs-only commit without tr
 
 ## What Was Completed In The Latest Session
 
-- Completed one bounded transaction-family inclusion inspection-and-clarity step for `/sales-truth-review`.
+- Completed one bounded promotion-readiness posture inspection-and-clarity step for `/sales-truth-review`.
 - Confirmed the page still stays read-only in effect, remains pinned to the current review layer, and keeps policy buckets, totals, memo stance, and promotion state unchanged.
-- Confirmed the current repo-backed family posture still reads as: regular rows and numeric Part Payment rows later likely includable, complimentary / sales return / cancelled rows clearly excludable, memo still unresolved, and fallback-total attention rows diagnostic-only.
-- Added one compact Transaction Family Inclusion Snapshot so the owner can see later includable-versus-excludable-versus-unresolved-versus-diagnostic-only family posture without stitching together multiple sections or changing policy, totals, or promotion state.
+- Confirmed the current page now makes the later promotion posture clearer: month-wise and upload-wise closure remain clean, family posture is visible, memo remains unresolved, settlement review still needs reading, and live promotion still has not happened.
+- Added one compact Later Promotion Decision Snapshot so the owner can see what already looks strong, what still remains unresolved, and why Titan is still read-only without stitching together multiple sections or changing policy, totals, or promotion state.
 
 ## CURRENT WORKING TREE EXPECTATION
 
@@ -21,13 +21,13 @@ This handoff file may itself be refreshed later in a docs-only commit without tr
 
 ## CURRENT ACTIVE FOCUS
 
-- Keep Titan in a read-only truth-review phase while preserving the confirmed clean source boundaries, the clarified owner-safe Upload History wording, the improved Sales Reconciliation scan path, the validated sales upload classifications, the improved Sales Truth Review family scan path, the improved Part Payment review scan path, the improved sales-policy bucket scan path, the improved reconciliation-closure scan path, the improved transaction-family inclusion scan path, and the separation between live-facing pages and the read-only review layer.
+- Keep Titan in a read-only truth-review phase while preserving the confirmed clean source boundaries, the clarified owner-safe Upload History wording, the improved Sales Reconciliation scan path, the validated sales upload classifications, the improved Sales Truth Review family scan path, the improved Part Payment review scan path, the improved sales-policy bucket scan path, the improved reconciliation-closure scan path, the improved transaction-family inclusion scan path, the improved later-promotion scan path, and the separation between live-facing pages and the read-only review layer.
 - Improve owner clarity, safety, recovery, and consistency without promoting policy.
 - Treat `/sales-truth-review` as the current truth-checking control room while keeping live-facing pages clearly separate from the read-only review layer.
 
 ## EXACT NEXT SAFEST STEP
 
-- Review whether the current proposed policy posture is now clear enough for a later explicit promotion decision, while still remaining read-only.
+- Design the smallest safe evidence checklist that must be satisfied before any future explicit live-promotion decision, while keeping the system fully read-only for now.
 
 ## WARNINGS AND PENDING CAUTIONS
 
@@ -45,4 +45,5 @@ This handoff file may itself be refreshed later in a docs-only commit without tr
 - Sales-policy bucket review now gives a clearer candidate-versus-excluded-versus-unresolved scan path, but it still does not approve live policy promotion by itself.
 - Reconciliation closure review now gives a clearer month-versus-upload closure scan path, but it still does not approve live policy promotion by itself.
 - Transaction-family inclusion review now gives a clearer family-by-family later-inclusion scan path, but it still does not approve live policy promotion by itself.
+- Later-promotion posture review now gives a clearer strong-versus-unresolved-versus-blocking scan path, but it still does not approve live policy promotion by itself.
 - If a future milestone changes logic, architecture, handoff clarity, or meaningful owner-facing surface, update continuity docs immediately.
