@@ -747,3 +747,14 @@ The page already had the right month-level and upload-level reconciliation table
 
 Current status:
 Active
+
+## Decision 69
+
+Decision:
+Keep transaction-family inclusion review owner-friendly and conservative by showing later likely includable, clearly excludable, unresolved, and diagnostic-only Order Listing families through one read-only snapshot using existing derived review counts only.
+
+Why it was taken:
+The page already had the right family sections, policy snapshot, Part Payment snapshot, and fallback-total review, but the owner still had to combine multiple sections to understand later business-sales inclusion posture. Adding one bounded transaction-family snapshot improves inspection clarity without changing family rules, policy buckets, totals, memo stance, payment-settlement separation, or live promotion state.
+
+Current status:
+Active

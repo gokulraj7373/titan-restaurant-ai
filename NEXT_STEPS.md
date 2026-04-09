@@ -2,7 +2,7 @@
 
 ## Immediate Next Steps
 
-1. Confirm which Order Listing transaction families should be included later in true business sales totals, while keeping payment settlement logic separate from sales truth.
+1. Review whether the current proposed policy posture is now clear enough for a later explicit promotion decision, while still remaining read-only.
 2. Use the new verification breakdowns to confirm where the current proposed net sales amount comes from by month, source family, and upload.
 3. Use the Memo Resolution Review section only as a read-only investigative tool while memo remains unresolved and excluded from live sales truth.
 4. Review memo candidate hints as non-binding heuristics only and do not treat them as approved memo-to-sale links.
@@ -15,35 +15,37 @@
 11. Keep the Current Review Snapshot owner-friendly and read-only, and use it only to surface already-derived review outputs without changing policy behavior.
 12. Keep the Sales Policy Bucket Snapshot owner-friendly and read-only, and use it only to explain current candidate-versus-excluded-versus-unresolved posture without implying approved live policy.
 13. Keep the Reconciliation Closure Snapshot owner-friendly and read-only, and use it only to explain current month-versus-upload closure posture without implying approved live policy.
-14. Keep the Key Row Family Snapshot owner-friendly and read-only, and use it only to speed up inspection of already-derived row families without changing policy behavior.
-15. Keep the Part Payment Settlement Snapshot owner-friendly and read-only, and use it only to explain current export limits without overstating settlement certainty.
-16. Keep the Promotion Readiness Snapshot owner-friendly and read-only, and use it only to explain current review readiness without triggering any live policy action.
-17. Keep the live-facing sales truth status reminder short, owner-friendly, and clearly read-only until a later explicit promotion decision is approved.
-18. Keep the shared sales truth status notice component consistent across live-facing pages, and treat it only as read-only guidance until a later approved promotion decision exists.
-19. Keep `LIVE_PROJECT.md`, `AGENT_OPERATING_RULES.md`, and `SESSION_HANDOFF.md` current after meaningful milestones so a new AI can take over safely without re-explaining the project.
-20. Keep `SESSION_HANDOFF.md` updated first whenever the latest safe commit, active focus, or exact next safest step changes.
-21. Keep the completed live-facing sales-page consistency audit recorded as a finished check so future agents do not repeat it as the next baton step.
-22. Keep the completed Upload History consistency audit recorded as a finished check so future agents do not repeat it as the next baton step.
-23. Keep the completed Upload History precision review recorded as a finished check so future agents do not repeat it as the next baton step.
-24. Keep the completed Upload History wording clarification recorded as a finished owner-facing check so future agents do not repeat it as the next baton step.
-25. Keep the completed Expense Analytics consistency audit recorded as a finished check so future agents do not repeat it as the next baton step.
-26. Keep the completed page-by-page source-boundary audit recorded as a finished continuity check so future agents do not repeat it as the next baton step.
-27. Keep the completed Sales Reconciliation inspection scanability step recorded as a finished owner-facing diagnostic improvement so future agents do not repeat it as the next baton step.
-28. Keep the completed sales upload classification validation step recorded as a finished bounded check so future agents do not repeat it as the next baton step.
-29. Keep the completed Sales Truth Review row-family inspection step recorded as a finished owner-facing scanability improvement so future agents do not repeat it as the next baton step.
-30. Keep the completed Part Payment settlement-detail inspection step recorded as a finished owner-facing scanability improvement so future agents do not repeat it as the next baton step.
-31. Keep the completed sales-policy bucket inspection step recorded as a finished owner-facing scanability improvement so future agents do not repeat it as the next baton step.
-32. Keep the completed reconciliation-closure inspection step recorded as a finished owner-facing scanability improvement so future agents do not repeat it as the next baton step.
-33. Keep the live order-level sales query helpers small, deterministic, and separate from item-level analytics and the read-only sales truth review layer.
-34. Keep the first reusable expense-side summary helper small, deterministic, and separate from the sales-query helpers and the read-only sales truth review layer.
-35. Keep the first reusable item-level sales summary helper small, deterministic, and separate from order-level helpers and the read-only sales truth review layer.
-36. Keep reusable analytics-detail helpers small, deterministic, and pinned to their intended source tables without mixing sales, expense, or review-layer logic.
-37. Keep reusable profit summary helpers small, deterministic, and pinned to the page's intended live-facing sources without mixing in review-layer logic.
-38. Keep reusable upload-history helpers small, deterministic, and pinned to `uploads_log` only without mixing in sales, expense, profit, or review-layer logic.
-39. Keep reusable imports-page helpers small, deterministic, and pinned to their intended import tables without mixing in upload, analytics, profit, or review-layer logic.
-40. Keep reusable reconciliation-query helpers small, deterministic, and pinned to `sales_order_imports` only without mixing in truth-review policy or live-facing analytics logic.
-41. Keep `/upload/sales` modularization steps conservative and presentational-first, without moving parsing, routing, overlap, insertion, or policy logic.
-42. Keep `/upload/sales` render extractions narrowly scoped so the full diagnostics subsystem and the changed-overlap review remain presentational only.
+14. Keep the Transaction Family Inclusion Snapshot owner-friendly and read-only, and use it only to explain current later-includable-versus-excludable-versus-unresolved-versus-diagnostic family posture without implying approved live policy.
+15. Keep the Key Row Family Snapshot owner-friendly and read-only, and use it only to speed up inspection of already-derived row families without changing policy behavior.
+16. Keep the Part Payment Settlement Snapshot owner-friendly and read-only, and use it only to explain current export limits without overstating settlement certainty.
+17. Keep the Promotion Readiness Snapshot owner-friendly and read-only, and use it only to explain current review readiness without triggering any live policy action.
+18. Keep the live-facing sales truth status reminder short, owner-friendly, and clearly read-only until a later explicit promotion decision is approved.
+19. Keep the shared sales truth status notice component consistent across live-facing pages, and treat it only as read-only guidance until a later approved promotion decision exists.
+20. Keep `LIVE_PROJECT.md`, `AGENT_OPERATING_RULES.md`, and `SESSION_HANDOFF.md` current after meaningful milestones so a new AI can take over safely without re-explaining the project.
+21. Keep `SESSION_HANDOFF.md` updated first whenever the latest safe commit, active focus, or exact next safest step changes.
+22. Keep the completed live-facing sales-page consistency audit recorded as a finished check so future agents do not repeat it as the next baton step.
+23. Keep the completed Upload History consistency audit recorded as a finished check so future agents do not repeat it as the next baton step.
+24. Keep the completed Upload History precision review recorded as a finished check so future agents do not repeat it as the next baton step.
+25. Keep the completed Upload History wording clarification recorded as a finished owner-facing check so future agents do not repeat it as the next baton step.
+26. Keep the completed Expense Analytics consistency audit recorded as a finished check so future agents do not repeat it as the next baton step.
+27. Keep the completed page-by-page source-boundary audit recorded as a finished continuity check so future agents do not repeat it as the next baton step.
+28. Keep the completed Sales Reconciliation inspection scanability step recorded as a finished owner-facing diagnostic improvement so future agents do not repeat it as the next baton step.
+29. Keep the completed sales upload classification validation step recorded as a finished bounded check so future agents do not repeat it as the next baton step.
+30. Keep the completed Sales Truth Review row-family inspection step recorded as a finished owner-facing scanability improvement so future agents do not repeat it as the next baton step.
+31. Keep the completed Part Payment settlement-detail inspection step recorded as a finished owner-facing scanability improvement so future agents do not repeat it as the next baton step.
+32. Keep the completed sales-policy bucket inspection step recorded as a finished owner-facing scanability improvement so future agents do not repeat it as the next baton step.
+33. Keep the completed reconciliation-closure inspection step recorded as a finished owner-facing scanability improvement so future agents do not repeat it as the next baton step.
+34. Keep the completed transaction-family inclusion inspection step recorded as a finished owner-facing scanability improvement so future agents do not repeat it as the next baton step.
+35. Keep the live order-level sales query helpers small, deterministic, and separate from item-level analytics and the read-only sales truth review layer.
+36. Keep the first reusable expense-side summary helper small, deterministic, and separate from the sales-query helpers and the read-only sales truth review layer.
+37. Keep the first reusable item-level sales summary helper small, deterministic, and separate from order-level helpers and the read-only sales truth review layer.
+38. Keep reusable analytics-detail helpers small, deterministic, and pinned to their intended source tables without mixing sales, expense, or review-layer logic.
+39. Keep reusable profit summary helpers small, deterministic, and pinned to the page's intended live-facing sources without mixing in review-layer logic.
+40. Keep reusable upload-history helpers small, deterministic, and pinned to `uploads_log` only without mixing in sales, expense, profit, or review-layer logic.
+41. Keep reusable imports-page helpers small, deterministic, and pinned to their intended import tables without mixing in upload, analytics, profit, or review-layer logic.
+42. Keep reusable reconciliation-query helpers small, deterministic, and pinned to `sales_order_imports` only without mixing in truth-review policy or live-facing analytics logic.
+43. Keep `/upload/sales` modularization steps conservative and presentational-first, without moving parsing, routing, overlap, insertion, or policy logic.
+44. Keep `/upload/sales` render extractions narrowly scoped so the full diagnostics subsystem and the changed-overlap review remain presentational only.
 
 ## Short-Term Next Steps
 

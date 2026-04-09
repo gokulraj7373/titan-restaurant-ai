@@ -134,6 +134,8 @@ These are now the real sales ingestion targets for the smart sales upload flow.
 - That snapshot uses already-derived bucket counts and amounts to explain what Titan currently treats as candidate, excluded, and unresolved without changing policy, totals, or promotion state.
 - Sales truth review now also includes a compact Reconciliation Closure Snapshot near the top of the page.
 - That snapshot uses the existing month-wise and upload-wise reconciliation outputs to explain whether the current policy buckets are closing cleanly without changing policy, totals, attribution logic, or promotion state.
+- Sales truth review now also includes a compact Transaction Family Inclusion Snapshot near the top of the page.
+- That snapshot uses the existing family counts and section posture to explain which Order Listing families currently look later includable, clearly excludable, unresolved, or diagnostic-only without changing policy, totals, or promotion state.
 - Sales truth review now also includes verification breakdowns by month, source family, sales-policy bucket, and latest imported sales-order files.
 - Sales truth review now also includes monthly policy reconciliation and upload-attribution vs policy-attribution checks.
 - Memo rows now stay in `unresolved_memo` during read-only policy review even if they also look cancelled.
@@ -226,7 +228,7 @@ These are now the real sales ingestion targets for the smart sales upload flow.
 - A broader read-only source-boundary audit has now confirmed that the audited pages stay on their intended helper layers and source tables overall, with no source-boundary mismatch requiring product changes.
 - A read-only Upload History precision review has now confirmed that the current UI does not falsely claim exact expense inserted-row precision, so the real issue is logging-detail asymmetry rather than a product mismatch.
 - A bounded repo-local validation step has now confirmed that duplicate, append-only, gap-fill, and changed-overlap classifications still behave as intended for the current sales upload flow.
-- The next safety step is to confirm which Order Listing transaction families should be included later in true business sales totals, while keeping payment settlement logic separate from sales truth.
+- The next safety step is to review whether the current proposed policy posture is now clear enough for a later explicit promotion decision, while still remaining read-only.
 
 ## Clean Snapshot
 

@@ -50,6 +50,7 @@ That baton-pass file uses a latest verified baton-anchor model, so it can be ref
 - A bounded page-local Part Payment review step has now confirmed that the current review surface separates clearly extractable, unavailable-from-export, and ambiguous settlement-detail rows from existing exported text and derived review state only.
 - A bounded page-local sales-policy bucket review step has now confirmed that the current proposed policy posture still matches repo truth and has added a compact candidate-versus-excluded-versus-unresolved snapshot using existing derived counts only.
 - A bounded page-local reconciliation-closure review step has now confirmed that the current repo posture still shows month-wise and upload-wise closure as clean in the verified read-only review layer and has added a compact closure snapshot using existing derived checks only.
+- A bounded page-local transaction-family inclusion review step has now confirmed that regular rows and numeric Part Payment rows remain later likely includable, cancelled / complimentary / sales return rows remain clearly excludable, memo remains unresolved, and fallback-total attention rows remain diagnostic-only in the verified read-only review layer.
 
 ## Current Architecture State
 
@@ -99,6 +100,7 @@ That baton-pass file uses a latest verified baton-anchor model, so it can be ref
 
 `/sales-truth-review` now includes:
 - Current Review Snapshot
+- Transaction Family Inclusion Snapshot
 - Sales Policy Bucket Snapshot
 - Reconciliation Closure Snapshot
 - Key Row Family Snapshot
@@ -114,6 +116,7 @@ That baton-pass file uses a latest verified baton-anchor model, so it can be ref
 - upload attribution vs policy attribution check
 - deeper section guidance, summary chips, and scan aids
 - clearer family-level scan cues for regular, memo, complimentary, sales return, cancelled, Part Payment, and fallback-total attention rows
+- clearer transaction-family inclusion guidance about which Order Listing families currently look later includable, clearly excludable, unresolved, or diagnostic-only
 - clearer sales-policy guidance about what Titan currently treats as candidate, excluded, and unresolved in review
 - clearer reconciliation-closure guidance about whether policy buckets are currently closing cleanly by month and by upload
 - clearer Part Payment guidance about what the current export text can and cannot safely prove about settlement breakup
@@ -252,6 +255,6 @@ That reminder points back to `/sales-truth-review` and does not mean live promot
 ## Current Recommended Direction
 
 The exact next safest step remains:
-- confirm which Order Listing transaction families should be included later in true business sales totals, while keeping payment settlement logic separate from sales truth
+- review whether the current proposed policy posture is now clear enough for a later explicit promotion decision, while still remaining read-only
 
 This section should stay aligned with `SESSION_HANDOFF.md`.

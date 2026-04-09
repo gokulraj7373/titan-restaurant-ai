@@ -10,10 +10,10 @@ This handoff file may itself be refreshed later in a docs-only commit without tr
 
 ## What Was Completed In The Latest Session
 
-- Completed one bounded reconciliation-closure inspection-and-clarity step for `/sales-truth-review`.
+- Completed one bounded transaction-family inclusion inspection-and-clarity step for `/sales-truth-review`.
 - Confirmed the page still stays read-only in effect, remains pinned to the current review layer, and keeps policy buckets, totals, memo stance, and promotion state unchanged.
-- Confirmed the current repo posture still shows month-wise and upload-wise reconciliation closing cleanly in the verified read-only review layer.
-- Added one compact Reconciliation Closure Snapshot so the owner can see month-versus-upload closure posture without stitching together multiple sections or changing policy, totals, attribution logic, or promotion state.
+- Confirmed the current repo-backed family posture still reads as: regular rows and numeric Part Payment rows later likely includable, complimentary / sales return / cancelled rows clearly excludable, memo still unresolved, and fallback-total attention rows diagnostic-only.
+- Added one compact Transaction Family Inclusion Snapshot so the owner can see later includable-versus-excludable-versus-unresolved-versus-diagnostic-only family posture without stitching together multiple sections or changing policy, totals, or promotion state.
 
 ## CURRENT WORKING TREE EXPECTATION
 
@@ -21,13 +21,13 @@ This handoff file may itself be refreshed later in a docs-only commit without tr
 
 ## CURRENT ACTIVE FOCUS
 
-- Keep Titan in a read-only truth-review phase while preserving the confirmed clean source boundaries, the clarified owner-safe Upload History wording, the improved Sales Reconciliation scan path, the validated sales upload classifications, the improved Sales Truth Review family scan path, the improved Part Payment review scan path, the improved sales-policy bucket scan path, the improved reconciliation-closure scan path, and the separation between live-facing pages and the read-only review layer.
+- Keep Titan in a read-only truth-review phase while preserving the confirmed clean source boundaries, the clarified owner-safe Upload History wording, the improved Sales Reconciliation scan path, the validated sales upload classifications, the improved Sales Truth Review family scan path, the improved Part Payment review scan path, the improved sales-policy bucket scan path, the improved reconciliation-closure scan path, the improved transaction-family inclusion scan path, and the separation between live-facing pages and the read-only review layer.
 - Improve owner clarity, safety, recovery, and consistency without promoting policy.
 - Treat `/sales-truth-review` as the current truth-checking control room while keeping live-facing pages clearly separate from the read-only review layer.
 
 ## EXACT NEXT SAFEST STEP
 
-- Confirm which Order Listing transaction families should be included later in true business sales totals, while keeping payment settlement logic separate from sales truth.
+- Review whether the current proposed policy posture is now clear enough for a later explicit promotion decision, while still remaining read-only.
 
 ## WARNINGS AND PENDING CAUTIONS
 
@@ -44,4 +44,5 @@ This handoff file may itself be refreshed later in a docs-only commit without tr
 - Part Payment review now gives a clearer extractable-versus-unavailable-versus-ambiguous scan path, but it still does not prove final payment-settlement truth from the current export alone.
 - Sales-policy bucket review now gives a clearer candidate-versus-excluded-versus-unresolved scan path, but it still does not approve live policy promotion by itself.
 - Reconciliation closure review now gives a clearer month-versus-upload closure scan path, but it still does not approve live policy promotion by itself.
+- Transaction-family inclusion review now gives a clearer family-by-family later-inclusion scan path, but it still does not approve live policy promotion by itself.
 - If a future milestone changes logic, architecture, handoff clarity, or meaningful owner-facing surface, update continuity docs immediately.

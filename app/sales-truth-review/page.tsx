@@ -1623,6 +1623,133 @@ export default function SalesTruthReviewPage() {
     );
   };
 
+  const renderTransactionFamilyInclusionSnapshotSection = () => {
+    const familyCards = [
+      {
+        title: "Regular Rows",
+        href: "#regular-orders",
+        countLabel: `${summaryCounts.regularOrderMainCount} regular main rows`,
+        detail:
+          "Current repo posture: regular numeric main rows are the clearest later business-sales candidates.",
+        cue: "Likely Includable",
+        sectionState: "clean" as const,
+      },
+      {
+        title: "Part Payment Rows",
+        href: "#part-payment-sale-review",
+        countLabel: `${summaryCounts.partPaymentValidSaleRowsCount} current sale candidates`,
+        detail:
+          "Current repo posture: numeric Part Payment rows stay in sale review, but payment-settlement truth remains separate.",
+        cue: "Likely Includable",
+        sectionState: "clean" as const,
+      },
+      {
+        title: "Complimentary Rows",
+        href: "#complimentary-orders",
+        countLabel: `${summaryCounts.complimentaryExcludedRowsCount} excluded complimentary rows`,
+        detail:
+          "Current repo posture: complimentary activity stays outside later business-sales totals in review.",
+        cue: "Clearly Excludable",
+        sectionState: "clean" as const,
+      },
+      {
+        title: "Sales Return Rows",
+        href: "#sales-return-orders",
+        countLabel: `${summaryCounts.salesReturnExcludedRowsCount} excluded sales return rows`,
+        detail:
+          "Current repo posture: sales return activity stays outside later business-sales totals in review.",
+        cue: "Clearly Excludable",
+        sectionState: "clean" as const,
+      },
+      {
+        title: "Cancelled Rows",
+        href: "#cancelled-orders",
+        countLabel: `${summaryCounts.cancelledExcludedRowsCount} excluded cancelled rows`,
+        detail:
+          "Current repo posture: cancelled rows stay out of later business-sales totals in the read-only layer.",
+        cue: "Clearly Excludable",
+        sectionState: "clean" as const,
+      },
+      {
+        title: "Memo Rows",
+        href: "#memo-unresolved-rows",
+        countLabel: `${summaryCounts.memoUnresolvedRowsCount} unresolved memo rows`,
+        detail:
+          "Current repo posture: memo remains unresolved and still needs an explicit business decision later.",
+        cue: "Decision Needed",
+        sectionState:
+          summaryCounts.memoUnresolvedRowsCount > 0 ? ("needs-review" as const) : ("clean" as const),
+      },
+      {
+        title: "Fallback-Total Attention Rows",
+        href: "#fallback-total-attention-rows",
+        countLabel: `${summaryCounts.grandTotalZeroCount} fallback-total attention rows`,
+        detail:
+          "Current repo posture: this is a trust-check family only, not a separate business-total family.",
+        cue: "Diagnostic Only",
+        sectionState: "neutral" as const,
+      },
+    ];
+
+    return (
+      <div
+        id="transaction-family-inclusion-snapshot"
+        className="rounded-2xl border border-white/20 bg-white/[0.02] p-6 mb-4 scroll-mt-6"
+      >
+        <div className="mb-4">
+          <p className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-2">Family Inclusion Scan</p>
+          <h2 className="text-xl font-semibold mb-2">Transaction Family Inclusion Snapshot</h2>
+          <p className="text-sm text-gray-400">
+            This is the fastest read of which Order Listing transaction families repo truth currently
+            supports as later includable, clearly excludable, still unresolved, or diagnostic-only. It
+            uses existing read-only review outputs only.
+          </p>
+        </div>
+
+        <div className="mb-4 flex flex-wrap gap-2">
+          <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200">
+            Likely Includable: {summaryCounts.regularOrderMainCount + summaryCounts.partPaymentValidSaleRowsCount}
+          </div>
+          <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200">
+            Clearly Excludable: {summaryCounts.cancelledExcludedRowsCount + summaryCounts.complimentaryExcludedRowsCount + summaryCounts.salesReturnExcludedRowsCount}
+          </div>
+          <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200">
+            Decision Needed: {summaryCounts.memoUnresolvedRowsCount}
+          </div>
+          <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200">
+            Diagnostic Only: {summaryCounts.grandTotalZeroCount}
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
+          {familyCards.map((card) => (
+            <a
+              key={card.title}
+              href={card.href}
+              className={`${getSnapshotCardClass(card.sectionState)} block transition hover:bg-white/[0.07]`}
+            >
+              <div className="mb-3 flex flex-wrap items-center justify-between gap-2">
+                <h3 className="text-sm font-semibold text-white">{card.title}</h3>
+                <span className="rounded-full border border-white/10 bg-black/20 px-2 py-1 text-[10px] uppercase tracking-[0.14em] text-gray-200">
+                  {card.cue}
+                </span>
+              </div>
+              <p className="text-base font-semibold text-white mb-2">{card.countLabel}</p>
+              <p className="text-sm text-gray-300">{card.detail}</p>
+            </a>
+          ))}
+        </div>
+
+        <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4 mt-4">
+          <p className="text-sm text-gray-300">
+            Read this snapshot as family-inclusion posture only. It does not approve live promotion, and
+            it does not treat payment-settlement detail as the same thing as sales truth.
+          </p>
+        </div>
+      </div>
+    );
+  };
+
   const renderKeyRowFamilySnapshotSection = () => {
     const familyCards = [
       {
@@ -1774,6 +1901,7 @@ export default function SalesTruthReviewPage() {
         <h2 className="text-xl font-semibold mb-2">How To Use This Page</h2>
         <div className="space-y-2 text-sm text-gray-300">
           <p>- Start with Current Review Snapshot for the quickest read of the current review position.</p>
+          <p>- Use Transaction Family Inclusion Snapshot next to see which Order Listing families currently look later includable, clearly excludable, unresolved, or diagnostic-only.</p>
           <p>- Use Sales Policy Bucket Snapshot next to see what Titan currently treats as candidate, excluded, and unresolved before reading row-level detail.</p>
           <p>- Use Reconciliation Closure Snapshot next to see whether the current policy buckets are closing cleanly by month and by upload before reading the detailed check tables.</p>
           <p>- Use Key Row Family Snapshot next for the fastest scan across regular, memo, complimentary, sales return, cancelled, Part Payment, and fallback-total attention rows.</p>
@@ -1797,6 +1925,11 @@ export default function SalesTruthReviewPage() {
 
     const sectionLinks = [
       { href: "#current-review-snapshot", label: "Current Review Snapshot", cue: "Start Here" },
+      {
+        href: "#transaction-family-inclusion-snapshot",
+        label: "Family Inclusion Snapshot",
+        cue: "Later Totals Posture",
+      },
       {
         href: "#sales-policy-bucket-snapshot",
         label: "Sales Policy Snapshot",
@@ -2090,6 +2223,7 @@ export default function SalesTruthReviewPage() {
         )}
 
         <div className="space-y-6">
+          {renderTransactionFamilyInclusionSnapshotSection()}
           {renderReconciliationClosureSnapshotSection()}
           {renderSalesPolicyBucketSnapshotSection()}
           {renderMemoResolutionReviewSection()}
