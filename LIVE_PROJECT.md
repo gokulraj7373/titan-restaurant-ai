@@ -53,6 +53,7 @@ That baton-pass file uses a latest verified baton-anchor model, so it can be ref
 - A bounded page-local transaction-family inclusion review step has now confirmed that regular rows and numeric Part Payment rows remain later likely includable, cancelled / complimentary / sales return rows remain clearly excludable, memo remains unresolved, and fallback-total attention rows remain diagnostic-only in the verified read-only review layer.
 - A bounded page-local later-promotion posture review step has now confirmed that the current page is clearer about what is already strong, what is still unresolved, and why live promotion still has not happened, while keeping the page fully read-only in business effect.
 - A bounded page-local live-promotion evidence-checklist review step has now confirmed that the current page can show the smallest safe evidence checklist for any later explicit promotion discussion without changing policy, totals, memo stance, or promotion state.
+- A bounded page-local later-protocol-readiness review step has now confirmed that the current page is organized enough to discuss drafting a later explicit promotion-decision protocol without changing policy, totals, memo stance, or promotion state.
 
 ## Current Architecture State
 
@@ -104,6 +105,7 @@ That baton-pass file uses a latest verified baton-anchor model, so it can be ref
 - Current Review Snapshot
 - Later Promotion Decision Snapshot
 - Live Promotion Evidence Checklist
+- Later Promotion Protocol Readiness
 - Transaction Family Inclusion Snapshot
 - Sales Policy Bucket Snapshot
 - Reconciliation Closure Snapshot
@@ -122,6 +124,7 @@ That baton-pass file uses a latest verified baton-anchor model, so it can be ref
 - clearer family-level scan cues for regular, memo, complimentary, sales return, cancelled, Part Payment, and fallback-total attention rows
 - clearer later-promotion guidance about what already looks strong, what still remains unresolved, and why live promotion still has not happened
 - clearer live-promotion evidence guidance about what already looks strong, what still remains unresolved, what still blocks live promotion, and what would still need later explicit approval
+- clearer later-protocol guidance about whether the current evidence is organized enough to support drafting a later explicit promotion-decision protocol while still remaining read-only
 - clearer transaction-family inclusion guidance about which Order Listing families currently look later includable, clearly excludable, unresolved, or diagnostic-only
 - clearer sales-policy guidance about what Titan currently treats as candidate, excluded, and unresolved in review
 - clearer reconciliation-closure guidance about whether policy buckets are currently closing cleanly by month and by upload
@@ -261,6 +264,6 @@ That reminder points back to `/sales-truth-review` and does not mean live promot
 ## Current Recommended Direction
 
 The exact next safest step remains:
-- review whether the current read-only evidence posture is now strong enough to support drafting a later explicit promotion-decision protocol, without promoting anything live yet
+- design the smallest read-only draft structure for a future explicit promotion-decision protocol, without approving or implementing promotion
 
 This section should stay aligned with `SESSION_HANDOFF.md`.

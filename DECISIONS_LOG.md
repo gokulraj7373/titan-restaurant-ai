@@ -780,3 +780,14 @@ The page already showed strong evidence, unresolved evidence, and later-promotio
 
 Current status:
 Active
+
+## Decision 72
+
+Decision:
+Keep later protocol-drafting posture owner-friendly and conservative by showing whether the current evidence is organized enough to support drafting a future explicit promotion-decision protocol through one read-only snapshot using existing review posture only.
+
+Why it was taken:
+The page already showed strong evidence, unresolved evidence, blockers, and approval-needed items, but the owner still had to infer whether that was enough to begin later protocol drafting. Adding one bounded protocol-readiness snapshot improves inspection clarity without changing policy buckets, totals, memo stance, readiness logic, or live promotion state.
+
+Current status:
+Active

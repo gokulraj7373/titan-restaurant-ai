@@ -1554,6 +1554,137 @@ export default function SalesTruthReviewPage() {
     );
   };
 
+  const renderLaterPromotionProtocolReadinessSection = () => {
+    const monthReconciliationHealthy =
+      monthlyPolicyReconciliationRows.length > 0 &&
+      monthlyPolicyReconciliationRows.every((row) => row.reconciled);
+    const uploadReconciliationHealthy =
+      latestImportBreakdownRows.length > 0 &&
+      latestImportBreakdownRows.every((row) => row.reconciled);
+    const salesPolicyPostureVisible = salesPolicyBreakdownRows.length > 0;
+    const transactionFamilyPostureVisible =
+      summaryCounts.regularOrderMainCount +
+        summaryCounts.partPaymentRowsCount +
+        summaryCounts.memoSpecialCount +
+        summaryCounts.complimentaryCount +
+        summaryCounts.salesReturnCount +
+        summaryCounts.cancelledRowsCount +
+        summaryCounts.grandTotalZeroCount >
+      0;
+    const ambiguousSettlementReviewPresent =
+      partPaymentRows.length > 0 || grandTotalZeroRows.length > 0 || differentTotalRows.length > 0;
+    const supportedProtocolCategoriesCount =
+      (monthReconciliationHealthy ? 1 : 0) +
+      (uploadReconciliationHealthy ? 1 : 0) +
+      (salesPolicyPostureVisible ? 1 : 0) +
+      (transactionFamilyPostureVisible ? 1 : 0) +
+      (summaryCounts.memoUnresolvedRowsCount > 0 ? 1 : 0) +
+      ((summaryCounts.partPaymentRowsCount > 0 || ambiguousSettlementReviewPresent) ? 1 : 0);
+    const protocolDraftingReady =
+      monthReconciliationHealthy &&
+      uploadReconciliationHealthy &&
+      salesPolicyPostureVisible &&
+      transactionFamilyPostureVisible;
+
+    return (
+      <div
+        id="later-promotion-protocol-readiness"
+        className="rounded-2xl border border-white/20 bg-white/[0.02] p-6 mb-4 scroll-mt-6"
+      >
+        <div className="mb-4">
+          <p className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-2">Protocol Readiness</p>
+          <h2 className="text-xl font-semibold mb-2">Later Promotion Protocol Readiness</h2>
+          <p className="text-sm text-gray-400">
+            This is a read-only scan of whether Titan now has enough organized evidence to support
+            drafting a later explicit promotion-decision protocol. It does not approve live promotion,
+            and it does not turn review posture into live truth.
+          </p>
+        </div>
+
+        <div className="mb-4 flex flex-wrap gap-2">
+          <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200">
+            Supported Categories: {supportedProtocolCategoriesCount}
+          </div>
+          <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200">
+            Protocol Drafting: {protocolDraftingReady ? "Clearer" : "Still Early"}
+          </div>
+          <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200">
+            Read-Only
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
+          <a
+            href="#reconciliation-closure-snapshot"
+            className={`${getSnapshotCardClass(protocolDraftingReady ? "clean" : "neutral")} block transition hover:bg-white/[0.07]`}
+          >
+            <div className="mb-3 flex items-center justify-between gap-2">
+              <h3 className="text-sm font-semibold text-white">Supported Protocol Categories</h3>
+              <span className="rounded-full border border-white/10 bg-black/20 px-2 py-1 text-[10px] uppercase tracking-[0.14em] text-gray-200">
+                Foundation
+              </span>
+            </div>
+            <div className="space-y-2 text-sm text-gray-300">
+              <p>- Reconciliation closure by month and by upload</p>
+              <p>- Sales-policy bucket posture</p>
+              <p>- Transaction-family posture</p>
+              <p>- Memo unresolved posture and Part Payment settlement-separation posture</p>
+            </div>
+          </a>
+
+          <a
+            href="#live-promotion-evidence-checklist"
+            className={`${getSnapshotCardClass(protocolDraftingReady ? "clean" : "neutral")} block transition hover:bg-white/[0.07]`}
+          >
+            <div className="mb-3 flex items-center justify-between gap-2">
+              <h3 className="text-sm font-semibold text-white">Strong Enough For Later Drafting</h3>
+              <span className="rounded-full border border-white/10 bg-black/20 px-2 py-1 text-[10px] uppercase tracking-[0.14em] text-gray-200">
+                {protocolDraftingReady ? "Yes, For Drafting" : "Not Yet Clear"}
+              </span>
+            </div>
+            <p className="text-sm text-gray-300">
+              {protocolDraftingReady
+                ? "The current page is now organized enough to support drafting a later explicit promotion-decision protocol because the strongest checks, unresolved areas, and blockers are all visible together."
+                : "The current page still needs more clarity before it will feel strong enough to support drafting a later explicit promotion-decision protocol."}
+            </p>
+          </a>
+
+          <a
+            href="#memo-unresolved-rows"
+            className={`${getSnapshotCardClass(
+              summaryCounts.memoUnresolvedRowsCount > 0 || ambiguousSettlementReviewPresent ? "needs-review" : "clean"
+            )} block transition hover:bg-white/[0.07]`}
+          >
+            <div className="mb-3 flex items-center justify-between gap-2">
+              <h3 className="text-sm font-semibold text-white">Still Not Live-Ready</h3>
+              <span className="rounded-full border border-white/10 bg-black/20 px-2 py-1 text-[10px] uppercase tracking-[0.14em] text-gray-200">
+                Blockers Open
+              </span>
+            </div>
+            <div className="space-y-2 text-sm text-gray-300">
+              <p>- Memo remains unresolved and excluded from live sales truth.</p>
+              <p>- Part Payment settlement truth still remains separate and partly limited.</p>
+              <p>- Explicit owner/business approval would still be required later.</p>
+            </div>
+          </a>
+
+          <div className={getSnapshotCardClass("neutral")}>
+            <div className="mb-3 flex items-center justify-between gap-2">
+              <h3 className="text-sm font-semibold text-white">What This Means Right Now</h3>
+              <span className="rounded-full border border-white/10 bg-black/20 px-2 py-1 text-[10px] uppercase tracking-[0.14em] text-gray-200">
+                No Approval
+              </span>
+            </div>
+            <p className="text-sm text-gray-300">
+              Protocol drafting readiness only means the review posture is organized enough to discuss
+              a future decision structure. It does not mean live promotion is near, approved, or automatic.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   const renderPartPaymentSettlementSnapshotSection = () => {
     const extractableCount = summaryCounts.extractablePaymentSplitRowsCount;
     const unavailableCount = summaryCounts.unavailablePaymentSplitRowsCount;
@@ -2173,6 +2304,7 @@ export default function SalesTruthReviewPage() {
           <p>- Start with Current Review Snapshot for the quickest read of the current review position.</p>
           <p>- Use Later Promotion Decision Snapshot next to see what already looks strong, what still remains unresolved, and why the page is still read-only.</p>
           <p>- Use Live Promotion Evidence Checklist next to see the minimum evidence Titan would still need before any later explicit promotion decision is even discussed.</p>
+          <p>- Use Later Promotion Protocol Readiness next to see whether the current evidence is organized enough to support drafting a later decision protocol while still staying read-only.</p>
           <p>- Use Transaction Family Inclusion Snapshot next to see which Order Listing families currently look later includable, clearly excludable, unresolved, or diagnostic-only.</p>
           <p>- Use Sales Policy Bucket Snapshot next to see what Titan currently treats as candidate, excluded, and unresolved before reading row-level detail.</p>
           <p>- Use Reconciliation Closure Snapshot next to see whether the current policy buckets are closing cleanly by month and by upload before reading the detailed check tables.</p>
@@ -2206,6 +2338,11 @@ export default function SalesTruthReviewPage() {
         href: "#live-promotion-evidence-checklist",
         label: "Evidence Checklist",
         cue: "Minimum Read-Only Gate",
+      },
+      {
+        href: "#later-promotion-protocol-readiness",
+        label: "Protocol Readiness",
+        cue: "Drafting Only",
       },
       {
         href: "#transaction-family-inclusion-snapshot",
@@ -2507,6 +2644,7 @@ export default function SalesTruthReviewPage() {
         <div className="space-y-6">
           {renderLaterPromotionDecisionSnapshotSection()}
           {renderLivePromotionEvidenceChecklistSection()}
+          {renderLaterPromotionProtocolReadinessSection()}
           {renderTransactionFamilyInclusionSnapshotSection()}
           {renderReconciliationClosureSnapshotSection()}
           {renderSalesPolicyBucketSnapshotSection()}
