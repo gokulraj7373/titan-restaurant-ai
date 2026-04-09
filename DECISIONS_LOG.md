@@ -813,3 +813,14 @@ The page already showed a protocol-draft structure, but the owner still had to i
 
 Current status:
 Active
+
+## Decision 75
+
+Decision:
+Consolidate the stacked top and mid-upper posture area of `/sales-truth-review` into fewer stronger read-only sections instead of continuing to add overlapping posture blocks.
+
+Why it was taken:
+The page already had the needed evidence, but the owner-facing top area had become too stacked with similar sections about readiness, blockers, protocol drafting, and document shape. Consolidating that posture area keeps the strongest review signals visible while improving structure clarity without changing policy buckets, totals, memo stance, reconciliation behavior, or promotion state.
+
+Current status:
+Active
