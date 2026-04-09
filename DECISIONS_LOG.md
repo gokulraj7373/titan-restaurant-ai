@@ -681,3 +681,14 @@ The completed precision review found an owner-clarity gap rather than a product 
 
 Current status:
 Active
+
+## Decision 63
+
+Decision:
+Improve `/sales-reconciliation` scanability with one compact inspection snapshot and clearer row-family guidance using already-loaded diagnostic data only.
+
+Why it was taken:
+The page already had the right fallback-total and large-total-difference rows, but the owner had to jump from the top summary cards straight into long diagnostic lists. Adding a small scanability layer improves inspection flow without changing reconciliation helpers, totals, row membership, database behavior, or truth-review policy.
+
+Current status:
+Active

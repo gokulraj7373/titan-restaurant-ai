@@ -193,6 +193,7 @@ These are now the real sales ingestion targets for the smart sales upload flow.
 - Titan now also has reusable reconciliation-query helpers under `lib/reconciliation-query/`.
 - The `/sales-reconciliation` page now uses that helper layer for its current read-only summary diagnostics and diagnostic row sections while staying on `sales_order_imports` only.
 - These reconciliation helpers stay separate from `/sales-truth-review`, memo policy, and live promotion logic.
+- The `/sales-reconciliation` page now also includes one compact Inspection Snapshot and clearer section scan cues so fallback-total rows and large-total-difference rows are easier to inspect without changing helper outputs, row membership, or totals.
 - Titan now also has a pure render-support diagnostics panel under `app/upload/sales/order-listing-diagnostics-panel.tsx`.
 - The `/upload/sales` page now uses that component as the bounded presentational container for the full `Order Listing Classification Diagnostics` UI subsystem.
 - That diagnostics container now composes the already-extracted changed-overlap review panel.
@@ -215,7 +216,7 @@ These are now the real sales ingestion targets for the smart sales upload flow.
 - A small Expense Analytics consistency audit has now confirmed that `/expense-analytics` reads directly from `expense_imports` and does not accidentally depend on the read-only sales truth review layer.
 - A broader read-only source-boundary audit has now confirmed that the audited pages stay on their intended helper layers and source tables overall, with no source-boundary mismatch requiring product changes.
 - A read-only Upload History precision review has now confirmed that the current UI does not falsely claim exact expense inserted-row precision, so the real issue is logging-detail asymmetry rather than a product mismatch.
-- The next safety step is to use the new Sales Reconciliation page to inspect fallback-total and total-difference order rows.
+- The next safety step is to test the new sales upload classifications with duplicate, append-only, gap-fill, and changed-overlap files.
 
 ## Clean Snapshot
 

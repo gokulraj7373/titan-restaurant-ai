@@ -76,16 +76,64 @@ export default function SalesReconciliationPage() {
     });
   };
 
+  const renderSectionChips = (totalCount: number, visibleRowsCount: number) => {
+    if (loadError) {
+      return (
+        <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-300">
+          Rows unavailable
+        </span>
+      );
+    }
+
+    if (loading) {
+      return (
+        <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-300">
+          Loading rows
+        </span>
+      );
+    }
+
+    if (totalCount === 0) {
+      return (
+        <span className="rounded-full border border-emerald-500/30 bg-emerald-500/10 px-3 py-1 text-xs text-emerald-200">
+          No flagged rows
+        </span>
+      );
+    }
+
+    return (
+      <div className="flex flex-wrap gap-2">
+        <span className="rounded-full border border-amber-500/30 bg-amber-500/10 px-3 py-1 text-xs text-amber-100">
+          {totalCount} flagged rows
+        </span>
+        <span className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-300">
+          Showing latest {visibleRowsCount}
+        </span>
+      </div>
+    );
+  };
+
   const renderRowsSection = (
     title: string,
     description: string,
+    summaryText: string,
+    totalCount: number,
     rows: SalesOrderDiagnosticRow[],
     emptyMessage: string
   ) => {
     return (
       <div className="rounded-2xl border border-white/20 p-6">
-        <h2 className="text-xl font-semibold mb-2">{title}</h2>
-        <p className="text-sm text-gray-400 mb-4">{description}</p>
+        <div className="mb-4 flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
+          <div>
+            <h2 className="text-xl font-semibold mb-2">{title}</h2>
+            <p className="text-sm text-gray-400">{description}</p>
+          </div>
+          {renderSectionChips(totalCount, rows.length)}
+        </div>
+
+        <div className="mb-4 rounded-xl border border-white/10 bg-white/5 px-4 py-3">
+          <p className="text-sm text-gray-200">{summaryText}</p>
+        </div>
 
         {loadError ? (
           <p className="text-sm text-gray-300">Could not load reconciliation rows</p>
@@ -209,10 +257,86 @@ export default function SalesReconciliationPage() {
           </div>
         )}
 
+        <div className="rounded-2xl border border-white/20 p-6 mb-6">
+          <h2 className="text-xl font-semibold mb-2">Inspection Snapshot</h2>
+          <p className="text-sm text-gray-400 mb-4">
+            Use these two row families as a quick trust-check before reading the individual order
+            cards below.
+          </p>
+
+          <div className="grid grid-cols-1 gap-4 lg:grid-cols-2">
+            <div className="rounded-xl border border-white/10 bg-white/5 p-4">
+              <div className="flex items-start justify-between gap-3 mb-3">
+                <div>
+                  <h3 className="text-base font-semibold">Fallback Total Review</h3>
+                  <p className="text-sm text-gray-400">
+                    Grand Total is empty or zero, so Titan falls back to Effective Total.
+                  </p>
+                </div>
+                <span className="rounded-full border border-white/10 bg-black/30 px-3 py-1 text-xs text-gray-300">
+                  {loading || loadError
+                    ? "Inspection pending"
+                    : fallbackTotalRowsCount === 0
+                      ? "No rows right now"
+                      : "Needs inspection"}
+                </span>
+              </div>
+
+              <div className="space-y-2 text-sm text-gray-200">
+                <p>
+                  <span className="text-gray-400">Flagged rows:</span> {fallbackTotalRowsCount}
+                </p>
+                <p>
+                  <span className="text-gray-400">Rows shown below:</span>{" "}
+                  {loadError ? "-" : loading ? "Loading..." : fallbackRows.length}
+                </p>
+                <p className="text-gray-300">
+                  Check whether the stored Effective Total still looks believable when Grand Total
+                  is blank or zero.
+                </p>
+              </div>
+            </div>
+
+            <div className="rounded-xl border border-white/10 bg-white/5 p-4">
+              <div className="flex items-start justify-between gap-3 mb-3">
+                <div>
+                  <h3 className="text-base font-semibold">Large Total Difference Review</h3>
+                  <p className="text-sm text-gray-400">
+                    Effective Total differs from Grand Total by more than 1.
+                  </p>
+                </div>
+                <span className="rounded-full border border-white/10 bg-black/30 px-3 py-1 text-xs text-gray-300">
+                  {loading || loadError
+                    ? "Inspection pending"
+                    : differentTotalRowsCount === 0
+                      ? "No rows right now"
+                      : "Needs inspection"}
+                </span>
+              </div>
+
+              <div className="space-y-2 text-sm text-gray-200">
+                <p>
+                  <span className="text-gray-400">Flagged rows:</span> {differentTotalRowsCount}
+                </p>
+                <p>
+                  <span className="text-gray-400">Rows shown below:</span>{" "}
+                  {loadError ? "-" : loading ? "Loading..." : differentRows.length}
+                </p>
+                <p className="text-gray-300">
+                  Compare Grand Total and Effective Total first, then use payment fields as extra
+                  context.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div className="space-y-6">
           {renderRowsSection(
             "Orders Relying On Fallback Total",
             "Latest 50 order rows where Grand Total is empty or zero, so Titan relies on the stored effective total.",
+            "Inspect these rows when you want to see where order-level trust depends on the fallback value instead of a populated Grand Total.",
+            fallbackTotalRowsCount,
             fallbackRows,
             "No fallback-total rows found"
           )}
@@ -220,6 +344,8 @@ export default function SalesReconciliationPage() {
           {renderRowsSection(
             "Orders Where Effective Total And Grand Total Differ",
             "Latest 50 order rows where the stored effective total differs from Grand Total by more than 1.",
+            "Inspect these rows when you want to understand why the two totals diverge before treating the order row as cleanly reconciled.",
+            differentTotalRowsCount,
             differentRows,
             "No rows with a large total difference were found"
           )}

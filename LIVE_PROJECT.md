@@ -44,6 +44,7 @@ That baton-pass file uses a latest verified baton-anchor model, so it can be ref
 - That same review also confirmed that sales uploads persist richer ingestion detail in `uploads_log`, while expense uploads still use older lighter log semantics there.
 - The current Upload History UI does not falsely claim exact expense inserted-row precision, so the real issue is logging-detail asymmetry rather than a product mismatch.
 - A bounded wording-only `/uploads` clarification step has now made lighter expense rows read more clearly as stored upload history unless exact ingest counts are actually logged there.
+- A bounded page-local Sales Reconciliation scanability step has now added a compact Inspection Snapshot and clearer row-family guidance without changing reconciliation math, helper logic, or policy behavior.
 
 ## Current Architecture State
 
@@ -171,6 +172,8 @@ That reminder points back to `/sales-truth-review` and does not mean live promot
 - The `/sales-reconciliation` page now uses reusable helpers for its current read-only summary diagnostics and its two current diagnostic row sections.
 - These helpers read from `sales_order_imports` only.
 - These helpers are a maintainability step only and do not affect truth-review policy, memo handling, or live promotion state.
+- The page now also includes one compact Inspection Snapshot plus section-level scan cues so fallback-total rows and large-total-difference rows are faster to inspect.
+- That scanability step uses already-loaded diagnostic data only and does not change helper outputs, row membership, or totals.
 
 ### First Safe Upload-Sales Render Extraction
 
@@ -234,6 +237,6 @@ That reminder points back to `/sales-truth-review` and does not mean live promot
 ## Current Recommended Direction
 
 The exact next safest step remains:
-- use the new Sales Reconciliation page to inspect fallback-total and total-difference order rows
+- test the new sales upload classifications with duplicate, append-only, gap-fill, and changed-overlap files
 
 This section should stay aligned with `SESSION_HANDOFF.md`.

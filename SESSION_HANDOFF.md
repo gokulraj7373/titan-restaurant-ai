@@ -10,10 +10,10 @@ This handoff file may itself be refreshed later in a docs-only commit without tr
 
 ## What Was Completed In The Latest Session
 
-- Completed one bounded wording-only `/uploads` clarification step so lighter expense rows read more clearly as stored upload history.
-- Preserved exact parsed, inserted, and rejected detail when those fields are genuinely logged in `uploads_log`.
-- Stopped showing fake zero fallback values for partially populated count fields on Upload History rows.
-- Kept the change page-local in `app/uploads/page.tsx` without changing upload logging, helper/query logic, database behavior, or policy framing.
+- Completed one bounded page-local scanability step on `/sales-reconciliation`.
+- Added a compact Inspection Snapshot for the fallback-total and large-total-difference row families using already-loaded diagnostic data only.
+- Added clearer section-level scan chips and owner-facing guidance for those two diagnostic row sections.
+- Kept the page read-only in effect without changing reconciliation helpers, totals, row membership, database behavior, or policy framing.
 
 ## CURRENT WORKING TREE EXPECTATION
 
@@ -21,13 +21,13 @@ This handoff file may itself be refreshed later in a docs-only commit without tr
 
 ## CURRENT ACTIVE FOCUS
 
-- Keep Titan in a read-only truth-review phase while preserving the confirmed clean source boundaries, the clarified owner-safe Upload History wording, and the separation between live-facing pages and the read-only review layer.
+- Keep Titan in a read-only truth-review phase while preserving the confirmed clean source boundaries, the clarified owner-safe Upload History wording, the improved Sales Reconciliation scan path, and the separation between live-facing pages and the read-only review layer.
 - Improve owner clarity, safety, recovery, and consistency without promoting policy.
 - Treat `/sales-truth-review` as the current truth-checking control room while keeping live-facing pages clearly separate from the read-only review layer.
 
 ## EXACT NEXT SAFEST STEP
 
-- Use the new Sales Reconciliation page to inspect fallback-total and total-difference order rows.
+- Test the new sales upload classifications with duplicate, append-only, gap-fill, and changed-overlap files.
 
 ## WARNINGS AND PENDING CAUTIONS
 
@@ -38,4 +38,5 @@ This handoff file may itself be refreshed later in a docs-only commit without tr
 - Preserve the current proposed net sale candidate total: `Rs 22,18,995.00`.
 - Preserve current reconciliation behavior.
 - Upload History remains directionally safe overall, but expense upload rows still carry lighter persisted log detail than sales upload rows.
+- Sales Reconciliation remains a diagnostic trust-check page, not final business truth.
 - If a future milestone changes logic, architecture, handoff clarity, or meaningful owner-facing surface, update continuity docs immediately.
