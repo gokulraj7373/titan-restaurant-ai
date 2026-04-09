@@ -40,6 +40,9 @@ That baton-pass file uses a latest verified baton-anchor model, so it can be ref
 - A small Expense Analytics consistency audit has confirmed that `/expense-analytics` reads from `expense_imports` only and stays separate from the read-only sales truth review layer.
 - A broader read-only source-boundary audit has now confirmed that the audited live-facing pages, uploads/imports pages, reconciliation page, and `/upload/sales` stay on their intended helper layers and source tables overall.
 - That same audit also confirmed that `/sales-truth-review` remains separate from the live-facing pages while intentionally using `sales_order_imports` as its primary review source and `uploads_log` for upload-attribution and latest-import review sections.
+- A read-only Upload History precision review has now confirmed that `/uploads` and the dashboard upload-summary area remain directionally safe overall.
+- That same review also confirmed that sales uploads persist richer ingestion detail in `uploads_log`, while expense uploads still use older lighter log semantics there.
+- The current Upload History UI does not falsely claim exact expense inserted-row precision, so the real issue is logging-detail asymmetry rather than a product mismatch.
 
 ## Current Architecture State
 
@@ -149,6 +152,9 @@ That reminder points back to `/sales-truth-review` and does not mean live promot
 - The uploads page now uses one reusable upload-history helper for uploads-log listing and filter-ready results.
 - These helpers read from `uploads_log` only.
 - This is a maintainability step only and does not affect the read-only sales truth review layer or live promotion state.
+- Upload History is still directionally safe overall.
+- Sales-side upload logging currently carries stronger persisted ingestion detail than expense-side upload logging.
+- Expense upload rows in Upload History should still be read as raw upload history unless exact expense-ingestion counts are explicitly present in `uploads_log`.
 
 ### First Imports Query Layer
 
@@ -226,6 +232,6 @@ That reminder points back to `/sales-truth-review` and does not mean live promot
 ## Current Recommended Direction
 
 The exact next safest step remains:
-- review whether Upload History should later expose clearer expense-ingestion detail without overstating precision
+- plan one bounded wording-only milestone for `/uploads` so expense rows more explicitly read as raw upload history unless exact expense-ingestion counts are available in `uploads_log`
 
 This section should stay aligned with `SESSION_HANDOFF.md`.

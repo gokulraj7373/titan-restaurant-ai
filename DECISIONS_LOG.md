@@ -659,3 +659,14 @@ The completed audit confirmed that the audited pages stay on their intended help
 
 Current status:
 Active
+
+## Decision 61
+
+Decision:
+Record the completed Upload History precision review as a finished continuity-significant check and move the baton forward to one bounded wording-only clarity step for `/uploads`.
+
+Why it was taken:
+The completed review confirmed that `/uploads` and the dashboard upload-summary area are `uploads_log` surfaces, that sales uploads persist richer ingestion detail there than expense uploads, and that the current UI does not falsely claim exact expense inserted-row precision. Recording that result prevents future agents from repeating the same review as the next baton step and keeps the next milestone narrowly focused on owner-facing wording clarity rather than logic or database changes.
+
+Current status:
+Active

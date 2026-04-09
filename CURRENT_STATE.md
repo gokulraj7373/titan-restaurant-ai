@@ -4,7 +4,7 @@
 
 The project is currently a working MVP-style restaurant dashboard with uploads, imports, analytics pages, business summaries, and a profit overview.
 
-The project now has smart sales ingestion live for 2 known Petpooja spreadsheet formats, and the next safety step is consistency verification across ingestion, tables, and analytics pages.
+The project now has smart sales ingestion live for 2 known Petpooja spreadsheet formats, and the current safety focus is bounded consistency and owner-clarity review across ingestion, tables, and analytics pages.
 
 ## Pages Available
 
@@ -183,6 +183,8 @@ These are now the real sales ingestion targets for the smart sales upload flow.
 - The dashboard now uses that helper layer for recent upload activity, sales upload count, and expense upload count.
 - The uploads page now uses that helper layer for uploads-log listing and filter-ready history results.
 - These upload helpers stay on `uploads_log` only and stay separate from the sales, expense, profit, and read-only truth-review layers.
+- A completed Upload History precision review has now confirmed that these `uploads_log` surfaces are directionally safe overall without falsely claiming exact expense inserted-row precision.
+- That same review also confirmed that sales uploads persist richer ingestion detail in `uploads_log`, while expense uploads still use older lighter log semantics there.
 - Titan now also has reusable imports-page helpers under `lib/import-query/`.
 - The `/sales-imports` page now uses that helper layer for its current sales-import list / loading / error flow while staying on `sales_imports` only.
 - The `/expense-imports` page now uses that helper layer for its current expense-import list / loading / error flow while staying on `expense_imports` only.
@@ -207,12 +209,12 @@ These are now the real sales ingestion targets for the smart sales upload flow.
 - Business insight on the dashboard is rule-based, not AI-generated.
 - The project strategy is still SQL + rule-based intelligence first.
 - The next sales direction is to build a safe sales query engine on top of `sales_order_imports` and `sales_item_imports`.
-- The next safety step is to confirm that Upload History counts roughly match inserted rows in the target tables and then continue the broader consistency-check process.
 - A small Upload History consistency audit has now confirmed that sampled imported sales uploads match their logged inserted-row counts against `sales_order_imports` and `sales_item_imports`.
 - That same audit also confirmed that expense uploads still use older lighter log semantics in `uploads_log`, so Upload History remains directionally safe but less precise for expenses than for sales.
 - A small Expense Analytics consistency audit has now confirmed that `/expense-analytics` reads directly from `expense_imports` and does not accidentally depend on the read-only sales truth review layer.
 - A broader read-only source-boundary audit has now confirmed that the audited pages stay on their intended helper layers and source tables overall, with no source-boundary mismatch requiring product changes.
-- The next safety step is to review whether Upload History should later expose clearer expense-ingestion detail without overstating precision and then continue the broader consistency-check process.
+- A read-only Upload History precision review has now confirmed that the current UI does not falsely claim exact expense inserted-row precision, so the real issue is logging-detail asymmetry rather than a product mismatch.
+- The next safety step is to plan one bounded wording-only milestone for `/uploads` so expense rows more explicitly read as raw upload history unless exact expense-ingestion counts are available in `uploads_log`.
 
 ## Clean Snapshot
 
