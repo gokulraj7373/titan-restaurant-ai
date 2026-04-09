@@ -130,6 +130,8 @@ These are now the real sales ingestion targets for the smart sales upload flow.
   - sales return rows are excluded
   - memo rows remain unresolved
 - This proposed sales-policy layer is still read-only review logic, not yet the live dashboard or profit formula.
+- Sales truth review now also includes a compact Sales Policy Bucket Snapshot near the top of the page.
+- That snapshot uses already-derived bucket counts and amounts to explain what Titan currently treats as candidate, excluded, and unresolved without changing policy, totals, or promotion state.
 - Sales truth review now also includes verification breakdowns by month, source family, sales-policy bucket, and latest imported sales-order files.
 - Sales truth review now also includes monthly policy reconciliation and upload-attribution vs policy-attribution checks.
 - Memo rows now stay in `unresolved_memo` during read-only policy review even if they also look cancelled.
@@ -222,7 +224,7 @@ These are now the real sales ingestion targets for the smart sales upload flow.
 - A broader read-only source-boundary audit has now confirmed that the audited pages stay on their intended helper layers and source tables overall, with no source-boundary mismatch requiring product changes.
 - A read-only Upload History precision review has now confirmed that the current UI does not falsely claim exact expense inserted-row precision, so the real issue is logging-detail asymmetry rather than a product mismatch.
 - A bounded repo-local validation step has now confirmed that duplicate, append-only, gap-fill, and changed-overlap classifications still behave as intended for the current sales upload flow.
-- The next safety step is to review the proposed sales-policy buckets and confirm whether net sale candidates, excluded rows, and unresolved memo rows match business intent.
+- The next safety step is to use the monthly and upload reconciliation checks to confirm every policy bucket closes cleanly before promoting anything into dashboard or profit views.
 
 ## Clean Snapshot
 

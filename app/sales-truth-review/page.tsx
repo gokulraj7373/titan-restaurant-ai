@@ -1381,6 +1381,131 @@ export default function SalesTruthReviewPage() {
     );
   };
 
+  const renderSalesPolicyBucketSnapshotSection = () => {
+    const excludedRowsCount =
+      summaryCounts.cancelledExcludedRowsCount +
+      summaryCounts.complimentaryExcludedRowsCount +
+      summaryCounts.salesReturnExcludedRowsCount;
+    const excludedAmount =
+      summaryCounts.cancelledExcludedAmount +
+      summaryCounts.complimentaryExcludedAmount +
+      summaryCounts.salesReturnExcludedAmount;
+    const hasUnresolvedOther = summaryCounts.unresolvedOtherRowsCount > 0;
+
+    return (
+      <div
+        id="sales-policy-bucket-snapshot"
+        className="rounded-2xl border border-white/20 bg-white/[0.02] p-6 mb-4 scroll-mt-6"
+      >
+        <div className="mb-4">
+          <p className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-2">Policy Posture Scan</p>
+          <h2 className="text-xl font-semibold mb-2">Sales Policy Bucket Snapshot</h2>
+          <p className="text-sm text-gray-400">
+            This is the fastest read of Titan&apos;s current proposed sales-policy posture. It uses
+            the existing read-only bucket counts and amounts only, and it does not promote anything
+            into live dashboard truth.
+          </p>
+        </div>
+
+        <div className="mb-4 flex flex-wrap gap-2">
+          <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200">
+            Net Sale Candidates: {summaryCounts.netSaleCandidateRowsCount}
+          </div>
+          <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200">
+            Excluded Rows: {excludedRowsCount}
+          </div>
+          <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200">
+            Unresolved Memo: {summaryCounts.memoUnresolvedRowsCount}
+          </div>
+          <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200">
+            Review Only
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-3 mb-4">
+          <a
+            href="#net-sales-candidate-rows"
+            className={`${getSnapshotCardClass("clean")} block transition hover:bg-white/[0.07]`}
+          >
+            <div className="mb-3 flex items-center justify-between gap-2">
+              <h3 className="text-sm font-semibold text-white">Net Sale Candidates</h3>
+              <span className="rounded-full border border-white/10 bg-black/20 px-2 py-1 text-[10px] uppercase tracking-[0.14em] text-gray-200">
+                Candidate
+              </span>
+            </div>
+            <p className="text-base font-semibold text-white mb-2">
+              {summaryCounts.netSaleCandidateRowsCount} rows /{" "}
+              {formatCurrency(summaryCounts.netSaleCandidateAmount)}
+            </p>
+            <p className="text-sm text-gray-300">
+              Current repo posture: numeric rows, including numeric Part Payment rows, stay in the
+              proposed net sale candidate bucket unless another higher-priority review bucket applies.
+            </p>
+          </a>
+
+          <a
+            href="#cancelled-orders"
+            className={`${getSnapshotCardClass(excludedRowsCount > 0 ? "clean" : "neutral")} block transition hover:bg-white/[0.07]`}
+          >
+            <div className="mb-3 flex items-center justify-between gap-2">
+              <h3 className="text-sm font-semibold text-white">Excluded Rows</h3>
+              <span className="rounded-full border border-white/10 bg-black/20 px-2 py-1 text-[10px] uppercase tracking-[0.14em] text-gray-200">
+                Excluded
+              </span>
+            </div>
+            <p className="text-base font-semibold text-white mb-2">
+              {excludedRowsCount} rows / {formatCurrency(excludedAmount)}
+            </p>
+            <p className="text-sm text-gray-300">
+              Current repo posture: cancelled, complimentary, and sales return families are kept out of
+              the proposed sales total in this read-only review layer.
+            </p>
+            <p className="text-sm text-gray-400 mt-3">
+              Split here as cancelled {summaryCounts.cancelledExcludedRowsCount}, complimentary{" "}
+              {summaryCounts.complimentaryExcludedRowsCount}, and sales return{" "}
+              {summaryCounts.salesReturnExcludedRowsCount}.
+            </p>
+          </a>
+
+          <a
+            href="#memo-unresolved-rows"
+            className={`${getSnapshotCardClass(summaryCounts.memoUnresolvedRowsCount > 0 ? "needs-review" : "clean")} block transition hover:bg-white/[0.07]`}
+          >
+            <div className="mb-3 flex items-center justify-between gap-2">
+              <h3 className="text-sm font-semibold text-white">Unresolved Memo</h3>
+              <span className="rounded-full border border-white/10 bg-black/20 px-2 py-1 text-[10px] uppercase tracking-[0.14em] text-gray-200">
+                Still Open
+              </span>
+            </div>
+            <p className="text-base font-semibold text-white mb-2">
+              {summaryCounts.memoUnresolvedRowsCount} rows /{" "}
+              {formatCurrency(summaryCounts.memoUnresolvedAmount)}
+            </p>
+            <p className="text-sm text-gray-300">
+              Current repo posture: memo rows remain unresolved and excluded from live sales truth.
+              Memo hints stay investigative only and do not settle these rows.
+            </p>
+          </a>
+        </div>
+
+        <div className="rounded-2xl border border-white/10 bg-white/[0.03] p-4">
+          <p className="text-sm text-gray-300">
+            Read this snapshot as current policy posture only. It explains what Titan is treating as
+            candidate, excluded, and unresolved in review right now, without claiming that the policy is
+            approved for live dashboard or profit use.
+          </p>
+          {hasUnresolvedOther && (
+            <p className="text-sm text-gray-400 mt-3">
+              There are also {summaryCounts.unresolvedOtherRowsCount} unresolved-other row
+              {summaryCounts.unresolvedOtherRowsCount === 1 ? "" : "s"} still outside these three main
+              review buckets.
+            </p>
+          )}
+        </div>
+      </div>
+    );
+  };
+
   const renderKeyRowFamilySnapshotSection = () => {
     const familyCards = [
       {
@@ -1532,6 +1657,7 @@ export default function SalesTruthReviewPage() {
         <h2 className="text-xl font-semibold mb-2">How To Use This Page</h2>
         <div className="space-y-2 text-sm text-gray-300">
           <p>- Start with Current Review Snapshot for the quickest read of the current review position.</p>
+          <p>- Use Sales Policy Bucket Snapshot next to see what Titan currently treats as candidate, excluded, and unresolved before reading row-level detail.</p>
           <p>- Use Key Row Family Snapshot next for the fastest scan across regular, memo, complimentary, sales return, cancelled, Part Payment, and fallback-total attention rows.</p>
           <p>- Use Review Status Legend to understand what each review bucket means.</p>
           <p>- Use Memo Resolution Review only for investigation. Memo hints remain investigative hints only.</p>
@@ -1553,6 +1679,11 @@ export default function SalesTruthReviewPage() {
 
     const sectionLinks = [
       { href: "#current-review-snapshot", label: "Current Review Snapshot", cue: "Start Here" },
+      {
+        href: "#sales-policy-bucket-snapshot",
+        label: "Sales Policy Snapshot",
+        cue: "Candidate vs Excluded",
+      },
       { href: "#review-status-legend", label: "Review Status Legend", cue: "Reference" },
       {
         href: "#memo-resolution-review",
@@ -1836,6 +1967,7 @@ export default function SalesTruthReviewPage() {
         )}
 
         <div className="space-y-6">
+          {renderSalesPolicyBucketSnapshotSection()}
           {renderMemoResolutionReviewSection()}
           {renderMonthlyPolicyReconciliationSection()}
           {renderUploadAttributionPolicyCheckSection()}

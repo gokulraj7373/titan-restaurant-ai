@@ -725,3 +725,14 @@ The page already had the Part Payment row section and the underlying derived cou
 
 Current status:
 Active
+
+## Decision 67
+
+Decision:
+Keep sales-policy bucket review owner-friendly and conservative by showing net sale candidates, excluded rows, and unresolved memo rows through one read-only snapshot using existing derived counts and amounts only.
+
+Why it was taken:
+The page already had the right bucket logic, row sections, and verification breakdowns, but the owner still had to combine multiple sections to understand the current policy posture quickly. Adding one bounded snapshot improves inspection clarity without changing bucket logic, totals, memo stance, reconciliation behavior, or live promotion state.
+
+Current status:
+Active

@@ -2,19 +2,19 @@
 
 ## Immediate Next Steps
 
-1. Review the proposed sales-policy buckets and confirm whether net sale candidates, excluded rows, and unresolved memo rows match business intent.
+1. Use the monthly and upload reconciliation checks to confirm every policy bucket closes cleanly before promoting anything into dashboard or profit views.
 2. Use the new verification breakdowns to confirm where the current proposed net sales amount comes from by month, source family, and upload.
-3. Use the monthly and upload reconciliation checks to confirm every policy bucket closes cleanly before promoting anything into dashboard or profit views.
-4. Use the Memo Resolution Review section only as a read-only investigative tool while memo remains unresolved and excluded from live sales truth.
-5. Review memo candidate hints as non-binding heuristics only and do not treat them as approved memo-to-sale links.
-6. Finalize a memo rule only after stronger evidence standards are agreed and documented.
-7. Do not promote memo into dashboard, profit overview, sales analytics, upload logic, ingestion logic, or live business truth in this review stage.
-8. Confirm which Order Listing transaction families should be included later in true business sales totals, while keeping payment settlement logic separate from sales truth.
-9. Use the changed-overlap review on the sales upload page to understand why blocked Order Listing files differ before designing any merge logic.
-10. Fix any stale or mixed source logic before building more advanced features if a later check finds any.
-11. Only after consistency is proven, continue building the sales query engine.
-12. Keep extending the reusable read-only sales truth review policy layer with tests before any future live policy promotion is considered.
-13. Keep the Current Review Snapshot owner-friendly and read-only, and use it only to surface already-derived review outputs without changing policy behavior.
+3. Use the Memo Resolution Review section only as a read-only investigative tool while memo remains unresolved and excluded from live sales truth.
+4. Review memo candidate hints as non-binding heuristics only and do not treat them as approved memo-to-sale links.
+5. Finalize a memo rule only after stronger evidence standards are agreed and documented.
+6. Do not promote memo into dashboard, profit overview, sales analytics, upload logic, ingestion logic, or live business truth in this review stage.
+7. Confirm which Order Listing transaction families should be included later in true business sales totals, while keeping payment settlement logic separate from sales truth.
+8. Use the changed-overlap review on the sales upload page to understand why blocked Order Listing files differ before designing any merge logic.
+9. Fix any stale or mixed source logic before building more advanced features if a later check finds any.
+10. Only after consistency is proven, continue building the sales query engine.
+11. Keep extending the reusable read-only sales truth review policy layer with tests before any future live policy promotion is considered.
+12. Keep the Current Review Snapshot owner-friendly and read-only, and use it only to surface already-derived review outputs without changing policy behavior.
+13. Keep the Sales Policy Bucket Snapshot owner-friendly and read-only, and use it only to explain current candidate-versus-excluded-versus-unresolved posture without implying approved live policy.
 14. Keep the Key Row Family Snapshot owner-friendly and read-only, and use it only to speed up inspection of already-derived row families without changing policy behavior.
 15. Keep the Part Payment Settlement Snapshot owner-friendly and read-only, and use it only to explain current export limits without overstating settlement certainty.
 16. Keep the Promotion Readiness Snapshot owner-friendly and read-only, and use it only to explain current review readiness without triggering any live policy action.
@@ -32,16 +32,17 @@
 28. Keep the completed sales upload classification validation step recorded as a finished bounded check so future agents do not repeat it as the next baton step.
 29. Keep the completed Sales Truth Review row-family inspection step recorded as a finished owner-facing scanability improvement so future agents do not repeat it as the next baton step.
 30. Keep the completed Part Payment settlement-detail inspection step recorded as a finished owner-facing scanability improvement so future agents do not repeat it as the next baton step.
-31. Keep the live order-level sales query helpers small, deterministic, and separate from item-level analytics and the read-only sales truth review layer.
-32. Keep the first reusable expense-side summary helper small, deterministic, and separate from the sales-query helpers and the read-only sales truth review layer.
-33. Keep the first reusable item-level sales summary helper small, deterministic, and separate from order-level helpers and the read-only sales truth review layer.
-34. Keep reusable analytics-detail helpers small, deterministic, and pinned to their intended source tables without mixing sales, expense, or review-layer logic.
-35. Keep reusable profit summary helpers small, deterministic, and pinned to the page's intended live-facing sources without mixing in review-layer logic.
-36. Keep reusable upload-history helpers small, deterministic, and pinned to `uploads_log` only without mixing in sales, expense, profit, or review-layer logic.
-37. Keep reusable imports-page helpers small, deterministic, and pinned to their intended import tables without mixing in upload, analytics, profit, or review-layer logic.
-38. Keep reusable reconciliation-query helpers small, deterministic, and pinned to `sales_order_imports` only without mixing in truth-review policy or live-facing analytics logic.
-39. Keep `/upload/sales` modularization steps conservative and presentational-first, without moving parsing, routing, overlap, insertion, or policy logic.
-40. Keep `/upload/sales` render extractions narrowly scoped so the full diagnostics subsystem and the changed-overlap review remain presentational only.
+31. Keep the completed sales-policy bucket inspection step recorded as a finished owner-facing scanability improvement so future agents do not repeat it as the next baton step.
+32. Keep the live order-level sales query helpers small, deterministic, and separate from item-level analytics and the read-only sales truth review layer.
+33. Keep the first reusable expense-side summary helper small, deterministic, and separate from the sales-query helpers and the read-only sales truth review layer.
+34. Keep the first reusable item-level sales summary helper small, deterministic, and separate from order-level helpers and the read-only sales truth review layer.
+35. Keep reusable analytics-detail helpers small, deterministic, and pinned to their intended source tables without mixing sales, expense, or review-layer logic.
+36. Keep reusable profit summary helpers small, deterministic, and pinned to the page's intended live-facing sources without mixing in review-layer logic.
+37. Keep reusable upload-history helpers small, deterministic, and pinned to `uploads_log` only without mixing in sales, expense, profit, or review-layer logic.
+38. Keep reusable imports-page helpers small, deterministic, and pinned to their intended import tables without mixing in upload, analytics, profit, or review-layer logic.
+39. Keep reusable reconciliation-query helpers small, deterministic, and pinned to `sales_order_imports` only without mixing in truth-review policy or live-facing analytics logic.
+40. Keep `/upload/sales` modularization steps conservative and presentational-first, without moving parsing, routing, overlap, insertion, or policy logic.
+41. Keep `/upload/sales` render extractions narrowly scoped so the full diagnostics subsystem and the changed-overlap review remain presentational only.
 
 ## Short-Term Next Steps
 
