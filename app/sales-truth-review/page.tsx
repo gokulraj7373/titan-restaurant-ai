@@ -1831,6 +1831,151 @@ export default function SalesTruthReviewPage() {
     );
   };
 
+  const renderFuturePromotionDecisionProtocolDocumentOutlineSection = () => {
+    const monthReconciliationHealthy =
+      monthlyPolicyReconciliationRows.length > 0 &&
+      monthlyPolicyReconciliationRows.every((row) => row.reconciled);
+    const uploadReconciliationHealthy =
+      latestImportBreakdownRows.length > 0 &&
+      latestImportBreakdownRows.every((row) => row.reconciled);
+    const salesPolicyPostureVisible = salesPolicyBreakdownRows.length > 0;
+    const transactionFamilyPostureVisible =
+      summaryCounts.regularOrderMainCount +
+        summaryCounts.partPaymentRowsCount +
+        summaryCounts.memoSpecialCount +
+        summaryCounts.complimentaryCount +
+        summaryCounts.salesReturnCount +
+        summaryCounts.cancelledRowsCount +
+        summaryCounts.grandTotalZeroCount >
+      0;
+    const ambiguousSettlementReviewPresent =
+      partPaymentRows.length > 0 || grandTotalZeroRows.length > 0 || differentTotalRows.length > 0;
+    const documentOutlineReady =
+      monthReconciliationHealthy &&
+      uploadReconciliationHealthy &&
+      salesPolicyPostureVisible &&
+      transactionFamilyPostureVisible;
+    const sectionCount = 5;
+    const unresolvedSectionCount =
+      (summaryCounts.memoUnresolvedRowsCount > 0 ? 1 : 0) +
+      (summaryCounts.unresolvedOtherRowsCount > 0 ? 1 : 0) +
+      (ambiguousSettlementReviewPresent ? 1 : 0);
+
+    return (
+      <div
+        id="future-promotion-decision-protocol-document-outline"
+        className="rounded-2xl border border-white/20 bg-white/[0.02] p-6 mb-4 scroll-mt-6"
+      >
+        <div className="mb-4">
+          <p className="text-xs uppercase tracking-[0.2em] text-gray-500 mb-2">Protocol Document</p>
+          <h2 className="text-xl font-semibold mb-2">Future Promotion-Decision Protocol Document Outline</h2>
+          <p className="text-sm text-gray-400">
+            This is the smallest read-only outline Titan can show today for any later explicit
+            promotion-decision protocol document. It turns the current review posture into document-style
+            sections without approving promotion or changing any live truth.
+          </p>
+        </div>
+
+        <div className="mb-4 flex flex-wrap gap-2">
+          <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200">
+            Outline Sections: {sectionCount}
+          </div>
+          <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200">
+            Unresolved Sections: {unresolvedSectionCount}
+          </div>
+          <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200">
+            Document Posture: {documentOutlineReady ? "Clearer" : "Still Early"}
+          </div>
+          <div className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-200">
+            Read-Only
+          </div>
+        </div>
+
+        <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-5">
+          <a
+            href="#reconciliation-closure-snapshot"
+            className={`${getSnapshotCardClass(documentOutlineReady ? "clean" : "neutral")} block transition hover:bg-white/[0.07]`}
+          >
+            <div className="mb-3 flex items-center justify-between gap-2">
+              <h3 className="text-sm font-semibold text-white">Section 1: Strong Evidence</h3>
+              <span className="rounded-full border border-white/10 bg-black/20 px-2 py-1 text-[10px] uppercase tracking-[0.14em] text-gray-200">
+                Foundation
+              </span>
+            </div>
+            <div className="space-y-2 text-sm text-gray-300">
+              <p>- Month-wise reconciliation</p>
+              <p>- Upload-wise reconciliation</p>
+              <p>- Visible sales-policy buckets</p>
+              <p>- Visible transaction-family posture</p>
+            </div>
+          </a>
+
+          <a
+            href="#memo-unresolved-rows"
+            className={`${getSnapshotCardClass(
+              summaryCounts.memoUnresolvedRowsCount > 0 || summaryCounts.unresolvedOtherRowsCount > 0 || ambiguousSettlementReviewPresent
+                ? "needs-review"
+                : "clean"
+            )} block transition hover:bg-white/[0.07]`}
+          >
+            <div className="mb-3 flex items-center justify-between gap-2">
+              <h3 className="text-sm font-semibold text-white">Section 2: Unresolved Evidence</h3>
+              <span className="rounded-full border border-white/10 bg-black/20 px-2 py-1 text-[10px] uppercase tracking-[0.14em] text-gray-200">
+                Open Questions
+              </span>
+            </div>
+            <div className="space-y-2 text-sm text-gray-300">
+              <p>- Memo unresolved rows: {summaryCounts.memoUnresolvedRowsCount}</p>
+              <p>- Unresolved-other rows: {summaryCounts.unresolvedOtherRowsCount}</p>
+              <p>- Ambiguous settlement review: {ambiguousSettlementReviewPresent ? "present" : "quiet"}</p>
+            </div>
+          </a>
+
+          <div className={getSnapshotCardClass("needs-review")}>
+            <div className="mb-3 flex items-center justify-between gap-2">
+              <h3 className="text-sm font-semibold text-white">Section 3: Live-Promotion Blockers</h3>
+              <span className="rounded-full border border-white/10 bg-black/20 px-2 py-1 text-[10px] uppercase tracking-[0.14em] text-gray-200">
+                Still Blocked
+              </span>
+            </div>
+            <div className="space-y-2 text-sm text-gray-300">
+              <p>- Memo still blocks live promotion.</p>
+              <p>- Settlement truth remains separate and limited.</p>
+              <p>- No explicit business approval exists yet.</p>
+            </div>
+          </div>
+
+          <div className={getSnapshotCardClass(documentOutlineReady ? "clean" : "neutral")}>
+            <div className="mb-3 flex items-center justify-between gap-2">
+              <h3 className="text-sm font-semibold text-white">Section 4: Later Approvals</h3>
+              <span className="rounded-full border border-white/10 bg-black/20 px-2 py-1 text-[10px] uppercase tracking-[0.14em] text-gray-200">
+                Owner Decision
+              </span>
+            </div>
+            <div className="space-y-2 text-sm text-gray-300">
+              <p>- Approve whether review policy should ever become live truth.</p>
+              <p>- Approve final memo treatment.</p>
+              <p>- Approve any later settlement-rule relationship to sales truth.</p>
+            </div>
+          </div>
+
+          <div className={getSnapshotCardClass("neutral")}>
+            <div className="mb-3 flex items-center justify-between gap-2">
+              <h3 className="text-sm font-semibold text-white">Section 5: Read-Only Boundary</h3>
+              <span className="rounded-full border border-white/10 bg-black/20 px-2 py-1 text-[10px] uppercase tracking-[0.14em] text-gray-200">
+                No Approval
+              </span>
+            </div>
+            <p className="text-sm text-gray-300">
+              This outline only shows how a future protocol document could be organized. It does not
+              mean live promotion is near, approved, or automatic.
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   const renderPartPaymentSettlementSnapshotSection = () => {
     const extractableCount = summaryCounts.extractablePaymentSplitRowsCount;
     const unavailableCount = summaryCounts.unavailablePaymentSplitRowsCount;
@@ -2452,6 +2597,7 @@ export default function SalesTruthReviewPage() {
           <p>- Use Live Promotion Evidence Checklist next to see the minimum evidence Titan would still need before any later explicit promotion decision is even discussed.</p>
           <p>- Use Later Promotion Protocol Readiness next to see whether the current evidence is organized enough to support drafting a later decision protocol while still staying read-only.</p>
           <p>- Use Future Promotion-Decision Protocol Draft next to see the smallest read-only protocol structure Titan could support later without implying approval.</p>
+          <p>- Use Future Promotion-Decision Protocol Document Outline next to see the smallest later protocol document shape Titan could support while still staying read-only.</p>
           <p>- Use Transaction Family Inclusion Snapshot next to see which Order Listing families currently look later includable, clearly excludable, unresolved, or diagnostic-only.</p>
           <p>- Use Sales Policy Bucket Snapshot next to see what Titan currently treats as candidate, excluded, and unresolved before reading row-level detail.</p>
           <p>- Use Reconciliation Closure Snapshot next to see whether the current policy buckets are closing cleanly by month and by upload before reading the detailed check tables.</p>
@@ -2495,6 +2641,11 @@ export default function SalesTruthReviewPage() {
         href: "#future-promotion-decision-protocol-draft",
         label: "Protocol Draft",
         cue: "Structure Only",
+      },
+      {
+        href: "#future-promotion-decision-protocol-document-outline",
+        label: "Protocol Outline",
+        cue: "Document Shape",
       },
       {
         href: "#transaction-family-inclusion-snapshot",
@@ -2798,6 +2949,7 @@ export default function SalesTruthReviewPage() {
           {renderLivePromotionEvidenceChecklistSection()}
           {renderLaterPromotionProtocolReadinessSection()}
           {renderFuturePromotionDecisionProtocolDraftSection()}
+          {renderFuturePromotionDecisionProtocolDocumentOutlineSection()}
           {renderTransactionFamilyInclusionSnapshotSection()}
           {renderReconciliationClosureSnapshotSection()}
           {renderSalesPolicyBucketSnapshotSection()}

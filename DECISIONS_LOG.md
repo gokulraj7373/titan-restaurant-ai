@@ -802,3 +802,14 @@ The page already showed strong evidence, unresolved evidence, blockers, and late
 
 Current status:
 Active
+
+## Decision 74
+
+Decision:
+Keep the future promotion-decision protocol document posture owner-friendly and conservative by showing the smallest later document outline through one read-only snapshot using existing review posture only.
+
+Why it was taken:
+The page already showed a protocol-draft structure, but the owner still had to infer what the smallest later protocol document would actually look like section by section. Adding one bounded document-outline snapshot improves inspection clarity without changing policy buckets, totals, memo stance, readiness logic, or live promotion state.
+
+Current status:
+Active

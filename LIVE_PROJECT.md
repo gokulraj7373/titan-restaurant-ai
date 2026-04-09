@@ -55,6 +55,7 @@ That baton-pass file uses a latest verified baton-anchor model, so it can be ref
 - A bounded page-local live-promotion evidence-checklist review step has now confirmed that the current page can show the smallest safe evidence checklist for any later explicit promotion discussion without changing policy, totals, memo stance, or promotion state.
 - A bounded page-local later-protocol-readiness review step has now confirmed that the current page is organized enough to discuss drafting a later explicit promotion-decision protocol without changing policy, totals, memo stance, or promotion state.
 - A bounded page-local future-protocol-draft-structure review step has now confirmed that the current page can show the smallest later promotion-decision protocol draft structure without changing policy, totals, memo stance, or promotion state.
+- A bounded page-local future-protocol-document-structure review step has now confirmed that the current page can show the smallest later promotion-decision protocol document outline without changing policy, totals, memo stance, or promotion state.
 
 ## Current Architecture State
 
@@ -108,6 +109,7 @@ That baton-pass file uses a latest verified baton-anchor model, so it can be ref
 - Live Promotion Evidence Checklist
 - Later Promotion Protocol Readiness
 - Future Promotion-Decision Protocol Draft
+- Future Promotion-Decision Protocol Document Outline
 - Transaction Family Inclusion Snapshot
 - Sales Policy Bucket Snapshot
 - Reconciliation Closure Snapshot
@@ -128,6 +130,7 @@ That baton-pass file uses a latest verified baton-anchor model, so it can be ref
 - clearer live-promotion evidence guidance about what already looks strong, what still remains unresolved, what still blocks live promotion, and what would still need later explicit approval
 - clearer later-protocol guidance about whether the current evidence is organized enough to support drafting a later explicit promotion-decision protocol while still remaining read-only
 - clearer future-protocol-draft guidance about the smallest later promotion-decision protocol structure Titan could support while still remaining read-only
+- clearer future-protocol-document guidance about the smallest later promotion-decision protocol document outline Titan could support while still remaining read-only
 - clearer transaction-family inclusion guidance about which Order Listing families currently look later includable, clearly excludable, unresolved, or diagnostic-only
 - clearer sales-policy guidance about what Titan currently treats as candidate, excluded, and unresolved in review
 - clearer reconciliation-closure guidance about whether policy buckets are currently closing cleanly by month and by upload
@@ -267,6 +270,6 @@ That reminder points back to `/sales-truth-review` and does not mean live promot
 ## Current Recommended Direction
 
 The exact next safest step remains:
-- review whether the current read-only protocol-draft posture is now clear enough to support a later explicit promotion-decision protocol document, without approving or implementing promotion
+- review whether the read-only protocol-document posture is now clear enough to support a later explicit promotion-decision document handoff, without approving or implementing promotion
 
 This section should stay aligned with `SESSION_HANDOFF.md`.
